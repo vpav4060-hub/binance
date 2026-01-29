@@ -3,33 +3,36 @@
    =============================== */
 
 .form-container {
-    max-width: 520px;
+    max-width: 980px;
     margin: 40px auto;
     background: #ffffff;
-    border-radius: 18px;
+    border-radius: 20px;
     padding: 35px 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
     animation: fadeIn 0.4s ease;
 }
 
+/* ===============================
+   FORMULARIO
+   =============================== */
+
 .form-box {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 25px;
 }
 
 .form-box label {
     font-weight: 600;
-    margin-bottom: 6px;
     color: #2c2c2c;
     font-size: 14px;
 }
 
 .form-box input {
     padding: 12px 14px;
-    border-radius: 10px;
+    border-radius: 12px;
     border: 1px solid #dcdcdc;
     font-size: 14px;
-    margin-bottom: 18px;
     transition: all 0.25s ease;
     outline: none;
     background: #fafafa;
@@ -41,7 +44,7 @@
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
 }
 
-/* 🔒 saldo destacado */
+/* saldo destacado */
 .form-box input[name="saldo"] {
     font-weight: 700;
     color: #0f766e;
@@ -49,26 +52,143 @@
     border: 1px solid #34d399;
 }
 
-/* BOTÓN */
+/* botones */
+.form-actions {
+    grid-column: span 2;
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
 .btn-save {
-    margin-top: 10px;
     background: linear-gradient(135deg, #4f46e5, #6366f1);
-    color: white;
+    color: #fff;
     border: none;
-    padding: 14px;
+    padding: 14px 25px;
     font-weight: 700;
     font-size: 15px;
-    border-radius: 12px;
+    border-radius: 14px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: 0.25s ease;
 }
 
 .btn-save:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.35);
 }
 
-/* ANIMACIÓN */
+.btn-cancel {
+    background: #f1f5f9;
+    color: #334155;
+    padding: 14px 25px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-cancel:hover {
+    background: #e2e8f0;
+}
+
+/* ===============================
+   TABLAS
+   =============================== */
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+.tabla-inversiones {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 720px;
+}
+
+.tabla-inversiones thead {
+    background: #4f46e5;
+    color: white;
+}
+
+.tabla-inversiones th,
+.tabla-inversiones td {
+    padding: 12px 14px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.tabla-inversiones tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.tabla-inversiones tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* ===============================
+   ESTADOS
+   =============================== */
+
+.estado {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.estado.activo {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.estado.finalizada {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.estado.pendiente {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* ===============================
+   MENSAJES
+   =============================== */
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.alert.success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.alert.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* ===============================
+   TEXTO SIN DATOS
+   =============================== */
+
+.no-data {
+    margin-top: 15px;
+    font-weight: 600;
+    color: #64748b;
+}
+
+/* ===============================
+   ANIMACIÓN
+   =============================== */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -80,10 +200,32 @@
     }
 }
 
-/* RESPONSIVE */
-@media (max-width: 600px) {
+/* ===============================
+   RESPONSIVE
+   =============================== */
+
+@media (max-width: 768px) {
+
     .form-container {
-        margin: 20px;
         padding: 25px;
+        margin: 20px;
+    }
+
+    .form-box {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-save,
+    .btn-cancel {
+        width: 100%;
+        text-align: center;
+    }
+
+    .tabla-inversiones {
+        min-width: 600px;
     }
 }

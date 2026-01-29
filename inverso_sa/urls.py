@@ -78,5 +78,4 @@ urlpatterns = [
 path("acerca/", views.acerca_de, name="acerca_de"),
 path("asistencia/", views.asistencia, name="asistencia"),
 
-
 ]

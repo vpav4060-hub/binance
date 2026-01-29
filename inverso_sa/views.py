@@ -721,22 +721,27 @@ def modificar_saldo(request, id):
 def editar_usuario(request, id):
     usuario = get_object_or_404(Usuario, id=id)
 
+    inversiones = Inversion.objects.filter(usuario=usuario)
+    recargas = Recarga.objects.filter(usuario=usuario).order_by('-fecha')
+
     if request.method == "POST":
         usuario.first_name = request.POST.get("first_name")
         usuario.last_name = request.POST.get("last_name")
         usuario.email = request.POST.get("email")
         usuario.username = request.POST.get("username")
-
         usuario.saldo = Decimal(request.POST.get("saldo"))
-
         usuario.save()
 
         messages.success(request, "Usuario actualizado correctamente")
         return redirect("panel_usuarios")
 
     return render(request, "inverso_sa/editar_usuario.html", {
-        "usuario": usuario
+        "usuario": usuario,
+        "inversiones": inversiones,
+        "recargas": recargas
     })
+
+
 
 
 @login_required
@@ -784,50 +789,94 @@ def ingresos_egresos(request):
 
     hoy = timezone.now().date()
     filtro = request.GET.get('filtro', 'dia')
-    cuenta_id = request.GET.get('cuenta')
 
-    transacciones = Transaccion.objects.all().order_by('-fecha')
+    # =========================
+    # BASE
+    # =========================
 
-    # 🕒 FILTROS DE TIEMPO
+    recargas = Recarga.objects.filter(estado='aprobada')
+    retiros = Retiro.objects.filter(estado='aprobado')
+
+    # =========================
+    # FILTRO FECHA
+    # =========================
+
     if filtro == 'dia':
-        transacciones = transacciones.filter(fecha__date=hoy)
+        recargas = recargas.filter(fecha__date=hoy)
+        retiros = retiros.filter(fecha__date=hoy)
 
     elif filtro == 'semana':
-        transacciones = transacciones.filter(
+        recargas = recargas.filter(
+            fecha__date__gte=hoy - timedelta(days=7)
+        )
+        retiros = retiros.filter(
             fecha__date__gte=hoy - timedelta(days=7)
         )
 
     elif filtro == 'mes':
-        transacciones = transacciones.filter(
+        recargas = recargas.filter(
+            fecha__year=hoy.year,
+            fecha__month=hoy.month
+        )
+        retiros = retiros.filter(
             fecha__year=hoy.year,
             fecha__month=hoy.month
         )
 
-    # 🏦 FILTRO POR CUENTA
-    if cuenta_id:
-        transacciones = transacciones.filter(cuenta_id=cuenta_id)
+    # =========================
+    # TOTALES
+    # =========================
 
-    total_ingresos = transacciones.filter(tipo='ingreso').aggregate(
+    total_ingresos = recargas.aggregate(
         total=Sum('monto')
     )['total'] or 0
 
-    total_egresos = transacciones.filter(tipo='egreso').aggregate(
+    total_egresos = retiros.aggregate(
         total=Sum('monto')
     )['total'] or 0
 
     balance = total_ingresos - total_egresos
 
-    cuentas = CuentaBancaria.objects.filter(activa=True)
+    # =========================
+    # TABLA UNIFICADA
+    # =========================
+
+    movimientos = []
+
+    for r in recargas:
+        movimientos.append({
+            'fecha': r.fecha,
+            'usuario': r.usuario.username,
+            'tipo': 'ingreso',
+            'monto': r.monto,
+            'detalle': f"Recarga ({r.cuenta.banco})",
+            'referencia': r.referencia
+        })
+
+    for r in retiros:
+        movimientos.append({
+            'fecha': r.fecha,
+            'usuario': r.usuario.username,
+            'tipo': 'egreso',
+            'monto': r.monto,
+            'detalle': f"Retiro ({r.cuenta.banco})",
+            'referencia': r.cuenta.numero_cuenta
+        })
+
+    movimientos = sorted(
+        movimientos,
+        key=lambda x: x['fecha'],
+        reverse=True
+    )
 
     return render(request, 'inverso_sa/ingresos_egresos.html', {
-        'transacciones': transacciones,
+        'movimientos': movimientos,
         'total_ingresos': total_ingresos,
         'total_egresos': total_egresos,
         'balance': balance,
-        'cuentas': cuentas,
-        'filtro': filtro,
-        'cuenta_id': cuenta_id
+        'filtro': filtro
     })
+
 
 
 @login_required
@@ -843,3 +892,9 @@ def asistencia(request):
 def custom_404_view(request, exception):
     # No redirige al login; deja que la URL de registro funcione normalmente
     return render(request, "inverso_sa/404.html", status=404)
+
+
+def es_admin(user):
+    return user.is_superuser or user.groups.filter(name='ADMIN').exists()
+
+
