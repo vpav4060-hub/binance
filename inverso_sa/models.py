@@ -79,6 +79,7 @@ class Recarga(models.Model):
     voucher = models.ImageField(upload_to='recargas/')
     estado = models.CharField(max_length=15, choices=ESTADOS, default='revision')
     fecha = models.DateTimeField(auto_now_add=True)
+    oculto = models.BooleanField(default=False)  # 👈 NUEVO
 
     def __str__(self):
         return f"{self.usuario.username} - {self.monto}"

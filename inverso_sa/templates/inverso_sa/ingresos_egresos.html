@@ -6,36 +6,28 @@
 {% endblock %}
 
 {% block title %}Ingresos y Egresos{% endblock %}
-{% block page_title %}Ingresos y Egresos{% endblock %}
+{% block page_title %}📊 Ingresos y Egresos{% endblock %}
 
 {% block content %}
-
-<!-- ===============================
-     TARJETAS
-================================ -->
 
 <div class="finance-cards">
 
     <div class="card ingreso">
-        <h4>Ingresos</h4>
-        <p>C$ {{ total_ingresos }}</p>
+        <h4>Total Ingresos</h4>
+        <p>C$ {{ total_ingresos|floatformat:2 }}</p>
     </div>
 
     <div class="card egreso">
-        <h4>Egresos</h4>
-        <p>C$ {{ total_egresos }}</p>
+        <h4>Total Egresos</h4>
+        <p>C$ {{ total_egresos|floatformat:2 }}</p>
     </div>
 
     <div class="card balance">
-        <h4>Balance</h4>
-        <p>C$ {{ balance }}</p>
+        <h4>Balance General</h4>
+        <p>C$ {{ balance|floatformat:2 }}</p>
     </div>
 
 </div>
-
-<!-- ===============================
-     FILTRO
-================================ -->
 
 <form method="get" class="filter-bar">
     <select name="filtro" onchange="this.form.submit()">
@@ -45,52 +37,61 @@
     </select>
 </form>
 
-<!-- ===============================
-     TABLA
-================================ -->
-
 <div class="table-responsive">
-    <table class="finance-table">
+<table class="finance-table">
 
-        <thead>
-            <tr>
-                <th>Fecha</th>
-                <th>Usuario</th>
-                <th>Detalle</th>
-                <th>Referencia</th>
-                <th>Tipo</th>
-                <th>Monto</th>
-            </tr>
-        </thead>
+<thead>
+<tr>
+    <th>Fecha</th>
+    <th>Usuario</th>
+    <th>Detalle</th>
+    <th>Referencia</th>
+    <th>Tipo</th>
+    <th>Monto</th>
+    {% if user.is_staff %}<th>Acción</th>{% endif %}
+</tr>
+</thead>
 
-        <tbody>
-            {% for m in movimientos %}
-            <tr>
+<tbody>
 
-                <td>{{ m.fecha|date:"d/m/Y H:i" }}</td>
-                <td>{{ m.usuario }}</td>
-                <td>{{ m.detalle }}</td>
-                <td>{{ m.referencia }}</td>
+{% for m in movimientos %}
+<tr>
 
-                <td>
-                    {% if m.tipo == 'ingreso' %}
-                        <span class="tag ingreso">Ingreso</span>
-                    {% else %}
-                        <span class="tag egreso">Egreso</span>
-                    {% endif %}
-                </td>
+    <td>{{ m.fecha|date:"d/m/Y H:i" }}</td>
+    <td>{{ m.usuario }}</td>
+    <td>{{ m.detalle }}</td>
+    <td>{{ m.referencia }}</td>
 
-                <td><strong>C$ {{ m.monto }}</strong></td>
+    <td>
+        {% if m.tipo == 'ingreso' %}
+            <span class="tag ingreso">Ingreso</span>
+        {% else %}
+            <span class="tag egreso">Egreso</span>
+        {% endif %}
+    </td>
 
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="7">No hay movimientos registrados</td>
-            </tr>
-            {% endfor %}
-        </tbody>
+    <td>
+        {% if m.tipo == 'egreso' %}- {% endif %}
+        C$ {{ m.monto|floatformat:2 }}
+    </td>
 
-    </table>
+    {% if user.is_staff %}
+        <td>
+        {% if m.tipo == 'ingreso' %}
+            <a href="{% url 'ocultar_recarga' m.id %}" class="btn-ocultar">👁️ Ocultar</a>
+        {% else %}
+            —
+        {% endif %}
+        </td>
+    {% endif %}
+
+</tr>
+{% empty %}
+<tr><td colspan="7" style="text-align:center">Sin movimientos</td></tr>
+{% endfor %}
+
+</tbody>
+</table>
 </div>
 
 {% endblock %}

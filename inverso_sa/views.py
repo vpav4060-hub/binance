@@ -11,6 +11,7 @@ from django.contrib import messages
 import random
 from django.utils import timezone
 from datetime import timedelta
+from django.contrib.admin.views.decorators import staff_member_required
 # --------------------
 # LOGIN
 # --------------------
@@ -820,11 +821,17 @@ def ingresos_egresos(request):
     filtro = request.GET.get('filtro', 'dia')
 
     # =========================
-    # BASE
+    # BASE (NO ocultas)
     # =========================
 
-    recargas = Recarga.objects.filter(estado='aprobada')
-    retiros = Retiro.objects.filter(estado='aprobado')
+    recargas = Recarga.objects.filter(
+        estado='aprobada',
+        oculto=False
+    )
+
+    retiros = Retiro.objects.filter(
+        estado='aprobado'
+    )
 
     # =========================
     # FILTRO FECHA
@@ -835,12 +842,9 @@ def ingresos_egresos(request):
         retiros = retiros.filter(fecha__date=hoy)
 
     elif filtro == 'semana':
-        recargas = recargas.filter(
-            fecha__date__gte=hoy - timedelta(days=7)
-        )
-        retiros = retiros.filter(
-            fecha__date__gte=hoy - timedelta(days=7)
-        )
+        desde = hoy - timedelta(days=7)
+        recargas = recargas.filter(fecha__date__gte=desde)
+        retiros = retiros.filter(fecha__date__gte=desde)
 
     elif filtro == 'mes':
         recargas = recargas.filter(
@@ -874,22 +878,23 @@ def ingresos_egresos(request):
 
     for r in recargas:
         movimientos.append({
+            'id': r.id,
             'fecha': r.fecha,
             'usuario': r.usuario.username,
-            'tipo': 'ingreso',
-            'monto': r.monto,
             'detalle': f"Recarga ({r.cuenta.banco})",
-            'referencia': r.referencia
+            'referencia': r.referencia,
+            'tipo': 'ingreso',
+            'monto': r.monto
         })
 
     for r in retiros:
         movimientos.append({
             'fecha': r.fecha,
             'usuario': r.usuario.username,
-            'tipo': 'egreso',
-            'monto': r.monto,
             'detalle': f"Retiro ({r.cuenta.banco})",
-            'referencia': r.cuenta.numero_cuenta
+            'referencia': r.cuenta.numero_cuenta,
+            'tipo': 'egreso',
+            'monto': r.monto
         })
 
     movimientos = sorted(
@@ -905,6 +910,14 @@ def ingresos_egresos(request):
         'balance': balance,
         'filtro': filtro
     })
+
+@login_required
+def ocultar_recarga(request, recarga_id):
+    recarga = get_object_or_404(Recarga, id=recarga_id)
+    recarga.oculto = True
+    recarga.save()
+    return redirect('ingresos_egresos')
+
 
 
 
