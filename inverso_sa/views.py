@@ -185,18 +185,13 @@ def mio_view(request):
         activa=True
     )
 
-    # 🔁 generar ingresos si ya pasaron 24h
-    for inversion in inversiones:
-        if inversion.puede_pagar():
-            inversion.pagar()
-
-    
     hoy = timezone.now().date()
 
     ganancias_hoy = Transaccion.objects.filter(
-    usuario=usuario,
-    tipo='ingreso',
-    fecha__date=hoy).aggregate(total=Sum('monto'))['total'] or 0
+        usuario=usuario,
+        tipo='ingreso',
+        fecha__date=hoy
+    ).aggregate(total=Sum('monto'))['total'] or 0
 
     context = {
         'usuario': usuario,
@@ -206,6 +201,7 @@ def mio_view(request):
     }
 
     return render(request, 'inverso_sa/mio.html', context)
+
 
 @login_required
 def panel_view(request):
@@ -228,6 +224,16 @@ def panel_view(request):
 
 @login_required
 def inicio(request):
+
+    inversiones = Inversion.objects.filter(
+        usuario=request.user,
+        activa=True
+    )
+
+    # 🔁 PAGO AUTOMÁTICO
+    for inversion in inversiones:
+        inversion.pagar()
+
     productos = Producto.objects.filter(activo=True)
 
     return render(request, "inverso_sa/inicio.html", {
