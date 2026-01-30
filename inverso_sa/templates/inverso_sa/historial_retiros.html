@@ -11,14 +11,14 @@
 
 <div class="container-historial">
 
-    <h2>📄 Historial de retiros</h2>
+    <h2>📄 Historial de retiros de coins</h2>
 
     {% if retiros %}
         <table class="tabla-retiros">
             <thead>
                 <tr>
                     <th>Fecha</th>
-                    <th>Monto</th>
+                    <th>Coins</th>
                     <th>Banco</th>
                     <th>Cuenta</th>
                     <th>Estado</th>
@@ -27,11 +27,23 @@
             <tbody>
                 {% for retiro in retiros %}
                 <tr>
-                    <td>{{ retiro.fecha|date:"d/m/Y H:i" }}</td>
-                    <td>C$ {{ retiro.monto }}</td>
-                    <td>{{ retiro.cuenta.banco }}</td>
-                    <td>{{ retiro.cuenta.numero_cuenta }}</td>
-                    <td>
+                    <td data-label="Fecha">
+                        {{ retiro.fecha|date:"d/m/Y H:i" }}
+                    </td>
+
+                    <td data-label="Coins">
+                        🪙 {{ retiro.monto }}
+                    </td>
+
+                    <td data-label="Banco">
+                        {{ retiro.cuenta.banco }}
+                    </td>
+
+                    <td data-label="Cuenta">
+                        {{ retiro.cuenta.numero_cuenta }}
+                    </td>
+
+                    <td data-label="Estado">
                         <span class="estado {{ retiro.estado }}">
                             {{ retiro.estado|capfirst }}
                         </span>
@@ -41,7 +53,9 @@
             </tbody>
         </table>
     {% else %}
-        <p class="sin-retiros">Aún no tienes retiros realizados.</p>
+        <p class="sin-retiros">
+            Aún no has realizado retiros de coins.
+        </p>
     {% endif %}
 
     <a href="{% url 'retirar' %}" class="btn-volver">

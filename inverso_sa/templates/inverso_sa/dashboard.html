@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Inverso Web{% endblock %}</title>
+
     <link rel="stylesheet" href="{% static 'inverso_sa/css/dashboard.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'inverso_sa/img/logo.jpeg' %}">
     {% block extra_css %}{% endblock %}
@@ -15,16 +16,11 @@
 
     <!-- NAVBAR -->
     <nav class="navbar">
-
-        <!-- BOTÓN HAMBURGUESA -->
         <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-
-        <!-- LOGO -->
         <div class="logo">INVERSO</div>
-
     </nav>
 
-    <!-- PANEL LATERAL -->
+    <!-- SIDEBAR -->
     <div class="sidebar" id="mobileMenu">
 
         <div class="sidebar-header">
@@ -33,24 +29,11 @@
         </div>
 
         <ul>
-            <li class="{% block nav_inicio %}{% endblock %}">
-                <a href="{% url 'inicio' %}">🏠 Inicio</a>
-            </li>
-
-            <li class="{% block nav_ingreso %}{% endblock %}">
-                <a href="{% url 'ingreso' %}">💰 Ingreso</a>
-            </li>
-
-            <li class="{% block nav_equipo %}{% endblock %}">
-                <a href="{% url 'equipo' %}">👥 Equipo</a>
-            </li>
-            <li class="">
-                <a href="">🎰 Juegos</a>
-            </li>
-
-            <li class="{% block nav_mio %}{% endblock %}">
-                <a href="{% url 'mio' %}">👤 Mío</a>
-            </li>
+            <li><a href="{% url 'inicio' %}">🏠 Inicio</a></li>
+            <li><a href="{% url 'ingreso' %}">💰 Ingreso</a></li>
+            <li><a href="{% url 'equipo' %}">👥 Equipo</a></li>
+            <li><a href="{% url 'juegos' %}">🎰 Juegos</a></li>
+            <li><a href="{% url 'mio' %}">👤 Mío</a></li>
 
             {% if request.user.is_staff %}
             <li>
@@ -58,7 +41,6 @@
             </li>
             {% endif %}
         </ul>
-
     </div>
 
     <!-- OVERLAY -->
@@ -77,9 +59,19 @@
 
         {% block contenido %}{% endblock %}
 
+        <!-- FOOTER -->
         <footer class="main-footer">
-            <p>© 2026 INVERSO</p>
+            <p class="footer-legal">
+                🎮 INVERSO ofrece experiencias de entretenimiento digital.<br>
+                Las funciones están diseñadas para la diversión de los usuarios.<br>
+                Los resultados pueden diferir en cada participación.
+
+            </p>
+            <p class="footer-copy">
+                © 2026 INVERSO
+            </p>
         </footer>
+
     </div>
 
     <!-- JS -->

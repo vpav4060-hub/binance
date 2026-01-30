@@ -16,18 +16,17 @@
 
         <div class="stats">
             <span>🔹 Nivel 1: 8%</span>
-            <span>🔸 Nivel 2: 1%</span>
-            <span>🔸 Nivel 3: 1%</span>
         </div>
 
         <h2>
-            Gana ingresos diarios invirtiendo de forma inteligente
+            Disfruta experiencias digitales todos los días
         </h2>
 
         <p class="hero-desc">
-            En Inverso te brindamos una plataforma segura donde tu dinero trabaja por ti.
-            Comienza hoy y genera ganancias todos los días.
+            En INVERSO encontrarás una plataforma de entretenimiento diseñada para que participes,
+            explores dinámicas interactivas y disfrutes cada momento dentro del sistema.
         </p>
+
 
     </div>
 
@@ -38,22 +37,24 @@
 <section class="action-row">
 
     <a href="{% url 'recargar' %}" class="action-card blue">
-        <strong>💳 Recargar saldo</strong>
-        <span>Agrega fondos a tu cuenta</span>
+        <strong>🪙 Recargar Inverso Coins</strong>
+        <span>Obtén coins para participar en la plataforma</span>
     </a>
 
+
     <a href="{% url 'retirar' %}" class="action-card dark-blue">
-        <strong>🏦 Retirar</strong>
-        <span>Solicita tus ganancias</span>
+        <strong>🪙 Retirar Inverso Coins</strong>
+        <span>Solicita el retiro de tus Inverso coins disponibles</span>
     </a>
+
 
 </section>
 
 <!-- PRODUCTOS -->
 <section class="products-grid-container">
-    <h3>📈 Inversiones recomendadas</h3>
+    <h3>🎮 Experiencias destacadas</h3>
     <p class="section-sub">
-        Productos con excelente rendimiento y alta demanda.
+        Participaciones disponibles dentro de la plataforma.
     </p>
 
     <div class="products-grid">
@@ -65,22 +66,21 @@
             <div class="product-details">
                 <h4>{{ producto.nombre }}</h4>
 
-                <p>⏳ Duración: <strong>{{ producto.duracion }}</strong></p>
-                <p>💰 Inversión: <strong>C$ {{ producto.precio }}</strong></p>
+                <p>⏳ Tiempo activo: <strong>{{ producto.duracion }}</strong></p>
+                <p>🪙 Costo en coins: <strong>{{ producto.precio }}</strong></p>
 
                 <p>
-                    📥 Ingreso diario:
-                    <span class="income">C$ {{ producto.ingreso_diario }}</span>
+                    🎁 Recompensa diaria:
+                    <span class="income">{{ producto.ingreso_diario }} coins</span>
                 </p>
 
                 <small>
-                    Cupos disponibles: {{ producto.limite }}
+                    Participaciones disponibles: {{ producto.limite }}
                 </small>
-
 
                 <form method="POST" action="{% url 'invertir_producto' producto.id %}">
                     {% csrf_token %}
-                    <button class="btn-invert">Invertir ahora</button>
+                    <button class="btn-invert">Participar</button>
                 </form>
             </div>
         </div>
@@ -93,37 +93,37 @@
     <h3>¿Por qué elegir Inverso?</h3>
 
     <p class="about-intro">
-        Somos una plataforma enfocada en brindar oportunidades reales de crecimiento financiero,
-        con procesos claros, soporte humano y tecnología confiable.
+        Inverso es una plataforma de entretenimiento digital diseñada para ofrecer
+        experiencias dinámicas, acceso sencillo y una comunidad activa.
     </p>
 
     <div class="about-cards">
 
         <div class="about-card">
-            <h4>🔐 Seguridad real</h4>
+            <h4>🔐 Entorno protegido</h4>
             <p>
-                Protegemos cada transacción mediante sistemas de validación y control interno.
+                Utilizamos sistemas de control y verificación para mantener una experiencia estable y confiable.
             </p>
         </div>
 
         <div class="about-card">
-            <h4>⚡ Pagos eficientes</h4>
+            <h4>⚡ Operaciones ágiles</h4>
             <p>
-                Procesamos recargas y retiros de forma rápida y ordenada.
+                Las recargas y solicitudes internas se gestionan de forma ordenada dentro de la plataforma.
             </p>
         </div>
 
         <div class="about-card">
-            <h4>📊 Rendimiento diario</h4>
+            <h4>🎁 Recompensas activas</h4>
             <p>
-                Obtén ganancias todos los días según el plan que elijas.
+                Los usuarios pueden desbloquear beneficios diarios según su nivel de participación.
             </p>
         </div>
 
         <div class="about-card">
-            <h4>🤝 Soporte humano</h4>
+            <h4>🤝 Atención personalizada</h4>
             <p>
-                Nuestro equipo está disponible para ayudarte cuando lo necesites.
+                Nuestro equipo está disponible para orientarte y resolver cualquier consulta.
             </p>
         </div>
 
@@ -132,29 +132,29 @@
 
 <!-- TESTIMONIOS -->
 <section class="testimonials">
-    <h3>Opiniones de nuestros usuarios</h3>
+    <h3>Opiniones de la comunidad</h3>
 
     <div class="testimonial-cards">
 
         <div class="testimonial-card">
             <p>
-                “Al inicio tenía dudas, pero después del primer retiro confirmé que la plataforma es real.”
+                “La plataforma es fácil de usar y todo está bien organizado. Me gusta el sistema de coins.”
             </p>
-            <h5>— Luis M.</h5>
+            <h5>— Usuario verificado</h5>
         </div>
 
         <div class="testimonial-card">
             <p>
-                “Me gusta que todo es claro, sabes cuánto inviertes y cuánto ganas cada día.”
+                “Las actividades diarias hacen que siempre haya algo nuevo por hacer.”
             </p>
-            <h5>— Daniela R.</h5>
+            <h5>— Miembro activo</h5>
         </div>
 
         <div class="testimonial-card">
             <p>
-                “El soporte me respondió rápido cuando tuve una duda. Eso genera confianza.”
+                “El soporte me explicó todo claramente desde el inicio.”
             </p>
-            <h5>— José A.</h5>
+            <h5>— Usuario de la comunidad</h5>
         </div>
 
     </div>
@@ -162,11 +162,9 @@
 
 <!-- CTA -->
 <section class="cta">
-    <h3>Empieza hoy mismo</h3>
+    <h3>Comienza tu experiencia hoy</h3>
     <p>
-        Miles de usuarios ya están generando ingresos con Inverso.
-        Tú también puedes hacerlo.
+        Únete a la comunidad Inverso y descubre una nueva forma de entretenimiento digital.
     </p>
 </section>
-
 {% endblock %}

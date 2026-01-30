@@ -12,7 +12,10 @@
 {% block contenido %}
 
 <header class="main-header">
-    <h1>👥 Mi Equipo Directo</h1>
+    <h1>👥 Mi Comunidad</h1>
+    <p class="subtitle">
+        Invita amigos y participa en el sistema de recompensas de la plataforma.
+    </p>
 </header>
 
 <section class="card-section">
@@ -21,15 +24,15 @@
     <div class="share-container">
 
         <div class="share-box">
-            <strong>Código:</strong>
+            <strong>Código de invitación</strong>
             <span class="code">{{ codigo }}</span>
         </div>
 
         <div class="share-box">
-            <strong>Enlace:</strong>
+            <strong>Enlace personal</strong>
             <span class="link">{{ link }}</span>
             <button onclick="copiarLink('{{ link }}')" class="copy-btn">
-                Copiar
+                Copiar enlace
             </button>
         </div>
 
@@ -37,43 +40,49 @@
 </section>
 
 <section class="card-section">
-    <h3>👥 Mi equipo</h3>
+    <h3>👥 Mi comunidad</h3>
 
-    <table class="equipo-table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Usuario</th>
-                <th>Total invertido</th>
-                <th>Mi comisión</th>
-            </tr>
-        </thead>
+    <div class="table-wrapper">
+        <table class="equipo-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Usuario</th>
+                    <th>Actividad</th>
+                    <th>Recompensa</th>
+                </tr>
+            </thead>
 
-        <tbody>
-            {% for m in equipo %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ m.referido__username }}</td>
-                <td>C$ {{ m.total_invertido }}</td>
-                <td class="comision">
-                    C$ {{ m.total_comision|floatformat:2 }}
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="4" class="empty">
-                    No tienes comisiones aún
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            <tbody>
+                {% for m in equipo %}
+                <tr>
+                    <td data-label="#"> {{ forloop.counter }} </td>
+                    <td data-label="Usuario">
+                        {{ m.referido__username }}
+                    </td>
+                    <td data-label="Actividad">
+                        {{ m.total_invertido }} coins
+                    </td>
+                    <td data-label="Recompensa" class="comision">
+                        {{ m.total_comision|floatformat:2 }}🪙
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="empty">
+                        Aún no tienes usuarios vinculados.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </section>
 
 <script>
 function copiarLink(texto) {
     navigator.clipboard.writeText(texto);
-    alert("✅ Enlace copiado");
+    alert("✅ Enlace copiado correctamente");
 }
 </script>
 

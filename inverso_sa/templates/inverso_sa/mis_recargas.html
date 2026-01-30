@@ -1,25 +1,46 @@
 {% extends "inverso_sa/dashboard.html" %}
 {% load static %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'inverso_sa/css/misrecargas.css' %}">
 {% endblock %}
-{% block contenido %}
-<h2>📄 Mis Recargas</h2>
 
-<table>
-    <tr>
-        <th>Fecha</th>
-        <th>Monto</th>
-        <th>Referencia</th>
-        <th>Estado</th>
-    </tr>
-    {% for r in recargas %}
-    <tr>
-        <td>{{ r.fecha }}</td>
-        <td>C$ {{ r.monto }}</td>
-        <td>{{ r.referencia }}</td>
-        <td>{{ r.get_estado_display }}</td>
-    </tr>
-    {% endfor %}
-</table>
+{% block contenido %}
+
+<h2>📄 Historial de recargas</h2>
+
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Coins</th>
+                <th>Referencia</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for r in recargas %}
+            <tr>
+                <td data-label="Fecha">{{ r.fecha }}</td>
+                <td data-label="Coins">{{ r.monto }}🪙</td>
+                <td data-label="Referencia">{{ r.referencia }}</td>
+                <td data-label="Estado">
+                    <span class="estado {{ r.estado }}">
+                        {{ r.get_estado_display }}
+                    </span>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="empty">
+                    No tienes recargas registradas aún.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% endblock %}

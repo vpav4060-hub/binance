@@ -29,21 +29,18 @@
             </p>
         </div>
 
-        <div class="history-badge">
-            <i class="fas fa-history"></i> Historial
-        </div>
     </header>
 
     <!-- BALANCE -->
     <section class="balance-card-inverso">
         <div class="balance-item">
-            <span class="amount">C$ {{ ganancias_hoy }}</span>
-            <span class="label">Ganancias de hoy</span>
+            <span class="amount">{{ ganancias_hoy }}🪙</span>
+            <span class="label">Coins ganados hoy</span>
         </div>
 
         <div class="balance-item">
-            <span class="amount">C$ {{ saldo }}</span>
-            <span class="label">Mi saldo</span>
+            <span class="amount">{{ saldo }}🪙</span>
+            <span class="label">Mis coins disponibles</span>
         </div>
     </section>
 
@@ -53,16 +50,16 @@
         <a href="{% url 'recargar' %}" class="btn-box blue">
             <i class="fas fa-arrow-down"></i>
             <div class="btn-info">
-                <strong>Recargar</strong>
-                <span>Mínimo C$ 400</span>
+                <strong>Recargar coins</strong>
+                <span>Mínimo 400 coins</span>
             </div>
         </a>
 
         <a href="{% url 'retirar' %}" class="btn-box green">
             <i class="fas fa-university"></i>
             <div class="btn-info">
-                <strong>Retirar</strong>
-                <span>Mínimo C$ 300</span>
+                <strong>Retirar coins</strong>
+                <span>Mínimo 300 coins</span>
             </div>
         </a>
 
@@ -77,25 +74,23 @@
             <i class="fas fa-university"></i>
             <div class="func-info">
                 <strong>Cuenta bancaria</strong>
-                <p>Vincular banco</p>
+                <p>Vincular cuenta para retiros de coins</p>
             </div>
         </a>
 
         <a href="{% url 'acerca_de' %}" class="func-item">
-
             <i class="fas fa-info-circle"></i>
             <div class="func-info">
                 <strong>Acerca de</strong>
-                <p>Historia de la plataforma</p>
+                <p>Información sobre INVERSO Coins</p>
             </div>
         </a>
 
         <a href="{% url 'asistencia' %}" class="func-item">
-
             <i class="fas fa-comment-dots"></i>
             <div class="func-info">
                 <strong>Asistencia</strong>
-                <p>Centro de ayuda</p>
+                <p>Soporte para coins</p>
             </div>
         </a>
 
@@ -142,7 +137,7 @@ function changeView(mode) {
 // COPIAR CÓDIGO
 safeGet('copy-code').onclick = function () {
     navigator.clipboard.writeText("{{ usuario.codigo_invitacion }}")
-        .then(() => alert("Código copiado correctamente"))
+        .then(() => alert("Código de invitación copiado correctamente"))
         .catch(() => alert("No se pudo copiar el código"));
 };
 </script>

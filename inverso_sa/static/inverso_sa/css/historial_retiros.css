@@ -1,75 +1,182 @@
+/* ===============================
+   CONTENEDOR GENERAL
+================================ */
 .container-historial {
-    max-width: 900px;
+    max-width: 950px;
     margin: auto;
-    background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
 }
 
+/* ===============================
+   TITULO
+================================ */
 .container-historial h2 {
     text-align: center;
     margin-bottom: 25px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
 }
 
+/* ===============================
+   TABLA
+================================ */
 .tabla-retiros {
     width: 100%;
     border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 14px;
 }
 
-.tabla-retiros th,
-.tabla-retiros td {
-    padding: 12px;
-    border-bottom: 1px solid #e5e7eb;
-    text-align: center;
+/* encabezados */
+.tabla-retiros thead {
+    background: linear-gradient(135deg, #0f172a, #1f2937);
 }
 
 .tabla-retiros th {
-    background: #1f2937;
-    color: #fff;
+    color: #ffffff;
+    padding: 14px;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
 }
 
+/* filas */
+.tabla-retiros td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+    color: #374151;
+    text-align: center;
+}
+
+/* hover */
+.tabla-retiros tbody tr:hover {
+    background: #f9fafb;
+}
+
+/* ===============================
+   ESTADOS
+================================ */
 .estado {
-    padding: 6px 12px;
-    border-radius: 20px;
+    padding: 6px 14px;
+    border-radius: 999px;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 12.5px;
+    display: inline-block;
+    min-width: 95px;
 }
 
+/* estados */
 .estado.pendiente {
-    background: #facc15;
-    color: #000;
+    background: #fef3c7;
+    color: #92400e;
 }
 
 .estado.aprobado {
-    background: #22c55e;
-    color: #fff;
+    background: #dcfce7;
+    color: #166534;
 }
 
 .estado.rechazado {
-    background: #ef4444;
-    color: #fff;
+    background: #fee2e2;
+    color: #991b1b;
 }
 
+/* ===============================
+   SIN REGISTROS
+================================ */
 .sin-retiros {
     text-align: center;
-    margin: 30px 0;
+    margin: 35px 0;
+    font-size: 15px;
     font-weight: 600;
     color: #6b7280;
 }
 
+/* ===============================
+   BOTÓN VOLVER
+================================ */
 .btn-volver {
     display: block;
-    margin-top: 25px;
+    margin-top: 28px;
     text-align: center;
-    padding: 12px;
-    background: #1f2937;
-    color: #fff;
+    padding: 14px;
+    background: linear-gradient(135deg, #1f2937, #0f172a);
+    color: #ffffff;
     text-decoration: none;
-    border-radius: 8px;
-    transition: .3s;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: 0.25s;
 }
 
 .btn-volver:hover {
-    background: #111827;
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #111827, #020617);
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 900px) {
+
+    .container-historial {
+        padding: 20px;
+    }
+
+    .tabla-retiros th,
+    .tabla-retiros td {
+        font-size: 13px;
+        padding: 12px 8px;
+    }
+}
+
+/* ===============================
+   MÓVIL
+================================ */
+@media (max-width: 600px) {
+
+    .container-historial {
+        padding: 18px;
+    }
+
+    .tabla-retiros thead {
+        display: none;
+    }
+
+    .tabla-retiros,
+    .tabla-retiros tbody,
+    .tabla-retiros tr,
+    .tabla-retiros td {
+        display: block;
+        width: 100%;
+    }
+
+    .tabla-retiros tr {
+        background: #ffffff;
+        margin-bottom: 16px;
+        border-radius: 14px;
+        box-shadow: 0 6px 20px rgba(0,0,0,.06);
+        padding: 14px;
+    }
+
+    .tabla-retiros td {
+        text-align: right;
+        border: none;
+        padding: 8px 0;
+        font-size: 14px;
+        position: relative;
+    }
+
+    .tabla-retiros td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        font-weight: 600;
+        color: #374151;
+        text-align: left;
+    }
 }

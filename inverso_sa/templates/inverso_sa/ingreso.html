@@ -22,28 +22,28 @@
 
 <div class="investment-container">
 
-    <h2 class="main-title">Inversión</h2>
+    <h2 class="main-title">Centro de actividades</h2>
 
     <!-- ================= RESUMEN ================= -->
     <div class="investment-summary">
 
         <div class="summary-item card-blue">
             <div class="summary-text">
-                <span>Mi saldo</span>
-                <strong>C$ {{ saldo }}</strong>
+                <span>Mis coins</span>
+                <strong>🪙{{ saldo }}</strong>
             </div>
         </div>
 
         <div class="summary-item card-orange">
             <div class="summary-text">
-                <span>Mis proyectos</span>
+                <span>Actividades activas</span>
                 <strong>{{ total_proyectos }}</strong>
             </div>
         </div>
 
     </div>
 
-    <h3 class="sub-title">Mi proyecto de inversión</h3>
+    <h3 class="sub-title">Mis actividades</h3>
 
     <div class="empty-state">
 
@@ -55,39 +55,39 @@
                 <h4>{{ inv.producto.nombre }}</h4>
 
                 <p>
-                    💰 Inversión:
+                    🪙 Coins utilizadas:
                     <strong>C$ {{ inv.producto.precio }}</strong>
                 </p>
 
                 <p>
-                    📈 Ingreso diario:
+                    🎁 Beneficio diario:
                     <strong class="text-green">
-                        C$ {{ inv.producto.ingreso_diario }}
+                        🪙 {{ inv.producto.ingreso_diario }}
                     </strong>
                 </p>
 
                 <p>
-                    📆 Días pagados:
+                    📆 Días activos:
                     <strong>{{ inv.dias_pagados }}</strong>
                 </p>
 
                 <p>
-                    💵 Ganancia acumulada:
+                    ⭐ Recompensas acumuladas:
                     <strong class="text-green">
-                        C$ {{ inv.ganancia_total }}
+                        🪙{{ inv.ganancia_total }} Coins
                     </strong>
                 </p>
 
                 <p>
                     ⏳ Estado:
-                    <span class="badge-green">En progreso</span>
+                    <span class="badge-green">Activo</span>
                 </p>
 
             </div>
 
             {% endfor %}
         {% else %}
-            <p class="empty-text">¡Sin inversiones aún!</p>
+            <p class="empty-text">Aún no participas en ninguna actividad</p>
         {% endif %}
 
     </div>

@@ -8,7 +8,7 @@
 {% block contenido %}
 <div class="container">
 
-    <h2>💳 Recargar saldo</h2>
+    <h2>🪙 Recargar coins</h2>
 
     <!-- BOTONES -->
     <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
@@ -25,30 +25,30 @@
 
     <!-- MENSAJES -->
     {% for message in messages %}
-        <p style="color:red">{{ message }}</p>
+    <p style="color:red">{{ message }}</p>
     {% endfor %}
 
     <!-- ===============================
-        TARJETA DATOS BANCARIOS
+        TARJETA DATOS DE CANJE
     =============================== -->
     <div class="card-bg">
 
         <p>
-            <span><strong>Banco:</strong> {{ cuenta.banco }}</span>
+            <span><strong>Entidad:</strong> {{ cuenta.banco }}</span>
             <button type="button" onclick="copiar('{{ cuenta.banco }}')">
                 Copiar
             </button>
         </p>
 
         <p>
-            <span><strong>Destinatario:</strong> {{ cuenta.destinatario }}</span>
+            <span><strong>Destino:</strong> {{ cuenta.destinatario }}</span>
             <button type="button" onclick="copiar('{{ cuenta.destinatario }}')">
                 Copiar
             </button>
         </p>
 
         <p>
-            <span><strong>N° Cuenta:</strong> {{ cuenta.numero_cuenta }}</span>
+            <span><strong>Código:</strong> {{ cuenta.numero_cuenta }}</span>
             <button type="button" onclick="copiar('{{ cuenta.numero_cuenta }}')">
                 Copiar
             </button>
@@ -62,29 +62,29 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <label>Monto</label>
+        <label>Cantidad de coins</label>
         <input type="number" name="monto" id="monto" required>
 
         <!-- montos rápidos -->
         <div class="quick-amounts">
-            <button type="button" onclick="setMonto(400)">C$400</button>
-            <button type="button" onclick="setMonto(600)">C$600</button>
-            <button type="button" onclick="setMonto(1000)">C$1000</button>
-            <button type="button" onclick="setMonto(3000)">C$3000</button>
-            <button type="button" onclick="setMonto(5000)">C$5000</button>
-            <button type="button" onclick="setMonto(10000)">C$10000</button>
-            <button type="button" onclick="setMonto(50000)">C$50000</button>
-            <button type="button" onclick="setMonto(100000)">C$100000</button>
+            <button type="button" onclick="setMonto(400)">400 🪙</button>
+            <button type="button" onclick="setMonto(600)">600 🪙</button>
+            <button type="button" onclick="setMonto(1000)">1000 🪙</button>
+            <button type="button" onclick="setMonto(3000)">3000 🪙</button>
+            <button type="button" onclick="setMonto(5000)">5000 🪙</button>
+            <button type="button" onclick="setMonto(10000)">10000 🪙</button>
+            <button type="button" onclick="setMonto(50000)">50000 🪙</button>
+            <button type="button" onclick="setMonto(100000)">100000 🪙</button>
         </div>
 
-        <label>N° Referencia (del comprobante)</label>
+        <label>Código de referencia</label>
         <input type="text" name="referencia" required>
 
-        <label>Voucher</label>
+        <label>Comprobante</label>
         <input type="file" name="voucher" required>
 
         <button type="submit" class="btn-cta">
-            Enviar recarga
+            Enviar solicitud
         </button>
 
         <!-- ===============================
@@ -92,23 +92,31 @@
         =============================== -->
         <div style="
             margin-top:20px;
-            background:#fff6e5;
-            border:1px solid #f1c40f;
+            background:#f5f8ff;
+            border:1px solid #3b82f6;
             padding:15px;
             border-radius:10px;
             font-size:14px;
-            color:#5a4a00;
+            color:#1e3a8a;
         ">
 
-            <strong>⚠ Importante:</strong>
+            <strong>ℹ Información importante:</strong>
             <ul style="margin-top:10px; padding-left:18px;">
-                <li>El monto mínimo para recargar es de <strong>C$400</strong>.</li>
-                <li>Si el <strong>número de referencia</strong> no coincide con el del comprobante, la recarga no será aplicada.</li>
-                <li>Si el voucher <strong>no muestra claramente el número de referencia</strong>, la recarga será rechazada.</li>
-                <li>Si el <strong>monto del voucher no coincide</strong> con el monto ingresado, la recarga no será válida.</li>
-                <li>Si el <strong>titular del comprobante no coincide</strong> con la cuenta indicada, la recarga no será procesada.</li>
-                <li>Los comprobantes alterados, incompletos o ilegibles serán automáticamente rechazados.</li>
+                <li>El mínimo para recargar es de <strong>400 coins</strong>.</li>
+                <li>La referencia debe coincidir exactamente con el comprobante enviado.</li>
+                <li>El comprobante debe ser <strong>claro, legible y completo</strong>.</li>
+                <li>No se aceptan comprobantes editados, recortados o alterados.</li>
+                <li>Las solicitudes con información incorrecta no podrán ser procesadas.</li>
+                <li>Los coins se acreditan únicamente después de validación interna.</li>
+                <li>El tiempo de validación puede variar según el volumen de solicitudes.</li>
+                <li>Una misma referencia no puede utilizarse más de una vez.</li>
+                <li>Los comprobantes enviados fuera del formulario no serán válidos.</li>
+                <li>Las recargas enviadas a cuentas incorrectas no son responsabilidad de la plataforma.</li>
+                <li>El envío del formulario no garantiza acreditación automática.</li>
+                <li>Las solicitudes fraudulentas podrán derivar en la suspensión permanente de la cuenta.</li>
+                <li>Al enviar la solicitud, el usuario acepta las normas internas de la plataforma.</li>
             </ul>
+
 
         </div>
 
@@ -120,14 +128,14 @@
     JS COPIAR
 ================================ -->
 <script>
-function copiar(texto) {
-    navigator.clipboard.writeText(texto);
-    alert("Copiado correctamente ✅");
-}
+    function copiar(texto) {
+        navigator.clipboard.writeText(texto);
+        alert("Copiado correctamente ✅");
+    }
 
-function setMonto(valor) {
-    document.getElementById("monto").value = valor;
-}
+    function setMonto(valor) {
+        document.getElementById("monto").value = valor;
+    }
 </script>
 
 {% endblock %}

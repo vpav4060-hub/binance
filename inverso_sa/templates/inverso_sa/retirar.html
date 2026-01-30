@@ -1,7 +1,7 @@
 {% extends "inverso_sa/dashboard.html" %}
 {% load static %}
 
-{% block title %}Retirar saldo{% endblock %}
+{% block title %}Retirar coins{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'inverso_sa/css/retirar.css' %}">
@@ -11,11 +11,11 @@
 
 <div class="container-retiro">
 
-    <h2>💸 Solicitar retiro</h2>
+    <h2>🪙 Solicitar retiro de coins</h2>
 
     <p class="saldo-disponible">
-        <strong>Saldo disponible:</strong>
-        C$ {{ request.user.saldo }}
+        <strong>Coins disponibles:</strong>
+        {{ request.user.saldo }} 🪙
     </p>
 
     <!-- ✅ MENSAJES -->
@@ -32,8 +32,15 @@
     <form method="POST" class="retiro-form">
         {% csrf_token %}
 
-        <label>Monto a retirar</label>
-        <input type="number" name="monto" step="0.01" min="1" max="{{ request.user.saldo }}" required>
+        <label>Cantidad de coins a retirar</label>
+        <input 
+            type="number"
+            name="monto"
+            step="1"
+            min="1"
+            max="{{ request.user.saldo }}"
+            required
+        >
 
         <label>Cuenta bancaria</label>
         <select name="cuenta" required>
@@ -49,13 +56,13 @@
         </select>
 
         <button type="submit" class="btn-retirar">
-            Solicitar retiro
+            Solicitar retiro de coins🪙
         </button>
     </form>
-    <a href="{% url 'historial_retiros' %}" class="btn-historial">
-        📄 Historial de retiros
-    </a>
 
+    <a href="{% url 'historial_retiros' %}" class="btn-historial">
+        📄 Historial de retiros🪙
+    </a>
 
 </div>
 
