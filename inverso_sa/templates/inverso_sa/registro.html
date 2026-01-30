@@ -2,76 +2,81 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Registro | INVERSO</title>
     <link rel="stylesheet" href="{% static 'inverso_sa/css/registro.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'inverso_sa/img/favicon.jpeg' %}">
 </head>
+
 <body>
 
-<div class="registro-container">
+    <div class="registro-container">
 
-    <h2>Crear cuenta</h2>
+        <h2>Crear cuenta</h2>
 
-    {% if messages %}
+        {% if messages %}
         <div class="mensajes">
             {% for message in messages %}
-                <div class="mensaje {{ message.tags }}">{{ message }}</div>
+            <div class="mensaje {{ message.tags }}">{{ message }}</div>
             {% endfor %}
         </div>
-    {% endif %}
+        {% endif %}
 
-    {% if error %}
+        {% if error %}
         <div class="error">{{ error }}</div>
-    {% endif %}
+        {% endif %}
 
-    {% if invitador %}
+        {% if invitador %}
         <div class="invitador">
             🔗 Has sido invitado por: <strong>{{ invitador.username }}</strong>
         </div>
-    {% endif %}
+        {% endif %}
 
-    <form method="POST" action="">
-        {% csrf_token %}
+        <form method="POST" action="">
+            {% csrf_token %}
 
-        <div class="form-group">
-            <label for="first_name">Nombre</label>
-            <input type="text" id="first_name" name="first_name" required placeholder="Tu nombre">
-        </div>
+            <div class="form-group">
+                <label for="first_name">Nombre</label>
+                <input type="text" id="first_name" name="first_name" required placeholder="Tu nombre">
+            </div>
 
-        <div class="form-group">
-            <label for="last_name">Apellido</label>
-            <input type="text" id="last_name" name="last_name" required placeholder="Tu apellido">
-        </div>
+            <div class="form-group">
+                <label for="last_name">Apellido</label>
+                <input type="text" id="last_name" name="last_name" required placeholder="Tu apellido">
+            </div>
 
-        <div class="form-group">
-            <label for="email">Correo electrónico</label>
-            <input type="email" id="email" name="email" required placeholder="ejemplo@correo.com">
-        </div>
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" required placeholder="ejemplo@correo.com">
+            </div>
 
-        <div class="form-group">
-            <label for="username">Usuario</label>
-            <input type="text" id="username" name="username" required placeholder="Nombre de usuario">
-        </div>
+            <div class="form-group">
+                <label for="username">Usuario</label>
+                <input type="tel" id="username" name="username" required placeholder="Ej: 88887777" pattern="[0-9]{8}"
+                    maxlength="8" inputmode="numeric">
 
-        <div class="form-group">
-            <label for="password1">Contraseña</label>
-            <input type="password" id="password1" name="password1" required placeholder="Contraseña">
-        </div>
+            </div>
 
-        <div class="form-group">
-            <label for="password2">Confirmar Contraseña</label>
-            <input type="password" id="password2" name="password2" required placeholder="Repite la contraseña">
-        </div>
+            <div class="form-group">
+                <label for="password1">Contraseña</label>
+                <input type="password" id="password1" name="password1" required placeholder="Contraseña">
+            </div>
 
-        <button type="submit" class="btn-cta">Registrarse</button>
-    </form>
+            <div class="form-group">
+                <label for="password2">Confirmar Contraseña</label>
+                <input type="password" id="password2" name="password2" required placeholder="Repite la contraseña">
+            </div>
 
-    <p class="login-link">
-        ¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a>
-    </p>
+            <button type="submit" class="btn-cta">Registrarse</button>
+        </form>
 
-</div>
+        <p class="login-link">
+            ¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a>
+        </p>
+
+    </div>
 </body>
+
 </html>

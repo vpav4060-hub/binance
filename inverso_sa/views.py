@@ -66,7 +66,9 @@ def logout_view(request):
 # --------------------
 # REGISTRO
 # --------------------
+
 def registro_view(request):
+
     # -------------------------------
     # 1️⃣ Capturar código de referido
     # -------------------------------
@@ -79,13 +81,14 @@ def registro_view(request):
     # --------------------------------------
     if request.user.is_authenticated:
         logout(request)
-        messages.info(request, "Se ha cerrado tu sesión para registrarte como nuevo usuario.")
+        messages.info(request, "Se cerró tu sesión para registrarte como nuevo usuario.")
 
     # --------------------------------------
-    # 3️⃣ Mostrar invitador si existe
+    # 3️⃣ Obtener invitador
     # --------------------------------------
     invitador = None
     codigo = request.session.get('ref_codigo')
+
     if codigo:
         try:
             invitador = Usuario.objects.get(codigo_invitacion=codigo)
@@ -93,30 +96,32 @@ def registro_view(request):
             invitador = None
 
     # --------------------------------------
-    # 4️⃣ Procesar formulario POST
+    # 4️⃣ Procesar formulario
     # --------------------------------------
     if request.method == 'POST':
+
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
-        username = request.POST.get('username')
+        username = request.POST.get('username')  # 📱 teléfono
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
-        # 🔐 Validar contraseñas
+        # ❌ Contraseñas
         if password1 != password2:
             return render(request, 'inverso_sa/registro.html', {
                 'error': 'Las contraseñas no coinciden',
                 'invitador': invitador
             })
 
-        # 🔐 Validar usuario y email únicos
+        # ❌ Teléfono duplicado
         if Usuario.objects.filter(username=username).exists():
             return render(request, 'inverso_sa/registro.html', {
-                'error': 'El usuario ya existe',
+                'error': 'Este número de teléfono ya está registrado',
                 'invitador': invitador
             })
 
+        # ❌ Email duplicado
         if Usuario.objects.filter(email=email).exists():
             return render(request, 'inverso_sa/registro.html', {
                 'error': 'El correo ya está registrado',
@@ -125,39 +130,33 @@ def registro_view(request):
 
         # ✅ Crear usuario
         usuario = Usuario.objects.create(
-            username=username,
+            username=username,   # 📱 teléfono
             email=email,
             first_name=first_name,
             last_name=last_name,
-            saldo=20,  # saldo inicial
+            saldo=20,
             password=make_password(password1)
         )
 
-        # 👥 Asignar grupo
+        # 👥 Grupo
         grupo, _ = Group.objects.get_or_create(name='inversionista')
         usuario.groups.add(grupo)
 
-        # ✅ Aplicar referido si existe
+        # 🔗 Referido
         if invitador:
             usuario.referido_por = invitador
             usuario.save()
-
-            # 🔥 Limpiar sesión
             del request.session['ref_codigo']
 
-        messages.success(request, "Registro exitoso. ¡Ahora puedes iniciar sesión!")
+        messages.success(request, "Registro exitoso. Ahora puedes iniciar sesión.")
         return redirect('login')
 
     # --------------------------------------
-    # 5️⃣ Renderizar template GET
+    # 5️⃣ GET
     # --------------------------------------
     return render(request, 'inverso_sa/registro.html', {
         'invitador': invitador
     })
-
-
-
-
 # --------------------
 # OTRAS VISTAS
 # --------------------
