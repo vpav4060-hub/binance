@@ -44,6 +44,9 @@
             <li class="{% block nav_equipo %}{% endblock %}">
                 <a href="{% url 'equipo' %}">👥 Equipo</a>
             </li>
+            <li class="">
+                <a href="">🎰 Juegos</a>
+            </li>
 
             <li class="{% block nav_mio %}{% endblock %}">
                 <a href="{% url 'mio' %}">👤 Mío</a>
@@ -65,11 +68,11 @@
     <div class="main-content">
 
         {% if messages %}
-            {% for message in messages %}
-                <div class="alert {{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
+        {% for message in messages %}
+        <div class="alert {{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
         {% endif %}
 
         {% block contenido %}{% endblock %}
@@ -88,4 +91,5 @@
     </script>
 
 </body>
+
 </html>

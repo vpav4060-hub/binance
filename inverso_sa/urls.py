@@ -78,6 +78,9 @@ urlpatterns = [
 path("acerca/", views.acerca_de, name="acerca_de"),
 path("asistencia/", views.asistencia, name="asistencia"),
 path('retiros/historial/', views.historial_retiros, name='historial_retiros'),
+path('finanzas/', views.ingresos_egresos, name='ingresos_egresos'),
+path('finanzas/ocultar/<int:recarga_id>/', views.ocultar_recarga, name='ocultar_recarga'),
+
 
 
 ]

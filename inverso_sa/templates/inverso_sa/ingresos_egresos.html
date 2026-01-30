@@ -1,90 +1,97 @@
 {% extends "inverso_sa/panel.html" %}
 {% load static %}
+
 {% block css %}
 <link rel="stylesheet" href="{% static 'inverso_sa/css/ingresos_egresos.css' %}">
 {% endblock %}
 
 {% block title %}Ingresos y Egresos{% endblock %}
-{% block page_title %}Ingresos y Egresos{% endblock %}
+{% block page_title %}📊 Ingresos y Egresos{% endblock %}
 
 {% block content %}
 
 <div class="finance-cards">
 
     <div class="card ingreso">
-        <h4>Ingresos</h4>
-        <p>C$ {{ total_ingresos }}</p>
+        <h4>Total Ingresos</h4>
+        <p>C$ {{ total_ingresos|floatformat:2 }}</p>
     </div>
 
     <div class="card egreso">
-        <h4>Egresos</h4>
-        <p>C$ {{ total_egresos }}</p>
+        <h4>Total Egresos</h4>
+        <p>C$ {{ total_egresos|floatformat:2 }}</p>
     </div>
 
     <div class="card balance">
-        <h4>Balance</h4>
-        <p>C$ {{ balance }}</p>
+        <h4>Balance General</h4>
+        <p>C$ {{ balance|floatformat:2 }}</p>
     </div>
 
 </div>
 
 <form method="get" class="filter-bar">
-
     <select name="filtro" onchange="this.form.submit()">
         <option value="dia" {% if filtro == 'dia' %}selected{% endif %}>Hoy</option>
         <option value="semana" {% if filtro == 'semana' %}selected{% endif %}>Últimos 7 días</option>
         <option value="mes" {% if filtro == 'mes' %}selected{% endif %}>Este mes</option>
     </select>
-
-    <select name="cuenta" onchange="this.form.submit()">
-        <option value="">Todas las cuentas</option>
-        {% for c in cuentas %}
-            <option value="{{ c.id }}"
-                {% if cuenta_id == c.id|stringformat:"s" %}
-                    selected
-                {% endif %}
-            >
-                {{ c.banco }} - {{ c.numero_cuenta }}
-            </option>
-        {% endfor %}
-    </select>
-
 </form>
 
+<div class="table-responsive">
 <table class="finance-table">
-    <thead>
-        <tr>
-            <th>Fecha</th>
-            <th>Usuario</th>
-            <th>Cuenta</th>
-            <th>Referencia</th>
-            <th>Tipo</th>
-            <th>Monto</th>
-        </tr>
-    </thead>
 
-    <tbody>
-        {% for t in transacciones %}
-        <tr>
-            <td>{{ t.fecha|date:"d/m/Y H:i" }}</td>
-            <td>{{ t.usuario.username }}</td>
-            <td>{{ t.cuenta.banco }} - {{ t.cuenta.numero_cuenta }}</td>
-            <td>{{ t.referencia|default:"—" }}</td>
-            <td>
-                {% if t.tipo == 'ingreso' %}
-                    <span class="tag ingreso">Ingreso</span>
-                {% else %}
-                    <span class="tag egreso">Egreso</span>
-                {% endif %}
-            </td>
-            <td>C$ {{ t.monto }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="6">No hay movimientos</td>
-        </tr>
-        {% endfor %}
-    </tbody>
+<thead>
+<tr>
+    <th>Fecha</th>
+    <th>Usuario</th>
+    <th>Detalle</th>
+    <th>Referencia</th>
+    <th>Tipo</th>
+    <th>Monto</th>
+    {% if user.is_staff %}<th>Acción</th>{% endif %}
+</tr>
+</thead>
+
+<tbody>
+
+{% for m in movimientos %}
+<tr>
+
+    <td>{{ m.fecha|date:"d/m/Y H:i" }}</td>
+    <td>{{ m.usuario }}</td>
+    <td>{{ m.detalle }}</td>
+    <td>{{ m.referencia }}</td>
+
+    <td>
+        {% if m.tipo == 'ingreso' %}
+            <span class="tag ingreso">Ingreso</span>
+        {% else %}
+            <span class="tag egreso">Egreso</span>
+        {% endif %}
+    </td>
+
+    <td>
+        {% if m.tipo == 'egreso' %}- {% endif %}
+        C$ {{ m.monto|floatformat:2 }}
+    </td>
+
+    {% if user.is_staff %}
+        <td>
+        {% if m.tipo == 'ingreso' %}
+            <a href="{% url 'ocultar_recarga' m.id %}" class="btn-ocultar">👁️ Ocultar</a>
+        {% else %}
+            —
+        {% endif %}
+        </td>
+    {% endif %}
+
+</tr>
+{% empty %}
+<tr><td colspan="7" style="text-align:center">Sin movimientos</td></tr>
+{% endfor %}
+
+</tbody>
 </table>
+</div>
 
 {% endblock %}

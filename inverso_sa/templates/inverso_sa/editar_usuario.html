@@ -12,7 +12,9 @@
 
 <div class="form-container">
 
-    <!-- MENSAJES -->
+    <!-- =========================
+         MENSAJES
+    ========================== -->
     {% if messages %}
         {% for message in messages %}
             <div class="alert {{ message.tags }}">
@@ -21,6 +23,9 @@
         {% endfor %}
     {% endif %}
 
+    <!-- =========================
+         FORMULARIO USUARIO
+    ========================== -->
     <form method="post" class="form-box">
         {% csrf_token %}
 
@@ -55,6 +60,99 @@
             </a>
         </div>
     </form>
+
+    <!-- =========================
+         INVERSIONES
+    ========================== -->
+
+    <hr style="margin:40px 0;">
+
+    <h3>📦 Inversiones del usuario</h3>
+
+    {% if inversiones %}
+    <div class="table-responsive">
+        <table class="tabla-inversiones">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inv in inversiones %}
+                <tr>
+                    <td>{{ inv.id }}</td>
+                    <td>{{ inv.producto.nombre }}</td>
+                    <td>C$ {{ inv.producto.precio }}</td>
+                    <td>
+                        {% if inv.activa %}
+                            <span class="estado activo">Activa</span>
+                        {% else %}
+                            <span class="estado finalizada">Finalizada</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ inv.fecha_inicio|date:"d/m/Y H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p class="no-data">Este usuario no tiene inversiones registradas.</p>
+    {% endif %}
+
+    <!-- =========================
+         RECARGAS
+    ========================== -->
+
+    <hr style="margin:40px 0;">
+
+    <h3>💳 Historial de recargas</h3>
+
+    {% if recargas %}
+    <div class="table-responsive">
+        <table class="tabla-inversiones">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Monto</th>
+                    <th>Banco</th>
+                    <th>Referencia</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for rec in recargas %}
+                <tr>
+                    <td>{{ rec.id }}</td>
+                    <td>C$ {{ rec.monto }}</td>
+                    <td>{{ rec.cuenta.banco }}</td>
+                    <td>{{ rec.referencia }}</td>
+
+                    <td>
+                        {% if rec.estado == "aprobada" %}
+                            <span class="estado activo">Aprobada</span>
+                        {% elif rec.estado == "rechazada" %}
+                            <span class="estado finalizada">Rechazada</span>
+                        {% else %}
+                            <span class="estado pendiente">En revisión</span>
+                        {% endif %}
+                    </td>
+
+                    <td>{{ rec.fecha|date:"d/m/Y H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p class="no-data">Este usuario no tiene recargas registradas.</p>
+    {% endif %}
 
 </div>
 
