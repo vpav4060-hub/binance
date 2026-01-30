@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views,views2
 
+handler403 = 'inverso_sa.views2.error_403'  # apunta a tu vista personalizada
+
 urlpatterns = [
 
 

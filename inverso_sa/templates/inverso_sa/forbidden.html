@@ -1,0 +1,14 @@
+{% extends "inverso_sa/login.html" %}
+{% load static %}
+
+{% block title %}Acceso Denegado{% endblock %}
+
+{% block contenido %}
+<div class="forbidden-message" style="text-align:center; padding:50px;">
+    <h2>⚠️ Acceso Denegado</h2>
+    <p>{{ mensaje }}</p>
+    <a href="{% url 'login' %}" class="btn-volver" style="margin-top:20px; display:inline-block; padding:12px 20px; background:#1f2937; color:#fff; border-radius:8px; text-decoration:none;">
+        Volver al login
+    </a>
+</div>
+{% endblock %}

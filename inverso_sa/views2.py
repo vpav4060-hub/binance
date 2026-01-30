@@ -44,3 +44,13 @@ def juegos(request):
     return render(request, 'inverso_sa/juegos.html', {
     'juegos': juegos
 })
+
+from django.shortcuts import render
+
+def error_403(request, exception=None):
+    """
+    Vista personalizada para manejar errores 403
+    """
+    return render(request, "inverso_sa/forbidden.html", {
+        "mensaje": "⚠️ Por favor presiona el botón de ingresar solo una vez y espera mientras el sistema carga."
+    })
