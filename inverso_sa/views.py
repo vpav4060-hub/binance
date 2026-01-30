@@ -224,20 +224,45 @@ def panel_view(request):
         inversion.pagar()
 
     # =========================
-    # PANEL DE USUARIOS
+    # FILTROS
     # =========================
     filtro = request.GET.get("rol")
     buscar = request.GET.get("buscar")
+    recarga = request.GET.get("recarga")
+    producto = request.GET.get("producto")
 
     usuarios = Usuario.objects.all()
 
+    # =========================
     # FILTRO POR ROL
+    # =========================
     if filtro == "admin":
         usuarios = usuarios.filter(is_staff=True)
+
     elif filtro == "user":
         usuarios = usuarios.filter(is_staff=False)
 
-    # 🔍 BUSCADOR
+    # =========================
+    # FILTRO POR RECARGAS
+    # =========================
+    if recarga == "con":
+        usuarios = usuarios.filter(recarga__isnull=False).distinct()
+
+    elif recarga == "sin":
+        usuarios = usuarios.exclude(recarga__isnull=False).distinct()
+
+    # =========================
+    # FILTRO POR PRODUCTOS
+    # =========================
+    if producto == "con":
+        usuarios = usuarios.filter(inversion__isnull=False).distinct()
+
+    elif producto == "sin":
+        usuarios = usuarios.exclude(inversion__isnull=False).distinct()
+
+    # =========================
+    # BUSCADOR
+    # =========================
     if buscar:
         usuarios = usuarios.filter(
             Q(username__icontains=buscar) |
@@ -249,9 +274,10 @@ def panel_view(request):
     return render(request, 'inverso_sa/usuarios.html', {
         'usuarios': usuarios,
         'filtro': filtro,
-        'buscar': buscar
+        'buscar': buscar,
+        'recarga': recarga,
+        'producto': producto,
     })
-
 
 
 @login_required

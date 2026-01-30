@@ -30,34 +30,23 @@
         {% csrf_token %}
 
         <label>Nombre</label>
-        <input type="text" name="first_name"
-               value="{{ usuario.first_name }}" required>
+        <input type="text" name="first_name" value="{{ usuario.first_name }}" required>
 
         <label>Apellido</label>
-        <input type="text" name="last_name"
-               value="{{ usuario.last_name }}" required>
+        <input type="text" name="last_name" value="{{ usuario.last_name }}" required>
 
         <label>Email</label>
-        <input type="email" name="email"
-               value="{{ usuario.email }}" required>
+        <input type="email" name="email" value="{{ usuario.email }}" required>
 
         <label>Usuario</label>
-        <input type="text" name="username"
-               value="{{ usuario.username }}" required>
+        <input type="text" name="username" value="{{ usuario.username }}" required>
 
         <label>Saldo</label>
-        <input type="number" step="0.01"
-               name="saldo"
-               value="{{ usuario.saldo }}" required>
+        <input type="number" step="0.01" name="saldo" value="{{ usuario.saldo }}" required>
 
         <div class="form-actions">
-            <button type="submit" class="btn-save">
-                💾 Guardar cambios
-            </button>
-
-            <a href="{% url 'panel_usuarios' %}" class="btn-cancel">
-                ↩ Cancelar
-            </a>
+            <button type="submit" class="btn-save">💾 Guardar cambios</button>
+            <a href="{% url 'panel_usuarios' %}" class="btn-cancel">↩ Cancelar</a>
         </div>
     </form>
 
@@ -77,16 +66,22 @@
                     <th>ID</th>
                     <th>Producto</th>
                     <th>Precio</th>
+                    <th>Días pagados</th>
+                    <th>Ingreso acumulado</th>
                     <th>Estado</th>
                     <th>Fecha</th>
                 </tr>
             </thead>
+
             <tbody>
                 {% for inv in inversiones %}
                 <tr>
                     <td>{{ inv.id }}</td>
                     <td>{{ inv.producto.nombre }}</td>
                     <td>C$ {{ inv.producto.precio }}</td>
+                    <td>{{ inv.dias_pagados }} días</td>
+                    <td>C$ {{ inv.ganancia_total }}</td>
+
                     <td>
                         {% if inv.activa %}
                             <span class="estado activo">Activa</span>
@@ -94,6 +89,7 @@
                             <span class="estado finalizada">Finalizada</span>
                         {% endif %}
                     </td>
+
                     <td>{{ inv.fecha_inicio|date:"d/m/Y H:i" }}</td>
                 </tr>
                 {% endfor %}

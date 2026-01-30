@@ -27,7 +27,7 @@
                     class="search-input"
                 >
 
-                <!-- FILTRO -->
+                <!-- 👤 FILTRO ROL -->
                 <select name="rol">
                     <option value="">Todos</option>
                     <option value="admin" {% if filtro == 'admin' %}selected{% endif %}>
@@ -35,6 +35,28 @@
                     </option>
                     <option value="user" {% if filtro == 'user' %}selected{% endif %}>
                         Usuarios normales
+                    </option>
+                </select>
+
+                <!-- 💳 FILTRO RECARGAS -->
+                <select name="recarga">
+                    <option value="">Recargas</option>
+                    <option value="con" {% if recarga == 'con' %}selected{% endif %}>
+                        Con recargas
+                    </option>
+                    <option value="sin" {% if recarga == 'sin' %}selected{% endif %}>
+                        Sin recargas
+                    </option>
+                </select>
+
+                <!-- 📦 FILTRO PRODUCTOS -->
+                <select name="producto">
+                    <option value="">Productos</option>
+                    <option value="con" {% if producto == 'con' %}selected{% endif %}>
+                        Con productos
+                    </option>
+                    <option value="sin" {% if producto == 'sin' %}selected{% endif %}>
+                        Sin productos
                     </option>
                 </select>
 
@@ -87,9 +109,13 @@
                                 <a href="{% url 'eliminar_usuario' user.id %}" class="btn-delete">Eliminar</a>
 
                                 {% if user.is_active %}
-                                    <a href="{% url 'desactivar_usuario' user.id %}" class="btn-disable">Desactivar</a>
+                                    <a href="{% url 'desactivar_usuario' user.id %}" class="btn-disable">
+                                        Desactivar
+                                    </a>
                                 {% else %}
-                                    <a href="{% url 'activar_usuario' user.id %}" class="btn-enable">Activar</a>
+                                    <a href="{% url 'activar_usuario' user.id %}" class="btn-enable">
+                                        Activar
+                                    </a>
                                 {% endif %}
                             </div>
                         </td>
