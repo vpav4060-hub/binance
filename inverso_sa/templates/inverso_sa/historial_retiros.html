@@ -18,12 +18,15 @@
             <thead>
                 <tr>
                     <th>Fecha</th>
-                    <th>Coins</th>
+                    <th>Coins solicitados</th>
+                    <th>Comisión (6%)</th>
+                    <th>Coins a recibir</th>
                     <th>Banco</th>
                     <th>Cuenta</th>
                     <th>Estado</th>
                 </tr>
             </thead>
+
             <tbody>
                 {% for retiro in retiros %}
                 <tr>
@@ -31,8 +34,16 @@
                         {{ retiro.fecha|date:"d/m/Y H:i" }}
                     </td>
 
-                    <td data-label="Coins">
-                        🪙 {{ retiro.monto }}
+                    <td data-label="Coins solicitados">
+                        🪙 {{ retiro.monto|default:"0.00" }}
+                    </td>
+
+                    <td data-label="Comisión">
+                        ❌ {{ retiro.comision|default:"0.00" }}
+                    </td>
+
+                    <td data-label="A recibir">
+                        ✅ <strong>{{ retiro.monto_a_pagar|default:retiro.monto }}</strong>
                     </td>
 
                     <td data-label="Banco">

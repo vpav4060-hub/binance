@@ -13,7 +13,9 @@
     <thead>
         <tr>
             <th>Usuario</th>
-            <th>Monto</th>
+            <th>Monto Solicitado</th>
+            <th>Comisión (6%)</th>
+            <th>Monto a Pagar</th>
             <th>Banco</th>
             <th>Titular</th>
             <th>Cuenta</th>
@@ -26,16 +28,28 @@
         {% for retiro in retiros %}
         <tr>
             <td>{{ retiro.usuario.username }}</td>
+
             <td>C$ {{ retiro.monto }}</td>
+
+            <td class="comision">
+                C$ {{ retiro.comision }}
+            </td>
+
+            <td class="pagar">
+                <strong>C$ {{ retiro.monto_a_pagar }}</strong>
+            </td>
+
             <td>{{ retiro.cuenta.banco }}</td>
             <td>{{ retiro.cuenta.titular }}</td>
             <td>{{ retiro.cuenta.numero_cuenta }}</td>
 
             <td>
                 {% if retiro.estado == 'pendiente' %}
-                <span class="badge pendiente">Pendiente</span>
+                    <span class="badge pendiente">Pendiente</span>
                 {% elif retiro.estado == 'aprobado' %}
-                <span class="badge aprobado">Aprobado</span>
+                    <span class="badge aprobado">Aprobado</span>
+                {% elif retiro.estado == 'rechazado' %}
+                    <span class="badge rechazado">Rechazado</span>
                 {% endif %}
             </td>
 
@@ -43,16 +57,25 @@
                 {% if retiro.estado == 'pendiente' %}
                 <form method="POST" action="{% url 'procesar_retiro' retiro.id %}">
                     {% csrf_token %}
-                    <button name="accion" value="aprobar">✅ Aprobar</button>
-                    <button name="accion" value="rechazar">❌ Rechazar</button>
-                </form>
+                    <button name="accion" value="aprobar" class="btn-aprobar">
+                        ✅ Aprobar
+                    </button>
 
+                    <button name="accion" value="rechazar" class="btn-rechazar">
+                        ❌ Rechazar
+                    </button>
+                </form>
+                {% else %}
+                    —
                 {% endif %}
             </td>
         </tr>
+
         {% empty %}
         <tr>
-            <td colspan="7">No hay retiros</td>
+            <td colspan="9" style="text-align:center;">
+                No hay solicitudes de retiro
+            </td>
         </tr>
         {% endfor %}
     </tbody>

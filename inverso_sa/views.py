@@ -12,6 +12,7 @@ import random
 from django.utils import timezone
 from datetime import timedelta
 from django.contrib.admin.views.decorators import staff_member_required
+from django.db.models import Q
 # --------------------
 # LOGIN
 # --------------------
@@ -219,7 +220,6 @@ def panel_view(request):
 
     # 🔐 EJECUTA PAGOS SOLO CUANDO ENTRA EL ADMIN
     inversiones = Inversion.objects.filter(activa=True)
-
     for inversion in inversiones:
         inversion.pagar()
 
@@ -227,17 +227,29 @@ def panel_view(request):
     # PANEL DE USUARIOS
     # =========================
     filtro = request.GET.get("rol")
+    buscar = request.GET.get("buscar")
 
     usuarios = Usuario.objects.all()
 
+    # FILTRO POR ROL
     if filtro == "admin":
         usuarios = usuarios.filter(is_staff=True)
     elif filtro == "user":
         usuarios = usuarios.filter(is_staff=False)
 
+    # 🔍 BUSCADOR
+    if buscar:
+        usuarios = usuarios.filter(
+            Q(username__icontains=buscar) |
+            Q(first_name__icontains=buscar) |
+            Q(last_name__icontains=buscar) |
+            Q(email__icontains=buscar)
+        )
+
     return render(request, 'inverso_sa/usuarios.html', {
         'usuarios': usuarios,
-        'filtro': filtro
+        'filtro': filtro,
+        'buscar': buscar
     })
 
 
@@ -615,15 +627,12 @@ def retirar_view(request):
         messages.warning(request, "Primero debes agregar una cuenta bancaria")
         return redirect("agregar_cuenta_usuario")
 
-    # 🚫 bloquear si hay retiro pendiente
-    if Retiro.objects.filter(usuario=usuario, estado='pendiente').exists():
-        messages.warning(
-            request,
-            "Ya tienes un retiro en proceso. Espera que sea aprobado."
-        )
-        return redirect("mio")
-
+    # SOLO bloquear cuando intenta enviar
     if request.method == "POST":
+
+        if Retiro.objects.filter(usuario=usuario, estado='pendiente').exists():
+            messages.warning(request, "Ya tienes un retiro pendiente.")
+            return redirect("retirar")
 
         try:
             monto = Decimal(request.POST.get("monto"))
@@ -645,29 +654,37 @@ def retirar_view(request):
             usuario=usuario
         )
 
-        # 💸 descontar saldo
+        comision = monto * Decimal("0.06")
+        monto_final = monto - comision
+
         usuario.saldo -= monto
         usuario.save()
 
-        # 📝 crear retiro
         retiro = Retiro.objects.create(
             usuario=usuario,
             cuenta=cuenta,
             monto=monto,
-            estado='pendiente'
+            comision=comision,
+            monto_a_pagar=monto_final,
+            estado="pendiente"
         )
 
-        # 🧾 registrar egreso
         Transaccion.objects.create(
             usuario=usuario,
             monto=monto,
-            tipo='egreso',
+            tipo="egreso",
             referencia=f"RETIRO-{retiro.id}"
         )
 
-        messages.success(request, "✅ Retiro enviado correctamente")
+        messages.success(
+            request,
+            f"✅ Retiro enviado. Comisión 6%: C${comision:.2f}. "
+            f"Recibirás C${monto_final:.2f}"
+        )
+
         return redirect("historial_retiros")
 
+    # 👇 AHORA SÍ ENTRA AQUÍ
     return render(request, "inverso_sa/retirar.html", {
         "cuentas": cuentas,
         "saldo": usuario.saldo

@@ -165,7 +165,25 @@ class Inversion(models.Model):
 class Retiro(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     cuenta = models.ForeignKey(CuentaUsuario, on_delete=models.PROTECT)
-    monto = models.DecimalField(max_digits=12, decimal_places=2)
+
+    monto = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        help_text="Monto solicitado por el usuario"
+    )
+
+    comision = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0
+    )
+
+    monto_a_pagar = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        help_text="Monto final que recibirá el usuario"
+    )
+
     estado = models.CharField(max_length=15, default='pendiente')
     fecha = models.DateTimeField(auto_now_add=True)
 
