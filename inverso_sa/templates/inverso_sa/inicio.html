@@ -27,7 +27,6 @@
             explores dinámicas interactivas y disfrutes cada momento dentro del sistema.
         </p>
 
-
     </div>
 
     <img src="{% static 'inverso_sa/img/logo.jpeg' %}" class="banner-img">
@@ -41,12 +40,10 @@
         <span>Obtén coins para participar en la plataforma</span>
     </a>
 
-
     <a href="{% url 'retirar' %}" class="action-card dark-blue">
         <strong>🪙 Retirar Inverso Coins</strong>
         <span>Solicita el retiro de tus Inverso coins disponibles</span>
     </a>
-
 
 </section>
 
@@ -61,7 +58,11 @@
         {% for producto in productos %}
         <div class="product-item">
 
-            <img src="{{ producto.imagen.url }}">
+            {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+            {% else %}
+                <img src="{% static 'inverso_sa/img/default.png' %}" alt="Sin imagen">
+            {% endif %}
 
             <div class="product-details">
                 <h4>{{ producto.nombre }}</h4>
@@ -167,4 +168,24 @@
         Únete a la comunidad Inverso y descubre una nueva forma de entretenimiento digital.
     </p>
 </section>
+
+<!-- ================= MODAL WHATSAPP ================= -->
+<div id="whatsappModal" class="wa-modal">
+    <div class="wa-modal-content">
+        <span class="wa-close" onclick="cerrarModal()">&times;</span>
+
+        <h3>Únete a nuestro grupo de WhatsApp</h3>
+        <p>
+            Forma parte de la comunidad Inverso y mantente al día con novedades,
+            avisos y beneficios exclusivos.
+        </p>
+
+        <a href="https://chat.whatsapp.com/EUl2FI07nFSBTMQeOX82oW?mode=gi_t" target="_blank" class="wa-btn">
+            Ir a WhatsApp
+        </a>
+    </div>
+</div>
+
+<script src="{% static 'inverso_sa/js/whatsapp_modal.js' %}"></script>
+
 {% endblock %}

@@ -3,9 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from decimal import Decimal
 import random
+from .models import  Ruleta, Tragamonedas
 
-from .models import Usuario, Ruleta
-from django.utils import timezone
 
 
 # ===============================
@@ -23,7 +22,7 @@ def juegos(request):
         {
             'nombre': 'Tragamonedas',
             'icono': '🎰',
-            'estado': 'Próximamente'
+            'estado': 'Disponible'
         },
         {
             'nombre': 'Cartas',
@@ -54,6 +53,9 @@ def jugar_ruleta(request):
     if request.method != "POST":
         return JsonResponse({"error": "Método inválido"})
 
+    from decimal import Decimal
+    import random
+
     monto = Decimal(request.POST.get("monto", 0))
     usuario = request.user
 
@@ -63,19 +65,20 @@ def jugar_ruleta(request):
     if usuario.saldo < monto:
         return JsonResponse({"error": "Saldo insuficiente"})
 
-    # 🎰 CONFIG CASINO
-    probabilidad_ganar = 35  # %
-    multiplicador = Decimal("1.5")
-
+    probabilidad_ganar = 20  # 20% gana el jugador
     numero = random.randint(1, 100)
 
+    # Definir multiplicador según el monto
+    if monto <= 100:
+        multiplicador = Decimal("1.0")  # jugador recibe su apuesta completa
+    else:
+        multiplicador = Decimal("0.5")  # jugador recibe 50% de su apuesta
+
     if numero <= probabilidad_ganar:
-        # ✅ GANA
         ganancia = monto * multiplicador
         usuario.saldo += ganancia
         resultado = "GANÓ"
     else:
-        # ❌ PIERDE
         usuario.saldo -= monto
         ganancia = -monto
         resultado = "PERDIÓ"
@@ -95,6 +98,96 @@ def jugar_ruleta(request):
         "saldo": float(usuario.saldo)
     })
 
+
+@login_required
+def tragamonedas_view(request):
+    """Página del tragamonedas VIP"""
+    simbolos_posibles = ["🍒", "🍋", "🍊", "🍉", "⭐", "💎"]
+    return render(request, "inverso_sa/tragamonedas.html", {"symbols": simbolos_posibles})
+
+
+
+
+@login_required
+def jugar_tragamonedas(request):
+    """Lógica del tragamonedas con probabilidades ajustadas"""
+    if request.method != "POST":
+        return JsonResponse({"error": "Método inválido"})
+
+    try:
+        monto = Decimal(request.POST.get("monto", 0))
+    except:
+        return JsonResponse({"error": "Monto inválido"})
+
+    usuario = request.user
+
+    if monto <= 0:
+        return JsonResponse({"error": "Monto inválido"})
+    if usuario.saldo < monto:
+        return JsonResponse({"error": "Saldo insuficiente"})
+
+    # -----------------------------
+    # PROBABILIDADES según monto
+    # -----------------------------
+    if monto > 100:
+        pesos = [10, 90]  # [Jugador gana, Casa gana]
+    else:
+        pesos = [20, 80]
+
+    resultado = random.choices(
+        ["GANO", "PERDIO"],
+        weights=pesos,
+        k=1
+    )[0]
+
+    # -----------------------------
+    # Ganancia / Pérdida
+    # -----------------------------
+    if resultado == "GANO":
+        ganancia = monto * Decimal("1.2")
+        usuario.saldo += ganancia
+    else:
+        ganancia = -monto
+        usuario.saldo -= monto
+
+    usuario.save()
+
+    # -----------------------------
+    # Símbolos según resultado
+    # -----------------------------
+    simbolos_posibles = ["🍒", "🍋", "🍊", "🍉", "⭐", "💎"]
+
+    if resultado == "GANO":
+        # 3 símbolos iguales
+        simbolo_ganador = random.choice(simbolos_posibles)
+        simbolos = f"{simbolo_ganador} {simbolo_ganador} {simbolo_ganador}"
+    else:
+        # 3 símbolos aleatorios que no sean todos iguales
+        simbolos_list = random.sample(simbolos_posibles, 3)
+        while len(set(simbolos_list)) == 1:
+            simbolos_list = random.sample(simbolos_posibles, 3)
+        simbolos = " ".join(simbolos_list)
+
+    # -----------------------------
+    # Guardar historial
+    # -----------------------------
+    Tragamonedas.objects.create(
+        usuario=usuario,
+        apuesta=monto,
+        resultado=resultado,
+        ganancia=ganancia,
+        simbolos=simbolos
+    )
+
+    # -----------------------------
+    # Respuesta JSON
+    # -----------------------------
+    return JsonResponse({
+        "resultado": resultado,
+        "ganancia": float(ganancia),
+        "saldo": float(usuario.saldo),
+        "simbolos": simbolos
+    })
 
 def error_403(request, exception=None):
     """

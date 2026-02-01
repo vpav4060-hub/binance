@@ -1001,6 +1001,20 @@ def historial_retiros(request):
     })
 
 
+@login_required
+@staff_member_required
+def expirar_inversion(request, id):
+    inversion = get_object_or_404(Inversion, id=id)
+
+    if not inversion.activa:
+        messages.warning(request, "Esta inversión ya está expirada.")
+    else:
+        inversion.expirar()
+        messages.success(request, f"Inversión del usuario {inversion.usuario.username} expirada correctamente.")
+
+    return redirect('editar_usuario', id=inversion.usuario.id)
+
+
 def custom_404_view(request, exception):
     # No redirige al login; deja que la URL de registro funcione normalmente
     return render(request, "inverso_sa/404.html", status=404)
@@ -1008,6 +1022,9 @@ def custom_404_view(request, exception):
 
 def es_admin(user):
     return user.is_superuser or user.groups.filter(name='ADMIN').exists()
+
+
+
 
 
 

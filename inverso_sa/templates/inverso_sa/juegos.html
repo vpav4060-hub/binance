@@ -18,6 +18,9 @@
         {% if juego.nombre == "Ruleta" %}
             <a href="{% url 'ruleta' %}" class="juego-card activo">
                 <div class="badge">HOT</div>
+        {% elif juego.nombre == "Tragamonedas" %}
+            <a href="{% url 'tragamonedas' %}" class="juego-card activo">
+                <div class="badge">VIP</div>
         {% else %}
             <div class="juego-card">
         {% endif %}
@@ -26,7 +29,7 @@
             <h3>{{ juego.nombre }}</h3>
             <span class="estado">{{ juego.estado }}</span>
 
-        {% if juego.nombre == "Ruleta" %}
+        {% if juego.nombre == "Ruleta" or juego.nombre == "Tragamonedas" %}
             </a>
         {% else %}
             </div>

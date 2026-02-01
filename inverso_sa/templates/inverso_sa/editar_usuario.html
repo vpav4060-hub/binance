@@ -53,9 +53,7 @@
     <!-- =========================
          INVERSIONES
     ========================== -->
-
-    <hr style="margin:40px 0;">
-
+    <hr style="margin: 40px 0;">
     <h3>📦 Inversiones del usuario</h3>
 
     {% if inversiones %}
@@ -70,9 +68,10 @@
                     <th>Ingreso acumulado</th>
                     <th>Estado</th>
                     <th>Fecha</th>
+                    <!-- Opcional: botón Expirar -->
+                    <th>Acciones</th>
                 </tr>
             </thead>
-
             <tbody>
                 {% for inv in inversiones %}
                 <tr>
@@ -81,7 +80,6 @@
                     <td>C$ {{ inv.producto.precio }}</td>
                     <td>{{ inv.dias_pagados }} días</td>
                     <td>C$ {{ inv.ganancia_total }}</td>
-
                     <td>
                         {% if inv.activa %}
                             <span class="estado activo">Activa</span>
@@ -89,8 +87,17 @@
                             <span class="estado finalizada">Finalizada</span>
                         {% endif %}
                     </td>
-
                     <td>{{ inv.fecha_inicio|date:"d/m/Y H:i" }}</td>
+                    <td>
+                        {% if inv.activa %}
+                        <form method="post" action="{% url 'expirar_inversion' inv.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-expirar">⏳ Expirar</button>
+                        </form>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -103,9 +110,7 @@
     <!-- =========================
          RECARGAS
     ========================== -->
-
-    <hr style="margin:40px 0;">
-
+    <hr style="margin: 40px 0;">
     <h3>💳 Historial de recargas</h3>
 
     {% if recargas %}
@@ -121,7 +126,6 @@
                     <th>Fecha</th>
                 </tr>
             </thead>
-
             <tbody>
                 {% for rec in recargas %}
                 <tr>
@@ -129,7 +133,6 @@
                     <td>C$ {{ rec.monto }}</td>
                     <td>{{ rec.cuenta.banco }}</td>
                     <td>{{ rec.referencia }}</td>
-
                     <td>
                         {% if rec.estado == "aprobada" %}
                             <span class="estado activo">Aprobada</span>
@@ -139,7 +142,6 @@
                             <span class="estado pendiente">En revisión</span>
                         {% endif %}
                     </td>
-
                     <td>{{ rec.fecha|date:"d/m/Y H:i" }}</td>
                 </tr>
                 {% endfor %}

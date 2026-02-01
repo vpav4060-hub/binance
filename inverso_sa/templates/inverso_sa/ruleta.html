@@ -1,76 +1,66 @@
 {% extends "inverso_sa/dashboard.html" %}
 {% load static %}
 
-{% block title %}Ruleta Casino{% endblock %}
+{% block title %}Ruleta Inverso VIP{% endblock %}
 
 {% block extra_css %}
 <style>
-
-.casino-box {
-    max-width: 450px;
-    margin: auto;
-    background: radial-gradient(circle at top,#1a1a1a,#080808);
-    padding: 28px;
-    border-radius: 24px;
-    color: white;
-    box-shadow: 0 0 40px rgba(255,215,0,0.8);
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
+.ruleta-box {
+    max-width: 480px;
+    margin: 40px auto;
+    background: linear-gradient(135deg,#0b1d2d,#123a5a);
+    padding: 30px;
+    border-radius: 25px;
     text-align: center;
-    border: 2px solid rgba(255,215,0,0.4);
+    color: white;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    font-family: 'Arial', sans-serif;
 }
 
-.casino-box h2 {
+/* =========================
+   TITULOS
+========================= */
+.ruleta-box h2 {
+    margin-bottom: 10px;
     color: gold;
+    text-shadow: 0 0 10px #ffd700;
     letter-spacing: 2px;
-    font-size: 26px;
-    margin-bottom: 6px;
 }
 
 .subtitulo {
-    color: #ffd700;
     font-size: 14px;
+    color: #ffd700;
     margin-bottom: 15px;
-    text-shadow: 0 0 8px gold;
+    text-shadow: 0 0 5px gold;
 }
 
+/* =========================
+   SALDO Y INDICACIONES
+========================= */
 .saldo {
-    color: #00ff9c;
+    color: #2ecc71;
     font-weight: bold;
     font-size: 18px;
+    margin-bottom: 15px;
 }
 
-.reglas {
-    background: linear-gradient(145deg,#141414,#0b0b0b);
-    border: 1px solid gold;
-    border-radius: 18px;
-    padding: 18px;
-    margin: 18px 0;
-    font-size: 14px;
-    color: #eee;
-    box-shadow: 0 0 15px rgba(255,215,0,0.35);
-    text-align: left;
+.indicaciones {
+    font-size: 13px;
+    color: #ccc;
+    margin-bottom: 20px;
+    line-height: 1.4;
 }
 
-.reglas h4 {
-    color: gold;
-    text-align: center;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-}
-
-.reglas p {
-    margin-bottom: 6px;
-    line-height: 1.5;
-}
-
-.reglas span {
-    color: gold;
-    font-weight: bold;
-}
-
+/* =========================
+   RULETA
+========================= */
 .ruleta-wrapper {
     position: relative;
-    width: 270px;
-    height: 270px;
+    width: 240px;
+    height: 240px;
     margin: 30px auto;
 }
 
@@ -78,38 +68,37 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 14px solid gold;
-    background: conic-gradient(
-        green 0deg 20deg,
-        red 20deg 70deg,
-        black 70deg 120deg,
-        red 120deg 170deg,
-        black 170deg 220deg,
-        red 220deg 270deg,
-        black 270deg 320deg,
-        red 320deg 360deg
-    );
+    border: 12px solid rgba(255,215,0,.5);
+    background: #0b1d2d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
     transition: transform 4s cubic-bezier(.17,.67,.2,1);
-    box-shadow: 0 0 25px gold inset;
+    box-shadow: inset 0 0 15px rgba(255,215,0,.2), 0 0 15px rgba(255,215,0,.3);
 }
 
 .flecha {
     position: absolute;
-    top: -22px;
+    top: -20px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 42px;
+    font-size: 32px;
     color: gold;
-    z-index: 10;
     text-shadow: 0 0 10px gold;
 }
 
+/* =========================
+   INPUT Y BOTÓN
+========================= */
 input, button {
     width: 100%;
     padding: 14px;
-    margin-top: 10px;
-    border-radius: 14px;
+    border-radius: 12px;
     border: none;
+    margin-top: 10px;
     font-size: 15px;
 }
 
@@ -117,146 +106,206 @@ input {
     background: #1c1c1c;
     color: white;
     border: 1px solid #333;
+    text-align: center;
 }
 
 button {
     background: linear-gradient(135deg,#ffd700,#ffb700);
+    color: #1a1a1a;
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
     letter-spacing: 1.5px;
+    font-size: 16px;
 }
 
 button:hover {
-    transform: scale(1.06);
+    transform: scale(1.05);
     box-shadow: 0 0 25px gold;
 }
 
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================
+   RESULTADOS
+========================= */
 .resultado {
-    font-size: 22px;
     margin-top: 20px;
-    font-weight: bold;
-    min-height: 34px;
+    font-size: 20px;
+    min-height: 30px;
+    text-shadow: 0 0 8px gold;
+}
+
+#textoCentro {
+    color: #ffd700;
     text-shadow: 0 0 10px gold;
 }
 
-.mensaje-final {
-    margin-top: 15px;
-    font-size: 13px;
-    color: #ccc;
-    opacity: 0.9;
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width: 500px){
+    .ruleta-wrapper {
+        width: 180px;
+        height: 180px;
+        margin: 20px auto;
+    }
+
+    .ruleta {
+        font-size: 18px;
+        border-width: 10px;
+    }
+
+    .flecha {
+        font-size: 28px;
+        top: -16px;
+    }
+
+    input, button {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .subtitulo {
+        font-size: 13px;
+    }
+
+    .indicaciones {
+        font-size: 12px;
+    }
+
+    .resultado {
+        font-size: 18px;
+    }
 }
 
+@media(max-width: 350px){
+    .ruleta-wrapper {
+        width: 150px;
+        height: 150px;
+    }
+
+    .ruleta {
+        font-size: 16px;
+        border-width: 8px;
+    }
+
+    .flecha {
+        font-size: 24px;
+        top: -14px;
+    }
+
+    input, button {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .subtitulo {
+        font-size: 12px;
+    }
+
+    .indicaciones {
+        font-size: 11px;
+    }
+
+    .resultado {
+        font-size: 16px;
+    }
+}
 </style>
 {% endblock %}
 
 {% block contenido %}
+<div class="ruleta-box">
 
-<div class="casino-box">
+    <h2>🎡 RULETA INVERSO VIP</h2>
+    <div class="subtitulo">¡Bienvenido a la sala VIP! La suerte está de tu lado… o de la casa.</div>
 
-    <h2>🎰 RULETA INVERSO</h2>
-    <div class="subtitulo">
-        La suerte gira… ¿estás listo para apostar?
+    <p>Saldo actual: <span class="saldo" id="saldo">C$ {{ request.user.saldo }}</span></p>
+
+    <div class="indicaciones">
+        💎 Instrucciones VIP:<br>
+        1️⃣ Ingresa tu apuesta en el campo.<br>
+        2️⃣ Presiona "GIRAR RULETA" y observa el resultado.<br>
+        3️⃣ Juega con cabeza fría y disfruta la experiencia casino.<br>
     </div>
 
-    <p>
-        💰 Tu saldo actual:
-        <span class="saldo" id="saldo">
-            C$ {{ request.user.saldo }}
-        </span>
-    </p>
+    <input type="number" id="monto" placeholder="Ingresa tu apuesta">
+    <button id="btnGirar" onclick="jugar()">GIRAR RULETA</button>
 
-    <!-- 📜 REGLAS -->
-    <div class="reglas">
-        <h4>📜 Reglas del Juego</h4>
-
-        <p>🎡 Cada giro utiliza el monto que tú elijas apostar.</p>
-
-        <p>🔴 <span style="color:#ff4d4d;">Color Rojo</span>  
-        → ¡Ganas el <span>50%</span> adicional de tu apuesta!</p>
-
-        <p>⚫ <span style="color:#cfcfcf;">Color Negro</span>  
-        → La suerte no estuvo de tu lado y se descuenta el monto apostado.</p>
-
-        <p>🟢 <span style="color:#3cff3c;">Color Verde</span>  
-        → Giro especial. No ganas ni pierdes, la ruleta se reinicia.</p>
-
-        <p style="margin-top:10px;color:#ffd700;">
-            ⚠ Cada giro es independiente. No hay patrones.  
-            La suerte puede cambiar en cualquier segundo.
-        </p>
-
-        <p style="margin-top:6px;color:#00ff9c;">
-            💎 Juega con inteligencia. El verdadero ganador es quien sabe cuándo parar.
-        </p>
-    </div>
-
-    <!-- APUESTA -->
-    <input type="number" id="monto" placeholder="💵 Ingresa tu monto a apostar">
-
-    <button onclick="jugar()">🎡 GIRAR LA RULETA</button>
-
-    <!-- RULETA -->
     <div class="ruleta-wrapper">
         <div class="flecha">🔻</div>
-        <div class="ruleta" id="ruleta"></div>
+        <div class="ruleta" id="ruleta">
+            <span id="textoCentro">LISTO</span>
+        </div>
     </div>
 
     <div class="resultado" id="resultado"></div>
 
-    <div class="mensaje-final">
-        🍀 La fortuna sonríe a los valientes…  
-        pero premia a los inteligentes.
-    </div>
-
 </div>
 
 <script>
-function jugar() {
+let girando = false;
+
+function jugar(){
+    if(girando) return;
+
     const monto = document.getElementById("monto").value;
     const ruleta = document.getElementById("ruleta");
     const resultado = document.getElementById("resultado");
+    const saldo = document.getElementById("saldo");
+    const btn = document.getElementById("btnGirar");
+    const textoCentro = document.getElementById("textoCentro");
 
-    if (!monto || monto <= 0) {
-        resultado.innerHTML = "⚠ Ingresa un monto válido para apostar";
+    if(!monto || monto <= 0){
+        resultado.innerHTML="⚠ Ingresa un monto válido";
         return;
     }
 
-    const giro = Math.floor(Math.random() * 3600) + 2000;
+    girando = true;
+    btn.disabled = true;
+    resultado.innerHTML="";
+    textoCentro.innerHTML="GIRANDO...";
+
+    // 🔥 RESET REAL
+    ruleta.style.transition = "none";
+    ruleta.style.transform = "rotate(0deg)";
+    ruleta.offsetHeight; // reflow
+
+    // activar animación
+    ruleta.style.transition = "transform 4s cubic-bezier(.17,.67,.2,1)";
+
+    const giro = Math.floor(Math.random()*2000)+2000;
     ruleta.style.transform = `rotate(${giro}deg)`;
 
-    fetch("{% url 'jugar_ruleta' %}", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "X-CSRFToken": "{{ csrf_token }}"
+    fetch("{% url 'jugar_ruleta' %}",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/x-www-form-urlencoded",
+            "X-CSRFToken":"{{ csrf_token }}"
         },
-        body: "monto=" + monto
+        body:"monto="+monto
     })
-    .then(res => res.json())
-    .then(data => {
-
-        setTimeout(() => {
-
-            if (data.error) {
-                resultado.innerHTML = "❌ " + data.error;
-                return;
-            }
-
-            if (data.resultado === "GANÓ") {
-                resultado.innerHTML =
-                    "🎉 ¡LA SUERTE TE SONRÍE! Ganaste C$ " + data.ganancia.toFixed(2);
+    .then(res=>res.json())
+    .then(data=>{
+        setTimeout(()=>{
+            if(data.resultado==="GANÓ"){
+                textoCentro.innerHTML="🎉 GANASTE 🎉";
+                resultado.innerHTML="Ganaste C$ "+data.ganancia.toFixed(2);
             } else {
-                resultado.innerHTML =
-                    "💀 La ruleta decidió… inténtalo otra vez";
+                textoCentro.innerHTML="💀 PERDISTE 💀";
+                resultado.innerHTML="Perdiste C$ "+Math.abs(data.ganancia).toFixed(2);
             }
 
-            document.getElementById("saldo").innerText =
-                "C$ " + data.saldo.toFixed(2);
+            saldo.innerText = "C$ "+data.saldo.toFixed(2);
 
-        }, 4200);
+            btn.disabled = false;
+            girando = false;
+        },4200);
     });
 }
 </script>
-
 {% endblock %}

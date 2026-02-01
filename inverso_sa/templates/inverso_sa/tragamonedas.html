@@ -1,0 +1,249 @@
+{% extends "inverso_sa/dashboard.html" %}
+{% load static %}
+
+{% block title %}Tragamonedas VIP Pro{% endblock %}
+
+{% block extra_css %}
+<style>
+/* =====================
+   CONTENEDOR PRINCIPAL
+===================== */
+.slots-box {
+    max-width: 500px;
+    margin: 50px auto;
+    background: linear-gradient(145deg,#0b1d2d,#123a5a);
+    padding: 40px;
+    border-radius: 30px;
+    text-align: center;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7), inset 0 0 30px rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+}
+.slots-box h2 { 
+    font-size:28px; 
+    color: gold; 
+    text-shadow: 0 0 20px #ffd700,0 0 30px #ffcc00; 
+    margin-bottom:10px; 
+    letter-spacing:2px; 
+}
+.subtitulo { 
+    font-size:15px; 
+    color:#ffd700; 
+    margin-bottom:20px; 
+    text-shadow:0 0 8px gold; 
+}
+.saldo { 
+    font-weight:bold; 
+    font-size:20px; 
+    color:#2ecc71; 
+    margin-bottom:20px; 
+    text-shadow:0 0 8px #27ae60; 
+}
+.indicaciones { 
+    font-size:13px; 
+    color:#ccc; 
+    margin-bottom:25px; 
+    line-height:1.5; 
+}
+
+.slots-wrapper { 
+    display:flex; 
+    justify-content:center; 
+    gap:20px; 
+    margin:25px 0; 
+    perspective:1000px; 
+}
+.slot { 
+    width:80px; 
+    height:80px; 
+    background:linear-gradient(145deg,#1b1b1b,#2c2c2c); 
+    border-radius:15px; 
+    border:3px solid #ffd700;
+    display:flex; 
+    align-items:center; 
+    justify-content:center; 
+    font-size:40px; 
+    color:gold;
+    text-shadow:0 0 10px #ffd700,0 0 20px #ffcc00; 
+    box-shadow:0 8px 15px rgba(0,0,0,0.5), inset 0 0 10px rgba(255,255,255,0.2);
+    transform-style: preserve-3d; 
+    transition: transform 0.2s ease;
+}
+
+input,button { 
+    width:100%; 
+    padding:16px; 
+    border-radius:12px; 
+    border:none; 
+    margin-top:12px; 
+    font-size:16px; 
+    transition:0.3s; 
+}
+input { 
+    background:#1c1c1c; 
+    color:white; 
+    border:1px solid #333; 
+    text-align:center; 
+    box-shadow: inset 0 0 5px rgba(255,255,255,0.1);
+}
+input:focus { 
+    outline:none; 
+    border-color:#ffd700; 
+    box-shadow:0 0 10px gold inset; 
+}
+button { 
+    background:linear-gradient(145deg,#ffd700,#ffb700); 
+    color:#1a1a1a; 
+    font-weight:bold; 
+    cursor:pointer; 
+    letter-spacing:1.5px; 
+    font-size:17px; 
+    box-shadow:0 5px 15px rgba(255,215,0,0.7), inset 0 0 5px rgba(255,255,255,0.3);
+}
+button:hover { 
+    transform:scale(1.05); 
+    box-shadow:0 0 25px gold, inset 0 0 10px #fff;
+}
+button:disabled { 
+    opacity:0.6; 
+    cursor:not-allowed; 
+}
+.resultado { 
+    margin-top:25px; 
+    font-size:22px; 
+    min-height:35px; 
+    text-shadow:0 0 10px gold,0 0 20px #ffd700;
+}
+
+@media(max-width:500px){
+    .slots-wrapper{gap:12px;} 
+    .slot{width:65px;height:65px;font-size:32px;} 
+    input,button{font-size:15px;padding:14px;}
+    .subtitulo{font-size:14px;} 
+    .indicaciones{font-size:12px;} 
+    .resultado{font-size:20px;}
+}
+</style>
+{% endblock %}
+
+{% block contenido %}
+<div class="slots-box">
+    <h2>🎰 TRAGAMONEDAS VIP PRO</h2>
+    <div class="subtitulo">¡Bienvenido a la sala VIP! Gira los rodillos y desafía a la casa.</div>
+    <p>Saldo actual: <span class="saldo" id="saldo">C$ {{ request.user.saldo }}</span></p>
+    <div class="indicaciones">
+        💎 Instrucciones VIP:<br>
+        1️⃣ Ingresa tu apuesta.<br>
+        2️⃣ Presiona "GIRAR" y observa el giro.<br>
+        3️⃣ Todo se calcula en el backend, ¡la casa siempre tiene ventaja!<br>
+    </div>
+
+    <!-- Input solo enteros -->
+    <input type="number" id="monto" placeholder="Ingresa tu apuesta" step="1" min="1">
+    <button id="btnGirar">GIRAR</button>
+
+    <div class="slots-wrapper">
+        <div class="slot" id="slot1">❓</div>
+        <div class="slot" id="slot2">❓</div>
+        <div class="slot" id="slot3">❓</div>
+    </div>
+
+    <div class="resultado" id="resultado"></div>
+</div>
+
+<script>
+const symbols = {{ symbols|safe }}; // símbolos que vienen del backend
+let girando = false;
+let animInterval;
+
+function startSpinAnimation(slots) {
+    animInterval = setInterval(()=>{
+        slots.forEach(slot=>{
+            slot.innerHTML = symbols[Math.floor(Math.random()*symbols.length)];
+            slot.style.transform = `rotateX(${Math.random()*360}deg)`;
+        });
+    }, 100);
+}
+
+function spinToFinalSymbol(slot, finalSymbol, delay) {
+    return new Promise(resolve=>{
+        let spins = 15;
+        let count = 0;
+        const interval = setInterval(()=>{
+            slot.innerHTML = symbols[Math.floor(Math.random()*symbols.length)];
+            slot.style.transform = `rotateX(${Math.random()*360}deg)`;
+            count++;
+            if(count>=spins){
+                clearInterval(interval);
+                slot.innerHTML = finalSymbol;
+                slot.style.transform = "rotateX(0deg)";
+                resolve();
+            }
+        }, delay);
+    });
+}
+
+document.getElementById("btnGirar").addEventListener("click", async function(){
+    if(girando) return;
+    const resultadoDiv = document.getElementById("resultado");
+    const saldoDiv = document.getElementById("saldo");
+    const slots = [
+        document.getElementById("slot1"),
+        document.getElementById("slot2"),
+        document.getElementById("slot3")
+    ];
+    const btn = this;
+
+    let monto = parseFloat(document.getElementById("monto").value);
+
+    // Validar entero
+    if(!monto || monto <= 0 || !Number.isInteger(monto)){
+        resultadoDiv.innerHTML = "⚠ Ingresa un monto válido (solo enteros)";
+        return;
+    }
+
+    girando = true;
+    btn.disabled = true;
+    resultadoDiv.innerHTML = "";
+
+    startSpinAnimation(slots);
+
+    try{
+        const res = await fetch("{% url 'jugar_tragamonedas' %}", {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/x-www-form-urlencoded",
+                "X-CSRFToken":"{{ csrf_token }}"
+            },
+            body:"monto="+monto
+        });
+        const data = await res.json();
+        const backendSymbols = data.simbolos.split(" ");
+
+        clearInterval(animInterval);
+
+        for(let i=0;i<slots.length;i++){
+            await spinToFinalSymbol(slots[i], backendSymbols[i], 100);
+        }
+
+        if(data.resultado==="GANO"){
+            resultadoDiv.innerHTML = `🎉 GANASTE C$ ${data.ganancia.toFixed(2)} 🎉`;
+        } else {
+            resultadoDiv.innerHTML = `💀 PERDISTE C$ ${Math.abs(data.ganancia).toFixed(2)} 💀`;
+        }
+
+        saldoDiv.innerText = "C$ "+data.saldo.toFixed(2);
+        btn.disabled = false;
+        girando = false;
+
+    }catch(err){
+        clearInterval(animInterval);
+        resultadoDiv.innerHTML = "❌ Error al jugar, inténtalo de nuevo.";
+        btn.disabled = false;
+        girando = false;
+    }
+});
+</script>
+{% endblock %}
