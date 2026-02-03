@@ -10,35 +10,40 @@
 {% block contenido %}
 <div class="trading-fullscreen">
 
+    <!-- TOP BAR -->
     <div class="trading-topbar">
         <h3 id="asset-name">📈 EUR/USD</h3>
-        <div>💰 Balance: ${{ request.user.saldo }}</div>
+        <div class="balance">💰 Balance: ${{ request.user.saldo }}</div>
     </div>
 
+    <!-- MAIN -->
     <div class="trading-main">
+
+        <!-- CHART -->
         <div class="chart-area">
             <div id="tradingview_chart"></div>
         </div>
 
+        <!-- PANEL -->
         <div class="trade-panel">
             <h4>Realizar Operación</h4>
 
-            <div class="trade-input">
-                <input type="number" id="amount" placeholder="Monto">
-                <select id="duration">
-                    <option value="30">30s</option>
-                    <option value="60">1m</option>
-                    <option value="300">5m</option>
-                </select>
-            </div>
+            <input type="number" id="amount" placeholder="Monto">
+
+            <select id="duration">
+                <option value="30">30 segundos</option>
+                <option value="60">1 minuto</option>
+                <option value="300">5 minutos</option>
+            </select>
 
             <button class="btn-buy" onclick="openTrade('buy')">⬆ COMPRAR</button>
             <button class="btn-sell" onclick="openTrade('sell')">⬇ VENDER</button>
         </div>
     </div>
 
+    <!-- HISTORY -->
     <div class="history">
-        <table width="100%">
+        <table>
             <thead>
                 <tr>
                     <th>Hora</th>
@@ -53,9 +58,6 @@
 
 </div>
 
-
 <script src="https://s3.tradingview.com/tv.js"></script>
 <script src="{% static 'inverso_sa/js/trading.js' %}"></script>
-</div>
-
 {% endblock %}

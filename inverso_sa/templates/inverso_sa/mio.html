@@ -23,9 +23,8 @@
                 Correo: {{ usuario.email }} <br>
                 Mi código de invitación:
                 <strong>{{ usuario.codigo_invitacion }}</strong>
-                <i class="far fa-copy" id="copy-code"
-                   style="cursor:pointer; margin-left:5px;"
-                   title="Copiar código"></i>
+                <i class="far fa-copy" id="copy-code" style="cursor:pointer; margin-left:5px;"
+                    title="Copiar código"></i>
             </p>
         </div>
 
@@ -94,6 +93,15 @@
             </div>
         </a>
 
+        <a href="{% static 'inverso_sa/app/inverso.apk' %}" class="func-item" download>
+            <i class="fas fa-mobile-alt"></i>
+            <div class="func-info">
+                <strong>App</strong>
+                <p>Descargar aplicación</p>
+            </div>
+        </a>
+
+
         <a href="{% url 'logout' %}" class="func-item">
             <i class="fas fa-sign-out-alt"></i>
             <div class="func-info">
@@ -108,38 +116,38 @@
 
 <!-- JS -->
 <script>
-function safeGet(id) {
-    return document.getElementById(id) || {
-        onclick: function(){},
-        classList: { add(){}, remove(){} }
-    };
-}
-
-const pcBtn = safeGet('pc-view');
-const mobileBtn = safeGet('mobile-view');
-const wrapper = document.querySelector('.main-content');
-
-pcBtn.onclick = () => changeView('pc');
-mobileBtn.onclick = () => changeView('mobile');
-
-function changeView(mode) {
-    if (mode === 'mobile') {
-        wrapper.classList.add('phone-mode');
-        mobileBtn.classList.add('active-icon');
-        pcBtn.classList.remove('active-icon');
-    } else {
-        wrapper.classList.remove('phone-mode');
-        pcBtn.classList.add('active-icon');
-        mobileBtn.classList.remove('active-icon');
+    function safeGet(id) {
+        return document.getElementById(id) || {
+            onclick: function () { },
+            classList: { add() { }, remove() { } }
+        };
     }
-}
 
-// COPIAR CÓDIGO
-safeGet('copy-code').onclick = function () {
-    navigator.clipboard.writeText("{{ usuario.codigo_invitacion }}")
-        .then(() => alert("Código de invitación copiado correctamente"))
-        .catch(() => alert("No se pudo copiar el código"));
-};
+    const pcBtn = safeGet('pc-view');
+    const mobileBtn = safeGet('mobile-view');
+    const wrapper = document.querySelector('.main-content');
+
+    pcBtn.onclick = () => changeView('pc');
+    mobileBtn.onclick = () => changeView('mobile');
+
+    function changeView(mode) {
+        if (mode === 'mobile') {
+            wrapper.classList.add('phone-mode');
+            mobileBtn.classList.add('active-icon');
+            pcBtn.classList.remove('active-icon');
+        } else {
+            wrapper.classList.remove('phone-mode');
+            pcBtn.classList.add('active-icon');
+            mobileBtn.classList.remove('active-icon');
+        }
+    }
+
+    // COPIAR CÓDIGO
+    safeGet('copy-code').onclick = function () {
+        navigator.clipboard.writeText("{{ usuario.codigo_invitacion }}")
+            .then(() => alert("Código de invitación copiado correctamente"))
+            .catch(() => alert("No se pudo copiar el código"));
+    };
 </script>
 
 {% endblock %}

@@ -1,4 +1,4 @@
-/* ===== MODO PANTALLA COMPLETA ===== */
+/* ===== BASE ===== */
 .trading-fullscreen{
     position: fixed;
     top:70px;
@@ -9,21 +9,21 @@
     display:flex;
     flex-direction:column;
     overflow:hidden;
+    color: antiquewhite;
 }
 
-/* TOP */
+/* TOP BAR */
 .trading-topbar{
     height:60px;
-    padding:0 25px;
+    padding:0 20px;
     display:flex;
     align-items:center;
     justify-content:space-between;
     background:#0b1220;
     border-bottom:1px solid #1f2937;
-    color: antiquewhite;
 }
 
-/* MAIN AREA */
+/* MAIN */
 .trading-main{
     flex:1;
     display:flex;
@@ -33,45 +33,44 @@
 
 /* CHART */
 .chart-area{
-    flex:3.5;
+    flex:3;
     border-radius:16px;
     overflow:hidden;
     border:1px solid #1f2937;
-    box-shadow:0 0 30px rgba(0,0,0,0.6);
+    background:#000;
 }
 
 #tradingview_chart{
+    width:100%;
     height:100%;
 }
 
-/* PANEL DERECHO */
+/* PANEL */
 .trade-panel{
     flex:1;
     background:#0f172a;
     border-radius:16px;
     padding:20px;
     border:1px solid #1f2937;
-    box-shadow:0 0 30px rgba(0,0,0,0.6);
     display:flex;
     flex-direction:column;
 }
 
 .trade-panel h4{
-    margin-bottom:20px;
+    margin-bottom:15px;
 }
 
-.trade-input input,
-.trade-input select{
-    width:100%;
+.trade-panel input,
+.trade-panel select{
+    margin-bottom:12px;
     padding:12px;
     border-radius:10px;
     border:1px solid #1f2937;
     background:#0b1220;
     color:white;
-    margin-bottom:15px;
 }
 
-/* BOTONES */
+/* BUTTONS */
 .btn-buy,.btn-sell{
     padding:14px;
     border:none;
@@ -84,14 +83,47 @@
 .btn-buy{ background:#16a34a; }
 .btn-sell{ background:#dc2626; }
 
-/* HISTORIAL ABAJO */
+/* HISTORY */
 .history{
-    color: antiquewhite;
-    height:160px;
-    margin:0 20px 20px 20px;
+    margin:0 20px 20px;
+    background:#0b1220;
     border-radius:16px;
     border:1px solid #1f2937;
-    background:#0b1220;
     overflow:auto;
+}
+
+.history table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.history th, .history td{
     padding:10px;
+    text-align:center;
+    border-bottom:1px solid #1f2937;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px){
+    .trading-fullscreen{
+        left:0;
+    }
+}
+
+@media (max-width: 768px){
+    .trading-main{
+        flex-direction:column;
+    }
+
+    .chart-area{
+        height:300px;
+    }
+
+    .trade-panel{
+        width:100%;
+    }
+
+    .history{
+        height:200px;
+    }
 }

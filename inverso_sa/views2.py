@@ -130,9 +130,9 @@ def jugar_tragamonedas(request):
     # PROBABILIDADES según monto
     # -----------------------------
     if monto > 100:
-        pesos = [10, 90]  # [Jugador gana, Casa gana]
+        pesos = [5, 95]  # [Jugador gana, Casa gana]
     else:
-        pesos = [20, 80]
+        pesos = [10, 90]
 
     resultado = random.choices(
         ["GANO", "PERDIO"],
