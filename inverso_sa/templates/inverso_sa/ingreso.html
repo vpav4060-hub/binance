@@ -1,7 +1,7 @@
 {% extends "inverso_sa/dashboard.html" %}
 {% load static %}
 
-{% block title %}Ingreso | INVERSO{% endblock %}
+{% block title %}Ingreso | Mineria Binance{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'inverso_sa/css/ingreso.css' %}">
@@ -11,7 +11,6 @@
 
 {% block contenido %}
 
-<!-- ✅ MENSAJES DJANGO -->
 {% if messages %}
     {% for message in messages %}
         <div class="alert {{ message.tags }}">
@@ -24,73 +23,99 @@
 
     <h2 class="main-title">Centro de actividades</h2>
 
-    <!-- ================= RESUMEN ================= -->
+    <!-- RESUMEN -->
     <div class="investment-summary">
 
-        <div class="summary-item card-blue">
-            <div class="summary-text">
-                <span>Mis coins</span>
-                <strong>🪙{{ saldo }}</strong>
-            </div>
+        <div class="summary-card">
+            <span>Balance USDT</span>
+            <h3>{{ saldo }}</h3>
         </div>
 
-        <div class="summary-item card-orange">
-            <div class="summary-text">
-                <span>Actividades activas</span>
-                <strong>{{ total_proyectos }}</strong>
-            </div>
+        <div class="summary-card">
+            <span>Actividades activas</span>
+            <h3>{{ total_proyectos }}</h3>
         </div>
 
     </div>
 
     <h3 class="sub-title">Mis actividades</h3>
 
-    <div class="empty-state">
+    <div class="investment-list">
 
         {% if inversiones_activas %}
             {% for inv in inversiones_activas %}
 
             <div class="investment-card">
 
-                <h4>{{ inv.producto.nombre }}</h4>
+                <div class="card-header">
+                    <h4>{{ inv.producto.nombre }}</h4>
+                    <span class="badge">Activo</span>
+                </div>
 
-                <p>
-                    🪙 Coins utilizadas:
-                    <strong>C$ {{ inv.producto.precio }}</strong>
-                </p>
+                <div class="card-body">
 
-                <p>
-                    🎁 Beneficio diario:
-                    <strong class="text-green">
-                        🪙 {{ inv.producto.ingreso_diario }}
-                    </strong>
-                </p>
+                    <div class="row">
+                        <span>USDT utilizados</span>
+                        <strong>{{ inv.producto.precio }} USDT</strong>
+                    </div>
 
-                <p>
-                    📆 Días activos:
-                    <strong>{{ inv.dias_pagados }}</strong>
-                </p>
+                    <div class="row">
+                        <span>Beneficio diario</span>
+                        <strong class="green counter" data-value="{{ inv.producto.ingreso_diario }}"></strong>
+                    </div>
 
-                <p>
-                    ⭐ Recompensas acumuladas:
-                    <strong class="text-green">
-                        🪙{{ inv.ganancia_total }} Coins
-                    </strong>
-                </p>
+                    <div class="row">
+                        <span>Días activos</span>
+                        <strong>{{ inv.dias_pagados }}</strong>
+                    </div>
 
-                <p>
-                    ⏳ Estado:
-                    <span class="badge-green">Activo</span>
-                </p>
+                    <div class="row">
+                        <span>Ganancia total</span>
+                        <strong class="green counter" data-value="{{ inv.ganancia_total }}">0</strong>
+                    </div>
+
+                    <!-- PROGRESO -->
+                    <div class="mining-progress">
+                        <div class="progress-bar"></div>
+                    </div>
+
+                    <!-- ESTADO -->
+                    <div class="mining-status">
+                        ⛏️ Minando criptomoneda...
+                    </div>
+
+                </div>
 
             </div>
 
             {% endfor %}
         {% else %}
-            <p class="empty-text">Aún no participas en ninguna actividad</p>
+            <p class="empty-text">No tienes actividades aún</p>
         {% endif %}
 
     </div>
 
 </div>
+
+<!-- SCRIPT ANIMACIONES -->
+<script>
+document.querySelectorAll('.counter').forEach(counter => {
+    let target = parseFloat(counter.getAttribute('data-value'));
+    let count = 0;
+    let speed = target / 50;
+
+    function update() {
+        count += speed;
+        if (count < target) {
+            counter.innerText = count.toFixed(2);
+            requestAnimationFrame(update);
+        } else {
+            counter.innerText = target.toFixed(2);
+        }
+    }
+
+    update();
+});
+</script>
+
 {% endblock %}

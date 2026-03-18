@@ -1,8 +1,7 @@
 {% extends "inverso_sa/dashboard.html" %}
 {% load static %}
 
-{% block title %}Inicio | Inverso{% endblock %}
-{% block nav_inicio %}active{% endblock %}
+{% block title %}Inicio | Mineria Binance{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'inverso_sa/css/inicio.css' %}">
@@ -11,181 +10,128 @@
 {% block contenido %}
 
 <!-- HERO -->
-<header class="hero-banner">
-    <div class="banner-text">
+<section class="hero-pro">
+    <div>
+        <h2>Opera criptomonedas como un profesional</h2>
+        <p>Mina criptomonedas y gestiona tus activos en tiempo real</p>
+        <button class="btn-main" onclick="window.location.href='{% url 'recargar' %}'">
+            Depositar
+        </button>
+    </div>
+</section>
 
-        <div class="stats">
-            <span>🔹 Nivel 1: 8%</span>
-        </div>
+<!-- CARDS -->
+<section class="stats-cards">
 
-        <h2>
-            Disfruta experiencias digitales todos los días
-        </h2>
-
-        <p class="hero-desc">
-            En INVERSO encontrarás una plataforma de entretenimiento diseñada para que participes,
-            explores dinámicas interactivas y disfrutes cada momento dentro del sistema.
-        </p>
-
+    <div class="card">
+        <span>Balance</span>
+        <h3>{{ user.saldo }}</h3>
     </div>
 
-    <img src="{% static 'inverso_sa/img/logo.jpeg' %}" class="banner-img">
-</header>
+    <div class="card">
+        <span>Ganancia</span>
+        <h3 class="green">{{ ganancias_hoy }}</h3>
+    </div>
 
-<!-- ACCIONES -->
-<section class="action-row">
-
-    <a href="{% url 'recargar' %}" class="action-card blue">
-        <strong>🪙 Recargar Inverso Coins</strong>
-        <span>Obtén coins para participar en la plataforma</span>
-    </a>
-
-    <a href="{% url 'retirar' %}" class="action-card dark-blue">
-        <strong>🪙 Retirar Inverso Coins</strong>
-        <span>Solicita el retiro de tus Inverso coins disponibles</span>
-    </a>
+    <div class="card">
+        <span>Operaciones</span>
+        <h3>{{total_proyectos }}</h3>
+    </div>
 
 </section>
 
-<!-- PRODUCTOS -->
-<section class="products-grid-container">
-    <h3>🎮 Experiencias destacadas</h3>
-    <p class="section-sub">
-        Participaciones disponibles dentro de la plataforma.
-    </p>
+<!-- MERCADO -->
+<section class="market-box">
+
+    <h3>Mercado</h3>
+
+    <div class="market-table">
+        <div class="market-row header">
+            <span>Par</span>
+            <span>Precio</span>
+            <span>Cambio</span>
+        </div>
+
+        <div class="market-row">
+            <span>BTC/USDT</span>
+            <span id="btc">$0</span>
+            <span class="green">+2.5%</span>
+        </div>
+
+        <div class="market-row">
+            <span>ETH/USDT</span>
+            <span id="eth">$0</span>
+            <span class="red">-1.1%</span>
+        </div>
+    </div>
+
+</section>
+
+<!-- PRODUCTOS COMO PLANES -->
+<section class="products-pro">
+
+    <div class="products-header">
+        <h3>📊 Planes de inversión</h3>
+        <span class="badge-live">EN VIVO</span>
+    </div>
 
     <div class="products-grid">
-        {% for producto in productos %}
-        <div class="product-item">
 
-            {% if producto.imagen %}
-                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
-            {% else %}
-                <img src="{% static 'inverso_sa/img/default.png' %}" alt="Sin imagen">
+        {% for producto in productos %}
+        <div class="product-card {% if forloop.counter == 2 %}pro{% endif %}">
+
+            {% if forloop.counter == 2 %}
+            <div class="tag">TOP</div>
             {% endif %}
 
-            <div class="product-details">
-                <h4>{{ producto.nombre }}</h4>
-
-                <p>⏳ Tiempo activo: <strong>{{ producto.duracion }}</strong></p>
-                <p>🪙 Costo en coins: <strong>{{ producto.precio }}</strong></p>
-
-                <p>
-                    🎁 Recompensa diaria:
-                    <span class="income">{{ producto.ingreso_diario }} coins</span>
-                </p>
-
-                <small>
-                    Participaciones disponibles: {{ producto.limite }}
-                </small>
-
-                <form method="POST" action="{% url 'invertir_producto' producto.id %}">
-                    {% csrf_token %}
-                    <button class="btn-invert">Participar</button>
-                </form>
+            <!-- IMAGEN -->
+            <div class="product-img">
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
             </div>
+
+            <h4>{{ producto.nombre }}</h4>
+
+            <p class="hash">⚡ {{ producto.duracion }}</p>
+
+            <div class="profit">
+                +{{ producto.ingreso_diario }} USDT Diario
+            </div>
+
+            <small>Precio: {{ producto.precio }} USDT</small>
+
+            <form method="POST" action="{% url 'invertir_producto' producto.id %}">
+                {% csrf_token %}
+                <button class="btn-mine">
+                    MINAR
+                </button>
+            </form>
+
         </div>
         {% endfor %}
-    </div>
-</section>
-
-<!-- SOBRE NOSOTROS -->
-<section class="about-us">
-    <h3>¿Por qué elegir Inverso?</h3>
-
-    <p class="about-intro">
-        Inverso es una plataforma de entretenimiento digital diseñada para ofrecer
-        experiencias dinámicas, acceso sencillo y una comunidad activa.
-    </p>
-
-    <div class="about-cards">
-
-        <div class="about-card">
-            <h4>🔐 Entorno protegido</h4>
-            <p>
-                Utilizamos sistemas de control y verificación para mantener una experiencia estable y confiable.
-            </p>
-        </div>
-
-        <div class="about-card">
-            <h4>⚡ Operaciones ágiles</h4>
-            <p>
-                Las recargas y solicitudes internas se gestionan de forma ordenada dentro de la plataforma.
-            </p>
-        </div>
-
-        <div class="about-card">
-            <h4>🎁 Recompensas activas</h4>
-            <p>
-                Los usuarios pueden desbloquear beneficios diarios según su nivel de participación.
-            </p>
-        </div>
-
-        <div class="about-card">
-            <h4>🤝 Atención personalizada</h4>
-            <p>
-                Nuestro equipo está disponible para orientarte y resolver cualquier consulta.
-            </p>
-        </div>
 
     </div>
+
 </section>
 
-<!-- TESTIMONIOS -->
-<section class="testimonials">
-    <h3>Opiniones de la comunidad</h3>
+<!-- JS PRECIOS -->
+<script>
+    async function cargarPrecios() {
+        try {
+            const res = await fetch("https://api.binance.com/api/v3/ticker/price");
+            const data = await res.json();
 
-    <div class="testimonial-cards">
+            function getPrice(symbol) {
+                return parseFloat(data.find(x => x.symbol === symbol).price).toFixed(2);
+            }
 
-        <div class="testimonial-card">
-            <p>
-                “La plataforma es fácil de usar y todo está bien organizado. Me gusta el sistema de coins.”
-            </p>
-            <h5>— Usuario verificado</h5>
-        </div>
+            document.getElementById("btc").innerText = "$" + getPrice("BTCUSDT");
+            document.getElementById("eth").innerText = "$" + getPrice("ETHUSDT");
 
-        <div class="testimonial-card">
-            <p>
-                “Las actividades diarias hacen que siempre haya algo nuevo por hacer.”
-            </p>
-            <h5>— Miembro activo</h5>
-        </div>
+        } catch (e) { }
+    }
 
-        <div class="testimonial-card">
-            <p>
-                “El soporte me explicó todo claramente desde el inicio.”
-            </p>
-            <h5>— Usuario de la comunidad</h5>
-        </div>
-
-    </div>
-</section>
-
-<!-- CTA -->
-<section class="cta">
-    <h3>Comienza tu experiencia hoy</h3>
-    <p>
-        Únete a la comunidad Inverso y descubre una nueva forma de entretenimiento digital.
-    </p>
-</section>
-
-<!-- ================= MODAL WHATSAPP ================= -->
-<div id="whatsappModal" class="wa-modal">
-    <div class="wa-modal-content">
-        <span class="wa-close" onclick="cerrarModal()">&times;</span>
-
-        <h3>Únete a nuestro grupo de WhatsApp</h3>
-        <p>
-            Forma parte de la comunidad Inverso y mantente al día con novedades,
-            avisos y beneficios exclusivos.
-        </p>
-
-        <a href="https://chat.whatsapp.com/EUl2FI07nFSBTMQeOX82oW?mode=gi_t" target="_blank" class="wa-btn">
-            Ir a WhatsApp
-        </a>
-    </div>
-</div>
-
-<script src="{% static 'inverso_sa/js/whatsapp_modal.js' %}"></script>
+    cargarPrecios();
+    setInterval(cargarPrecios, 10000);
+</script>
 
 {% endblock %}

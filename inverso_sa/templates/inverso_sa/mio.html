@@ -1,7 +1,7 @@
 {% extends "inverso_sa/dashboard.html" %}
 {% load static %}
 
-{% block title %}Mi Cuenta | INVERSO{% endblock %}
+{% block title %}Mi Cuenta | MINERIA BINANCE {% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'inverso_sa/css/mio.css' %}">
@@ -33,13 +33,13 @@
     <!-- BALANCE -->
     <section class="balance-card-inverso">
         <div class="balance-item">
-            <span class="amount">{{ ganancias_hoy }}🪙</span>
-            <span class="label">Coins ganados hoy</span>
+            <span class="amount">{{ ganancias_hoy }}</span>
+            <span class="label">USDT ganados hoy</span>
         </div>
 
         <div class="balance-item">
-            <span class="amount">{{ saldo }}🪙</span>
-            <span class="label">Mis coins disponibles</span>
+            <span class="amount">{{ saldo }}</span>
+            <span class="label">Balance USDT</span>
         </div>
     </section>
 
@@ -49,16 +49,16 @@
         <a href="{% url 'recargar' %}" class="btn-box blue">
             <i class="fas fa-arrow-down"></i>
             <div class="btn-info">
-                <strong>Recargar coins</strong>
-                <span>Mínimo 400 coins</span>
+                <strong>Depositar USDT</strong>
+                <span>Mínimo 10 USDT</span>
             </div>
         </a>
 
         <a href="{% url 'retirar' %}" class="btn-box green">
             <i class="fas fa-university"></i>
             <div class="btn-info">
-                <strong>Retirar coins</strong>
-                <span>Mínimo 300 coins</span>
+                <strong>Retirar USDT</strong>
+                <span>Mínimo 5 USDT</span>
             </div>
         </a>
 
@@ -72,8 +72,8 @@
         <a href="{% url 'agregar_cuenta_usuario' %}" class="func-item">
             <i class="fas fa-university"></i>
             <div class="func-info">
-                <strong>Cuenta bancaria</strong>
-                <p>Vincular cuenta para retiros de coins</p>
+                <strong>Direccion USDT</strong>
+                <p>Vincular Direccion para retiros USDT </p>
             </div>
         </a>
 
@@ -81,7 +81,7 @@
             <i class="fas fa-info-circle"></i>
             <div class="func-info">
                 <strong>Acerca de</strong>
-                <p>Información sobre INVERSO Coins</p>
+                <p>Información sobre MINERIA BINANCE</p>
             </div>
         </a>
 
@@ -89,17 +89,11 @@
             <i class="fas fa-comment-dots"></i>
             <div class="func-info">
                 <strong>Asistencia</strong>
-                <p>Soporte para coins</p>
+                <p>Soporte para USDT</p>
             </div>
         </a>
 
-        <a href="{% static 'inverso_sa/app/inverso.apk' %}" class="func-item" download>
-            <i class="fas fa-mobile-alt"></i>
-            <div class="func-info">
-                <strong>App</strong>
-                <p>Descargar aplicación</p>
-            </div>
-        </a>
+       
 
 
         <a href="{% url 'logout' %}" class="func-item">

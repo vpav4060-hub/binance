@@ -1,89 +1,91 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Inverso Web{% endblock %}</title>
-
+    <title>{% block title %}Mineria Binance{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'inverso_sa/img/logo.png' %}">
+    <!-- CSS -->
     <link rel="stylesheet" href="{% static 'inverso_sa/css/dashboard.css' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'inverso_sa/img/logo.jpeg' %}">
+
+    <!-- ICONOS PROFESIONALES -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     {% block extra_css %}{% endblock %}
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar">
-        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-        <div class="logo">INVERSO</div>
-    </nav>
-
-    <!-- SIDEBAR -->
-    <div class="sidebar" id="mobileMenu">
-
-        <div class="sidebar-header">
-            <span>MENÚ</span>
-            <button onclick="toggleMenu()">✖</button>
-        </div>
-
-        <ul>
-            <li><a href="{% url 'inicio' %}">🏠 Inicio</a></li>
-            <li><a href="{% url 'ingreso' %}">💰 Ingreso</a></li>
-            <li><a href="{% url 'equipo' %}">👥 Equipo</a></li>
-            <li><a href="{% url 'juegos' %}">🎰 Juegos</a></li>
-            <li><a href="{% url 'trading' %}">📈 Trading (
-Module not available) </a></li>
-            <li><a href="{% url 'mio' %}">👤 Mío</a></li>
-
-            {% if request.user.is_staff %}
-            <li>
-                <a href="{% url 'panel_usuarios' %}">⚙ Administración</a>
-            </li>
-            {% endif %}
-        </ul>
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="nav-left">
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h2 class="logo">MINERIA <span>BINANCE</span></h2>
     </div>
 
-    <!-- OVERLAY -->
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <div class="nav-right">
+        <span class="user-id">
+            <i class="fa-solid fa-user"></i> {{ request.user.username }}
+        </span>
+    </div>
+</header>
 
-    <!-- CONTENIDO -->
-    <div class="main-content">
+<!-- SIDEBAR -->
+<aside class="sidebar" id="mobileMenu">
+    <ul>
+        <li><a href="{% url 'inicio' %}">
+            <i class="fa-solid fa-chart-line"></i> Inicio
+        </a></li>
 
-        {% if messages %}
-        {% for message in messages %}
-        <div class="alert {{ message.tags }}">
-            {{ message }}
-        </div>
-        {% endfor %}
+        <li><a href="{% url 'ingreso' %}">
+            <i class="fa-solid fa-wallet"></i> Ingreso
+        </a></li>
+
+        <li><a href="{% url 'equipo' %}">
+            <i class="fa-solid fa-users"></i> Equipo
+        </a></li>
+
+        <li><a href="{% url 'mio' %}">
+            <i class="fa-solid fa-user"></i> Perfil
+        </a></li>
+
+        <!-- SOLO ADMIN -->
+        {% if request.user.is_staff %}
+        <li><a href="{% url 'panel_usuarios' %}">
+            <i class="fa-solid fa-shield-halved"></i> Administrar
+        </a></li>
         {% endif %}
+    </ul>
+</aside>
 
-        {% block contenido %}{% endblock %}
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-        <!-- FOOTER -->
-        <footer class="main-footer">
-            <p class="footer-legal">
-                🎮 INVERSO ofrece experiencias de entretenimiento digital.<br>
-                Las funciones están diseñadas para la diversión de los usuarios.<br>
-                Los resultados pueden diferir en cada participación.
+<!-- CONTENIDO -->
+<main class="main-content">
 
-            </p>
-            <p class="footer-copy">
-                © 2026 INVERSO
-            </p>
-        </footer>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
-    </div>
+    {% block contenido %}
+    {% endblock %}
 
-    <!-- JS -->
-    <script>
-        function toggleMenu() {
-            document.getElementById("mobileMenu").classList.toggle("open");
-            document.getElementById("overlay").classList.toggle("show");
-        }
-    </script>
+</main>
+
+<script>
+function toggleMenu() {
+    document.getElementById("mobileMenu").classList.toggle("open");
+    document.getElementById("overlay").classList.toggle("show");
+}
+</script>
 
 </body>
-
 </html>

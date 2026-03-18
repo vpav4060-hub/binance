@@ -6,136 +6,104 @@
 {% endblock %}
 
 {% block contenido %}
-<div class="container">
+<div class="container-recarga">
 
-    <h2>🪙 Recargar coins</h2>
+    <h2><i class="fa-solid fa-coins"></i> DEPOSITAR USDT</h2>
 
     <!-- BOTONES -->
-    <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+    <div class="acciones">
 
         <a href="{% url 'inicio' %}" class="btn-cta">
-            ⬅ Regresar
+            <i class="fa-solid fa-arrow-left"></i> Regresar
         </a>
 
-        <a href="{% url 'mis_recargas' %}" class="btn-cta">
-            📄 Historial de recargas
+        <a href="{% url 'mis_recargas' %}" class="btn-cta secondary">
+            <i class="fa-solid fa-file-lines"></i> Historial
         </a>
 
     </div>
 
     <!-- MENSAJES -->
     {% for message in messages %}
-    <p style="color:red">{{ message }}</p>
+        <div class="alert">{{ message }}</div>
     {% endfor %}
 
-    <!-- ===============================
-        TARJETA DATOS DE CANJE
-    =============================== -->
+    <!-- TARJETA -->
     <div class="card-bg">
 
         <p>
-            <span><strong>Entidad:</strong> {{ cuenta.banco }}</span>
-            <button type="button" onclick="copiar('{{ cuenta.banco }}')">
-                Copiar
+            <span><strong>RED:</strong> {{ cuenta.banco }}</span>
+            <button onclick="copiar('{{ cuenta.banco }}')">
+                <i class="fa-regular fa-copy"></i>
             </button>
         </p>
 
         <p>
             <span><strong>Destino:</strong> {{ cuenta.destinatario }}</span>
-            <button type="button" onclick="copiar('{{ cuenta.destinatario }}')">
-                Copiar
+            <button onclick="copiar('{{ cuenta.destinatario }}')">
+                <i class="fa-regular fa-copy"></i>
             </button>
         </p>
 
         <p>
-            <span><strong>Código:</strong> {{ cuenta.numero_cuenta }}</span>
-            <button type="button" onclick="copiar('{{ cuenta.numero_cuenta }}')">
-                Copiar
+            <span><strong>Direccion:</strong> {{ cuenta.numero_cuenta }}</span>
+            <button onclick="copiar('{{ cuenta.numero_cuenta }}')">
+                <i class="fa-regular fa-copy"></i>
             </button>
         </p>
 
     </div>
 
-    <!-- ===============================
-        FORMULARIO
-    =============================== -->
-    <form method="POST" enctype="multipart/form-data">
+    <!-- FORM -->
+    <form method="POST" enctype="multipart/form-data" class="form-recarga">
         {% csrf_token %}
 
         <label>Cantidad de coins</label>
         <input type="number" name="monto" id="monto" required>
 
-        <!-- montos rápidos -->
+        <!-- MONTOS -->
         <div class="quick-amounts">
-            <button type="button" onclick="setMonto(400)">400 🪙</button>
-            <button type="button" onclick="setMonto(600)">600 🪙</button>
-            <button type="button" onclick="setMonto(1000)">1000 🪙</button>
-            <button type="button" onclick="setMonto(3000)">3000 🪙</button>
-            <button type="button" onclick="setMonto(5000)">5000 🪙</button>
-            <button type="button" onclick="setMonto(10000)">10000 🪙</button>
-            <button type="button" onclick="setMonto(50000)">50000 🪙</button>
-            <button type="button" onclick="setMonto(100000)">100000 🪙</button>
+            <button type="button" onclick="setMonto(10)">10</button>
+            <button type="button" onclick="setMonto(20)">20</button>
+            <button type="button" onclick="setMonto(50)">50</button>
+            <button type="button" onclick="setMonto(100)">100</button>
+            <button type="button" onclick="setMonto(200)">200</button>
+            <button type="button" onclick="setMonto(1000)">1000</button>
         </div>
 
-        <label>Código de referencia</label>
-        <input type="text" name="referencia" required>
-
-        <label>Comprobante</label>
+        <label>Screenshot Transfer</label>
         <input type="file" name="voucher" required>
 
-        <button type="submit" class="btn-cta">
-            Enviar solicitud
+        <button type="submit" class="btn-submit">
+            <i class="fa-solid fa-paper-plane"></i> Enviar solicitud
         </button>
 
-        <!-- ===============================
-            AVISOS IMPORTANTES
-        =============================== -->
-        <div style="
-            margin-top:20px;
-            background:#f5f8ff;
-            border:1px solid #3b82f6;
-            padding:15px;
-            border-radius:10px;
-            font-size:14px;
-            color:#1e3a8a;
-        ">
-
-            <strong>ℹ Información importante:</strong>
-            <ul style="margin-top:10px; padding-left:18px;">
-                <li>El mínimo para recargar es de <strong>400 coins</strong>.</li>
-                <li>La referencia debe coincidir exactamente con el comprobante enviado.</li>
-                <li>El comprobante debe ser <strong>claro, legible y completo</strong>.</li>
-                <li>No se aceptan comprobantes editados, recortados o alterados.</li>
-                <li>Las solicitudes con información incorrecta no podrán ser procesadas.</li>
-                <li>Los coins se acreditan únicamente después de validación interna.</li>
-                <li>El tiempo de validación puede variar según el volumen de solicitudes.</li>
-                <li>Una misma referencia no puede utilizarse más de una vez.</li>
-                <li>Los comprobantes enviados fuera del formulario no serán válidos.</li>
-                <li>Las recargas enviadas a cuentas incorrectas no son responsabilidad de la plataforma.</li>
-                <li>El envío del formulario no garantiza acreditación automática.</li>
-                <li>Las solicitudes fraudulentas podrán derivar en la suspensión permanente de la cuenta.</li>
-                <li>Al enviar la solicitud, el usuario acepta las normas internas de la plataforma.</li>
+        <!-- INFO -->
+        <div class="info-box">
+            <strong>Información importante:</strong>
+            <ul>
+                <li>Mínimo: 10 USDT</li>
+                <li>Usuario Binance Verificado</li>
+                <li>Screenshot Transfer claro y completo</li>
+                <li>No se aceptan ediciones</li>
+                <li>Validación Automatica</li>
+                <li>Fraudes = suspensión</li>
             </ul>
-
-
         </div>
 
     </form>
 
 </div>
 
-<!-- ===============================
-    JS COPIAR
-================================ -->
 <script>
-    function copiar(texto) {
-        navigator.clipboard.writeText(texto);
-        alert("Copiado correctamente ✅");
-    }
+function copiar(texto) {
+    navigator.clipboard.writeText(texto);
+    alert("Copiado ✅");
+}
 
-    function setMonto(valor) {
-        document.getElementById("monto").value = valor;
-    }
+function setMonto(valor) {
+    document.getElementById("monto").value = valor;
+}
 </script>
 
 {% endblock %}

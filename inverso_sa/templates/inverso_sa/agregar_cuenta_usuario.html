@@ -1,28 +1,33 @@
 {% extends "inverso_sa/dashboard.html" %}
+{% load static %}
 
-{% block title %}Mi cuenta bancaria{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'inverso_sa/css/cuenta_bancaria.css' %}">
+{% endblock %}
+
+{% block title %}Mi cuenta {% endblock %}
 
 {% block contenido %}
 
 <div class="card-form">
 
-    <h2 class="form-title">🏦 Agregar cuenta bancaria</h2>
+    <h2 class="form-title">Agregar Direccion Wallet</h2>
 
     <form method="POST">
         {% csrf_token %}
 
         <div class="form-group">
-            <label>Banco</label>
+            <label>RED USDT</label>
             <input type="text" name="banco" required>
         </div>
 
         <div class="form-group">
-            <label>Titular</label>
+            <label>TITULAR</label>
             <input type="text" name="titular" required>
         </div>
 
         <div class="form-group">
-            <label>Número de cuenta</label>
+            <label>DIRECCION</label>
             <input type="text" name="numero_cuenta" required>
         </div>
 

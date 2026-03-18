@@ -1,106 +1,112 @@
 {% extends "inverso_sa/dashboard.html" %}
 {% load static %}
 
-{% block title %}Asistencia | INVERSO{% endblock %}
+{% block title %}Soporte | Plataforma de Minería{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'inverso_sa/css/asistencia.css' %}">
+
+<!-- ICONOS MODERNOS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 {% endblock %}
 
 {% block contenido %}
 
-<div class="main-content container">
+<div class="main-content">
 
-    <h2 class="page-title">💬 Centro de Asistencia</h2>
+    <div class="support-wrapper">
 
-    <div class="support-card">
+        <h2 class="page-title">
+            <i class="bi bi-headset"></i> Centro de Soporte Cripto
+        </h2>
 
-        <p class="support-intro">
-            Bienvenido al Centro de Asistencia de INVERSO.  
-            Aquí encontrarás información detallada sobre el funcionamiento de la
-            plataforma, soluciones a problemas frecuentes y canales oficiales de
-            atención al usuario.
-        </p>
+        <div class="support-card">
 
-        <!-- AYUDA GENERAL -->
-        <div class="support-section">
-            <h3>📌 Ayuda general</h3>
-            <p>
-                Nuestro objetivo es brindarte una experiencia clara, segura y sin
-                complicaciones. Antes de contactar soporte, te recomendamos revisar
-                las siguientes secciones.
-            </p>
-        </div>
-
-        <!-- OPCIONES -->
-        <div class="support-options">
-
-            <div class="support-item">
-                <i class="fas fa-wallet"></i>
-                <div>
-                    <strong>Recargas</strong>
-                    <p>Validación entre 10 y 60 minutos.</p>
-                </div>
-            </div>
-
-            <div class="support-item">
-                <i class="fas fa-university"></i>
-                <div>
-                    <strong>Retiros</strong>
-                    <p>Procesados en horario administrativo.</p>
-                </div>
-            </div>
-
-            <div class="support-item">
-                <i class="fas fa-user-shield"></i>
-                <div>
-                    <strong>Seguridad</strong>
-                    <p>No compartas tus datos con nadie.</p>
-                </div>
-            </div>
-
-            <div class="support-item">
-                <i class="fas fa-users"></i>
-                <div>
-                    <strong>Referidos</strong>
-                    <p>Bonos acreditados tras inversión activa.</p>
-                </div>
-            </div>
-
-            <div class="support-item">
-                <i class="fas fa-envelope"></i>
-                <div>
-                    <strong>Correo</strong>
-                    <p>soporte@inverso.com</p>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- BOTÓN WHATSAPP -->
-        <div class="whatsapp-box">
-            <h3>📲 Soporte por WhatsApp</h3>
-            <p>
-                Únete a nuestro grupo oficial de WhatsApp para recibir avisos,
-                soporte rápido y actualizaciones importantes.
+            <p class="support-intro">
+                Bienvenido al centro de soporte de nuestra plataforma de minería de criptomonedas.
+                Aquí encontrarás ayuda sobre depósitos, retiros, seguridad y funcionamiento del sistema.
             </p>
 
-            <!-- 🔗 CAMBIA ESTE LINK POR EL TUYO -->
-            <a href="https://chat.whatsapp.com/EUl2FI07nFSBTMQeOX82oW?mode=gi_t"
-               target="_blank"
-               class="btn-whatsapp">
-                <i class="fab fa-whatsapp"></i>
-                Unirme al grupo de WhatsApp
-            </a>
-        </div>
+            <!-- AYUDA GENERAL -->
+            <div class="support-section">
+                <h3><i class="bi bi-info-circle"></i> Ayuda general</h3>
+                <p>
+                    Nuestro sistema está diseñado para ser automático y transparente.
+                    Si tienes dudas, revisa las opciones antes de contactar soporte.
+                </p>
+            </div>
 
-        <!-- HORARIO -->
-        <div class="support-footer">
-            <h4>🕘 Horario de atención</h4>
-            <p>
-                Lunes a sábado<br>
-                <strong>8:00 AM — 6:00 PM</strong>
-            </p>
+            <!-- OPCIONES -->
+            <div class="support-options">
+
+                <div class="support-item">
+                    <i class="bi bi-cash-stack"></i>
+                    <div>
+                        <strong>Depósitos</strong>
+                        <p>Se validan entre 10 y 60 minutos.</p>
+                    </div>
+                </div>
+
+                <div class="support-item">
+                    <i class="bi bi-arrow-down-up"></i>
+                    <div>
+                        <strong>Retiros</strong>
+                        <p>Procesados dentro del horario operativo.</p>
+                    </div>
+                </div>
+
+                <div class="support-item">
+                    <i class="bi bi-shield-lock"></i>
+                    <div>
+                        <strong>Seguridad</strong>
+                        <p>No compartas tu cuenta ni claves.</p>
+                    </div>
+                </div>
+
+                <div class="support-item">
+                    <i class="bi bi-people"></i>
+                    <div>
+                        <strong>Referidos</strong>
+                        <p>Bonificaciones por actividad válida.</p>
+                    </div>
+                </div>
+
+                <div class="support-item">
+                    <i class="bi bi-envelope"></i>
+                    <div>
+                        <strong>Email</strong>
+                        <p>soporte@crypto-mining.com</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- TELEGRAM -->
+            <div class="telegram-box">
+                <h3><i class="bi bi-telegram"></i> Soporte por Telegram</h3>
+                <p>
+                    Únete a nuestro canal oficial para recibir soporte rápido,
+                    noticias y actualizaciones en tiempo real.
+                </p>
+
+                <!-- CAMBIA ESTE LINK -->
+                <a href="https://t.me/tu_grupo"
+                   target="_blank"
+                   class="btn-telegram">
+                    <i class="bi bi-telegram"></i>
+                    Unirme al Telegram
+                </a>
+            </div>
+
+            <!-- HORARIO -->
+            <div class="support-footer">
+                <h4><i class="bi bi-clock"></i> Horario de atención</h4>
+                <p>
+                    Lunes a sábado<br>
+                    <strong>8:00 AM — 6:00 PM</strong>
+                </p>
+            </div>
+
         </div>
 
     </div>

@@ -1,13 +1,23 @@
 /* ===============================
-   CONTENEDOR GENERAL
+   BASE BINANCE
+================================ */
+body {
+    background: #0b0e11;
+    font-family: 'Segoe UI', sans-serif;
+    color: #eaecef;
+}
+
+/* ===============================
+   CONTENEDOR
 ================================ */
 .container-historial {
-    max-width: 950px;
-    margin: auto;
-    background: #ffffff;
-    padding: 28px;
-    border-radius: 18px;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #161a1e;
+    border-radius: 16px;
+    border: 1px solid #2b3139;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
 /* ===============================
@@ -16,9 +26,16 @@
 .container-historial h2 {
     text-align: center;
     margin-bottom: 25px;
-    font-size: 22px;
-    font-weight: 700;
-    color: #0f172a;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fcd535;
+}
+
+/* ===============================
+   TABLA WRAPPER (SCROLL PRO)
+================================ */
+.tabla-wrapper {
+    overflow-x: auto;
 }
 
 /* ===============================
@@ -27,122 +44,127 @@
 .tabla-retiros {
     width: 100%;
     border-collapse: collapse;
-    overflow: hidden;
-    border-radius: 14px;
+    min-width: 800px;
 }
 
-/* encabezados */
+/* HEADER */
 .tabla-retiros thead {
-    background: linear-gradient(135deg, #0f172a, #1f2937);
+    background: #1e2329;
 }
 
 .tabla-retiros th {
-    color: #ffffff;
+    color: #848e9c;
     padding: 14px;
-    font-size: 14px;
-    letter-spacing: 0.4px;
+    font-size: 12px;
     text-transform: uppercase;
-}
-
-/* filas */
-.tabla-retiros td {
-    padding: 14px 12px;
-    border-bottom: 1px solid #e5e7eb;
-    font-size: 14px;
-    color: #374151;
+    font-weight: 600;
     text-align: center;
 }
 
-/* hover */
+/* FILAS */
+.tabla-retiros td {
+    padding: 14px 10px;
+    border-bottom: 1px solid #2b3139;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* HOVER */
 .tabla-retiros tbody tr:hover {
-    background: #f9fafb;
+    background: #1e2329;
+}
+
+/* DESTACADO RECIBES */
+.recibes {
+    color: #0ecb81;
+    font-weight: 600;
 }
 
 /* ===============================
-   ESTADOS
+   ESTADOS BINANCE
 ================================ */
 .estado {
-    padding: 6px 14px;
+    padding: 5px 12px;
     border-radius: 999px;
+    font-size: 12px;
     font-weight: 600;
-    font-size: 12.5px;
-    display: inline-block;
-    min-width: 95px;
 }
 
-/* estados */
+/* PENDIENTE */
 .estado.pendiente {
-    background: #fef3c7;
-    color: #92400e;
+    background: rgba(240,185,11,0.15);
+    color: #fcd535;
 }
 
+/* APROBADO */
 .estado.aprobado {
-    background: #dcfce7;
-    color: #166534;
+    background: rgba(14,203,129,0.15);
+    color: #0ecb81;
 }
 
+/* RECHAZADO */
 .estado.rechazado {
-    background: #fee2e2;
-    color: #991b1b;
+    background: rgba(246,70,93,0.15);
+    color: #f6465d;
 }
 
 /* ===============================
-   SIN REGISTROS
+   SIN DATOS
 ================================ */
 .sin-retiros {
     text-align: center;
-    margin: 35px 0;
-    font-size: 15px;
-    font-weight: 600;
-    color: #6b7280;
+    margin: 40px 0;
+    font-size: 14px;
+    color: #848e9c;
 }
 
 /* ===============================
-   BOTÓN VOLVER
+   BOTON VOLVER
 ================================ */
 .btn-volver {
     display: block;
-    margin-top: 28px;
+    margin-top: 25px;
     text-align: center;
-    padding: 14px;
-    background: linear-gradient(135deg, #1f2937, #0f172a);
-    color: #ffffff;
+    padding: 12px;
+    background: #fcd535;
+    color: #000;
     text-decoration: none;
-    border-radius: 12px;
+    border-radius: 10px;
     font-weight: 600;
-    transition: 0.25s;
+    transition: 0.2s;
 }
 
 .btn-volver:hover {
+    background: #e6c200;
     transform: translateY(-2px);
-    background: linear-gradient(135deg, #111827, #020617);
+}
+
+/* ===============================
+   SCROLL PERSONALIZADO
+================================ */
+.tabla-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+
+.tabla-wrapper::-webkit-scrollbar-thumb {
+    background: #2b3139;
+    border-radius: 10px;
 }
 
 /* ===============================
    RESPONSIVE
 ================================ */
-@media (max-width: 900px) {
-
-    .container-historial {
-        padding: 20px;
-    }
-
-    .tabla-retiros th,
-    .tabla-retiros td {
-        font-size: 13px;
-        padding: 12px 8px;
-    }
-}
-
-/* ===============================
-   MÓVIL
-================================ */
 @media (max-width: 600px) {
 
     .container-historial {
-        padding: 18px;
+        padding: 15px;
     }
 
+    .tabla-retiros {
+        min-width: 100%;
+    }
+
+    /* MODO TARJETAS */
     .tabla-retiros thead {
         display: none;
     }
@@ -156,18 +178,16 @@
     }
 
     .tabla-retiros tr {
-        background: #ffffff;
-        margin-bottom: 16px;
-        border-radius: 14px;
-        box-shadow: 0 6px 20px rgba(0,0,0,.06);
-        padding: 14px;
+        background: #1e2329;
+        margin-bottom: 15px;
+        border-radius: 12px;
+        padding: 12px;
     }
 
     .tabla-retiros td {
         text-align: right;
-        border: none;
         padding: 8px 0;
-        font-size: 14px;
+        border: none;
         position: relative;
     }
 
@@ -175,8 +195,7 @@
         content: attr(data-label);
         position: absolute;
         left: 0;
-        font-weight: 600;
-        color: #374151;
-        text-align: left;
+        color: #848e9c;
+        font-weight: 500;
     }
 }

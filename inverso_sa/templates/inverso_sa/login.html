@@ -4,66 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Inverso</title>
+    <title>Login | Binance Min</title>
 
     <link rel="stylesheet" href="{% static 'inverso_sa/css/login.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
+<!-- FONDO -->
+<div class="bg-overlay"></div>
+
 <main class="page-container">
+
     <section class="login-card">
+
+        <!-- LOGO -->
         <div class="brand-header">
-            <div class="logo-wrapper">
-                <img src="{% static 'inverso_sa/img/logo.jpeg' %}" alt="Inverso" class="logo-img">
-            </div>
-            <h1 class="brand-title">INVE<span>RSO</span></h1>
+            <img src="{% static 'inverso_sa/img/logo.png' %}" class="logo-img">
+            <h1>MINERIA <span>BINANCE</span></h1>
         </div>
 
         {% if error %}
-            <p style="color:red; text-align:center;">{{ error }}</p>
-
-            <!-- 🔁 Rehabilitar botón si falla el login -->
-            <script>
-                window.onload = function () {
-                    const btn = document.getElementById('submit-btn');
-                    const msg = document.getElementById('wait-msg');
-
-                    if (btn) btn.disabled = false;
-                    if (msg) msg.style.display = 'none';
-                };
-            </script>
+            <p class="error-msg">{{ error }}</p>
         {% endif %}
 
-        <form method="POST" class="form-container" id="login-form">
+        <form method="POST" id="login-form">
             {% csrf_token %}
 
             <div class="input-group">
-                <label>USUARIO O NUMERO DE TELEFONO</label>
                 <input type="text" name="username" required>
+                <label>Usuario o Teléfono</label>
             </div>
 
             <div class="input-group">
-                <label>CONTRASEÑA</label>
                 <input type="password" name="password" required>
+                <label>Contraseña</label>
             </div>
 
-            <button type="submit" class="submit-btn" id="submit-btn">
-                ACCEDER AHORA
+            <button type="submit" id="submit-btn">
+                Iniciar Sesión
             </button>
 
-            <p id="wait-msg"
-               style="display:none; text-align:center; margin-top:10px; color:#f59e0b;">
-                ⏳ Por favor espera mientras el sistema valida tus datos...
-            </p>
+            <p id="wait-msg">⏳ Validando acceso...</p>
 
             <div class="form-footer">
-                <a href="#">¿Olvidaste tu contraseña?</a>
-                <span class="divider">|</span>
-                <a href="{% url 'registro' %}" class="highlight">Registrarse</a>
+                
+                <a href="{% url 'registro' %}" class="register">Registrarse</a>
             </div>
         </form>
+
     </section>
+
 </main>
 
 <script>

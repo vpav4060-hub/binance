@@ -1,191 +1,210 @@
-/* ===============================
-   CONTENEDOR GENERAL
-================================ */
-.investment-container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 25px 15px;
+:root {
+    --yellow: #fcd535;
+    --bg: #0b0e11;
+    --card: #1e2329;
+    --border: #2b3139;
+    --text: #ffffff;
+    --muted: #848e9c;
+    --green: #0ecb81;
 }
 
-/* ===============================
-   TÍTULOS
-================================ */
+/* CONTENEDOR */
+.investment-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 25px;
+}
+
+/* TITULOS */
 .main-title {
+    color: white;
     font-size: 26px;
-    font-weight: 700;
-    color: #0b1d2d;
     margin-bottom: 20px;
 }
 
 .sub-title {
-    font-size: 20px;
-    font-weight: 600;
+    color: var(--muted);
     margin: 25px 0 15px;
-    color: #1a1a1a;
 }
 
-/* ===============================
-   RESUMEN SUPERIOR
-================================ */
+/* RESUMEN */
 .investment-summary {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 15px;
 }
 
-.summary-item {
-    display: flex;
-    align-items: center;
-    padding: 18px;
-    border-radius: 16px;
-    color: #fff;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.icon-box {
-    background: rgba(255, 255, 255, 0.25);
-    padding: 12px;
+/* CARD RESUMEN */
+.summary-card {
+    background: var(--card);
+    padding: 20px;
     border-radius: 12px;
-    margin-right: 15px;
+    border: 1px solid var(--border);
+    transition: 0.2s;
 }
 
-.summary-text span {
+.summary-card:hover {
+    border-color: var(--yellow);
+}
+
+.summary-card span {
+    color: var(--muted);
     font-size: 14px;
-    opacity: 0.9;
 }
 
-.summary-text strong {
-    display: block;
-    font-size: 20px;
-    margin-top: 4px;
+.summary-card h3 {
+    margin-top: 5px;
+    color: var(--yellow);
 }
 
-/* ===============================
-   COLORES TARJETAS
-================================ */
-.card-blue {
-    background: linear-gradient(135deg, #009ffd, #2a2a72);
+/* LISTA */
+.investment-list {
+    margin-top: 10px;
 }
 
-.card-orange {
-    background: linear-gradient(135deg, #ff9800, #ff5722);
-}
-
-/* ===============================
-   TABS
-================================ */
-.investment-tabs {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.tab-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    border: none;
-    background: #e9edf3;
-    padding: 10px 18px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 600;
-    color: #444;
-    transition: 0.25s;
-}
-
-.tab-btn:hover {
-    background: #dce3ee;
-}
-
-.tab-btn.active {
-    background: #0b1d2d;
-    color: #fff;
-}
-
-/* ===============================
-   TARJETAS DE INVERSIÓN
-================================ */
+/* CARD */
 .investment-card {
-    background: #fff;
-    border-radius: 18px;
-    padding: 22px;
-    margin-bottom: 18px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+    background: var(--card);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border);
     transition: 0.25s;
+    position: relative;
+    overflow: hidden;
 }
 
+/* BRILLO MINADO */
+.investment-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(14,203,129,0.15), transparent);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    100% {
+        left: 100%;
+    }
+}
+
+/* HOVER PRO */
 .investment-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px) scale(1.01);
+    border-color: var(--yellow);
+    box-shadow: 0 10px 30px rgba(14,203,129,0.2);
 }
 
-.investment-card h4 {
-    font-size: 18px;
-    margin-bottom: 12px;
-    color: #0b1d2d;
+/* HEADER */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
 }
 
-.investment-card p {
-    font-size: 15px;
-    margin-bottom: 6px;
-    color: #333;
+.card-header h4 {
+    color: white;
 }
 
-/* ===============================
-   TEXTO Y BADGES
-================================ */
-.text-green {
-    color: #1bbf72;
-    font-weight: 700;
-}
-
-.badge-green {
-    background: #1bbf72;
-    color: #fff;
+/* BADGE */
+.badge {
+    background: rgba(14,203,129,0.2);
+    color: var(--green);
     padding: 4px 10px;
     border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12px;
 }
 
-/* ===============================
-   ESTADO VACÍO
-================================ */
-.empty-state {
+/* BODY */
+.card-body .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.card-body span {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.card-body strong {
+    color: white;
+}
+
+/* EFECTO GANANCIA */
+.green {
+    color: var(--green);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { text-shadow: 0 0 5px rgba(14,203,129,0.2); }
+    50% { text-shadow: 0 0 15px rgba(14,203,129,0.8); }
+    100% { text-shadow: 0 0 5px rgba(14,203,129,0.2); }
+}
+
+/* BARRA MINADO */
+.mining-progress {
+    width: 100%;
+    height: 6px;
+    background: #2b3139;
+    border-radius: 10px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #0ecb81, #fcd535);
+    animation: mining 4s linear infinite;
+}
+
+@keyframes mining {
+    0% { width: 0%; }
+    50% { width: 80%; }
+    100% { width: 100%; }
+}
+
+/* TEXTO MINADO */
+.mining-status {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--green);
+    opacity: 0.8;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+
+/* EMPTY */
+.empty-text {
+    color: var(--muted);
     text-align: center;
     margin-top: 30px;
 }
 
-.empty-text {
-    color: #777;
-    font-size: 16px;
+/* ALERT */
+.alert {
+    background: rgba(252,213,53,0.1);
+    border: 1px solid var(--yellow);
+    color: var(--yellow);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
 }
 
-/* ===============================
-   RESPONSIVE
-================================ */
+/* RESPONSIVE */
 @media (max-width: 900px) {
-
     .investment-summary {
         grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 600px) {
-
-    .main-title {
-        font-size: 22px;
-    }
-
-    .sub-title {
-        font-size: 18px;
-    }
-
-    .summary-item {
-        padding: 16px;
-    }
-
-    .investment-card {
-        padding: 18px;
     }
 }

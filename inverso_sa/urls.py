@@ -1,5 +1,6 @@
 from django.urls import path
-from . import views,views2
+from . import views
+
 
 handler403 = 'inverso_sa.views2.error_403'  # apunta a tu vista personalizada
 
@@ -83,20 +84,4 @@ urlpatterns = [
     path('retiros/historial/', views.historial_retiros, name='historial_retiros'),
     path('finanzas/', views.ingresos_egresos, name='ingresos_egresos'),
     path('finanzas/ocultar/<int:recarga_id>/', views.ocultar_recarga, name='ocultar_recarga'),
-    path('juegos/', views2.juegos, name='juegos'),
-    path('ruleta/jugar/', views2.jugar_ruleta, name='jugar_ruleta'),
-    path('ruleta/', views2.ruleta_view, name='ruleta'),
-    path('tragamonedas/', views2.tragamonedas_view, name='tragamonedas'),
-    path('tragamonedas/jugar/', views2.jugar_tragamonedas, name='jugar_tragamonedas'),
-    
-
-
-
-
-    
-     path('trading/', views2.trading_view, name='trading'),
-
-
-
-
 ]

@@ -1,127 +1,151 @@
-
-/* ===============================
-   TÍTULO
-================================ */
-.container h2 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #0b1d2d;
+/* CONTENEDOR */
+.container-recarga {
+    max-width: 600px;
+    margin: auto;
 }
 
-/* ===============================
-   BOTÓN PRINCIPAL
-================================ */
+/* TITULO */
+.container-recarga h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fcd535;
+}
+
+/* BOTONES */
+.acciones {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
 .btn-cta {
-    display: inline-block;
-    background: #0b1d2d;
-    color: #fff;
-    padding: 10px 22px;
-    border-radius: 25px;
+    background: #fcd535;
+    color: #000;
+    padding: 10px 18px;
+    border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
-    margin-bottom: 15px;
-    transition: 0.25s;
-    text-align: center;
+    transition: 0.2s;
 }
 
 .btn-cta:hover {
-    background: #09355a;
+    background: #e6c200;
 }
 
-/* ===============================
-   TARJETA CUENTA
-================================ */
+.btn-cta.secondary {
+    background: #1e2329;
+    color: #fff;
+}
+
+/* TARJETA */
 .card-bg {
-    background: #f5f7fb;
-    border-radius: 18px;
+    background: #1e2329;
     padding: 18px;
-    margin-bottom: 25px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    margin-bottom: 20px;
 }
 
 .card-bg p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 14px;
-    margin-bottom: 12px;
-    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .card-bg button {
-    background: #0b1d2d;
-    color: #fff;
+    background: #2b3139;
     border: none;
-    padding: 6px 14px;
-    border-radius: 20px;
+    color: #fcd535;
+    padding: 6px 10px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 13px;
-    transition: 0.2s;
 }
 
-.card-bg button:hover {
-    background: #09355a;
-}
-
-/* ===============================
-   FORMULARIO
-================================ */
-form label {
+/* FORM */
+.form-recarga label {
     display: block;
-    font-weight: 600;
-    margin-bottom: 6px;
-    font-size: 14px;
-    color: #333;
+    margin-bottom: 5px;
+    color: #aaa;
 }
 
-form input {
+.form-recarga input {
     width: 100%;
     padding: 12px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
     margin-bottom: 15px;
-    font-size: 15px;
+    border-radius: 8px;
+    border: 1px solid #2b3139;
+    background: #0b0e11;
+    color: white;
 }
 
-form input:focus {
+.form-recarga input:focus {
+    border-color: #fcd535;
     outline: none;
-    border-color: #0b1d2d;
 }
 
-/* ===============================
-   MONTOS RÁPIDOS
-================================ */
+/* MONTOS */
 .quick-amounts {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
 .quick-amounts button {
-    background: #e9edf3;
+    background: #2b3139;
+    color: #fff;
     border: none;
-    padding: 10px 0;
-    border-radius: 12px;
-    font-weight: 600;
+    padding: 10px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: 0.2s;
 }
 
 .quick-amounts button:hover {
-    background: #dbe2ef;
+    background: #fcd535;
+    color: #000;
 }
 
-/* ===============================
-   RESPONSIVE
-================================ */
+/* BOTON SUBMIT */
+.btn-submit {
+    width: 100%;
+    background: #fcd535;
+    border: none;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #e6c200;
+}
+
+/* ALERT */
+.alert {
+    background: #2b3139;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left: 4px solid #fcd535;
+}
+
+/* INFO */
+.info-box {
+    margin-top: 20px;
+    background: #1e2329;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #bbb;
+}
+
+.info-box ul {
+    margin-top: 10px;
+    padding-left: 18px;
+}
+
+/* RESPONSIVE */
 @media (max-width: 480px) {
-
-    .container h2 {
-        font-size: 21px;
-    }
-
     .quick-amounts {
         grid-template-columns: repeat(2, 1fr);
     }

@@ -1,99 +1,174 @@
-
 /* ===============================
-   TÍTULO
+   BASE BINANCE
 ================================ */
-h2 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 18px;
-    color: #0b1d2d;
+body {
+    background: #0b0e11;
+    font-family: 'Segoe UI', sans-serif;
+    color: #eaecef;
 }
 
 /* ===============================
-   SALDO DISPONIBLE
+   CONTENEDOR
 ================================ */
-.saldo-box {
-    background: #f5f7fb;
-    border-radius: 18px;
-    padding: 18px;
-    margin-bottom: 25px;
+.container-retiro {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #161a1e;
+    border-radius: 16px;
+    border: 1px solid #2b3139;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+/* ===============================
+   TITULO
+================================ */
+h2 {
     text-align: center;
-    font-size: 16px;
-    font-weight: 600;
-    color: #0b1d2d;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #fcd535;
+}
+
+/* ===============================
+   SALDO
+================================ */
+.saldo-disponible {
+    background: #0b0e11;
+    border: 1px solid #2b3139;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #848e9c;
+}
+
+.saldo-disponible strong {
+    color: #fcd535;
+}
+
+/* ===============================
+   ALERTAS
+================================ */
+.alerts-container {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    border: 1px solid;
+}
+
+/* SUCCESS */
+.alert.success {
+    color: #0ecb81;
+    border-color: #0ecb81;
+    background: rgba(14,203,129,0.08);
+}
+
+/* ERROR */
+.alert.error {
+    color: #f6465d;
+    border-color: #f6465d;
+    background: rgba(246,70,93,0.08);
+}
+
+/* WARNING */
+.alert.warning {
+    color: #fcd535;
+    border-color: #fcd535;
+    background: rgba(252,213,53,0.08);
 }
 
 /* ===============================
    FORMULARIO
 ================================ */
-form label {
+.retiro-form label {
     display: block;
-    font-weight: 600;
+    font-size: 13px;
     margin-bottom: 6px;
-    font-size: 14px;
-    color: #333;
+    color: #848e9c;
 }
 
-form input,
-form select {
+/* INPUTS */
+.retiro-form input,
+.retiro-form select {
     width: 100%;
     padding: 12px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
+    border-radius: 10px;
+    border: 1px solid #2b3139;
     margin-bottom: 18px;
-    font-size: 15px;
-    background: #fff;
+    font-size: 14px;
+    background: #0b0e11;
+    color: #eaecef;
+    transition: 0.2s;
 }
 
-form input:focus,
-form select:focus {
+/* FOCUS */
+.retiro-form input:focus,
+.retiro-form select:focus {
     outline: none;
-    border-color: #0b1d2d;
+    border-color: #fcd535;
+    box-shadow: 0 0 0 1px #fcd535;
 }
 
 /* ===============================
    BOTÓN RETIRO
 ================================ */
-button {
+.btn-retirar {
     width: 100%;
-    background: #0b1d2d;
-    color: #fff;
+    background: #fcd535;
+    color: #000;
     border: none;
-    padding: 13px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: 600;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
     cursor: pointer;
-    transition: 0.25s;
+    transition: 0.2s;
 }
 
-button:hover {
-    background: #09355a;
+.btn-retirar:hover {
+    background: #e6c200;
+    transform: translateY(-2px);
 }
+
+/* ===============================
+   BOTÓN HISTORIAL
+================================ */
 .btn-historial {
     display: block;
     margin-top: 20px;
     width: 100%;
     padding: 12px;
-    background: #1f2937;
-    color: #fff;
+    background: transparent;
+    color: #fcd535;
     text-align: center;
-    border-radius: 8px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 600;
-    transition: 0.3s;
+    border: 1px solid #fcd535;
+    transition: 0.2s;
 }
 
 .btn-historial:hover {
-    background: #111827;
+    background: rgba(252,213,53,0.08);
 }
 
 /* ===============================
    RESPONSIVE
 ================================ */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+    .container-retiro {
+        margin: 20px 15px;
+        padding: 20px;
+    }
+
     h2 {
-        font-size: 21px;
+        font-size: 18px;
     }
 }

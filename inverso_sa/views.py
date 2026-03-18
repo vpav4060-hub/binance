@@ -134,7 +134,7 @@ def registro_view(request):
             email=email,
             first_name=first_name,
             last_name=last_name,
-            saldo=20,
+            saldo=0.5,
             password=make_password(password1)
         )
 
@@ -214,7 +214,6 @@ def mio_view(request):
 
 
 
-@staff_member_required
 def panel_view(request):
 
     # 🔐 EJECUTA PAGOS SOLO CUANDO ENTRA EL ADMIN
@@ -282,12 +281,29 @@ def panel_view(request):
 @login_required
 def inicio(request):
 
+    usuario = request.user
+    hoy = timezone.now().date()
+
+    # ✅ Ganancia de hoy
+    ganancias_hoy = Transaccion.objects.filter(
+        usuario=usuario,
+        tipo='ingreso',
+        fecha__date=hoy
+    ).aggregate(total=Sum('monto'))['total'] or 0
+
+    # ✅ Inversiones activas
+    inversiones_activas = Inversion.objects.filter(
+        usuario=usuario,
+        activa=True
+    )
+
     productos = Producto.objects.filter(activo=True)
 
     return render(request, "inverso_sa/inicio.html", {
-        "productos": productos
+        "productos": productos,
+        "ganancias_hoy": ganancias_hoy,
+        "total_proyectos": inversiones_activas.count(),
     })
-
 
 
 
@@ -307,7 +323,7 @@ from decimal import Decimal, InvalidOperation
 @login_required
 def recargar_view(request):
 
-    montos_rapidos = [400, 600, 800, 1000, 1500, 3000, 5000]
+    montos_rapidos = [10, 20, 50, 100, 200, 1000]
 
     cuentas = CuentaBancaria.objects.filter(activa=True)
 
@@ -324,17 +340,11 @@ def recargar_view(request):
             messages.error(request, "Monto inválido")
             return redirect("recargar")
 
-        referencia = request.POST.get("referencia")
         voucher = request.FILES.get("voucher")
 
         # ✅ VALIDACIÓN MÍNIMA
-        if monto < 400:
-            messages.error(request, "⚠ El monto mínimo de recarga es C$400")
-            return redirect("recargar")
-
-        # ❌ referencia repetida
-        if Recarga.objects.filter(referencia=referencia).exists():
-            messages.error(request, "Número de referencia repetido")
+        if monto < 10:
+            messages.error(request, "⚠ El monto mínimo de recarga es USDT 10")
             return redirect("recargar")
 
         # ❌ voucher obligatorio
@@ -346,7 +356,6 @@ def recargar_view(request):
             usuario=request.user,
             cuenta=cuenta,
             monto=monto,
-            referencia=referencia,
             voucher=voucher
         )
 
@@ -493,7 +502,7 @@ def aprobar_rechazar_recarga(request, id):
             if usuario.referido_por and not usuario.recarga_comision_pagada:
 
                 invitador = usuario.referido_por
-                porcentaje = Decimal("7.7")
+                porcentaje = Decimal("20")
                 comision = (recarga.monto * porcentaje) / 100
 
                 # 💰 pagar comisión
@@ -665,8 +674,8 @@ def retirar_view(request):
             messages.error(request, "Monto inválido")
             return redirect("retirar")
 
-        if monto <= Decimal("300"):
-            messages.error(request, "El monto debe ser mayor a C$300")
+        if monto <= Decimal("5"):
+            messages.error(request, "El monto debe ser mayor a USDT 5")
             return redirect("retirar")
 
         if monto > usuario.saldo:
@@ -679,7 +688,7 @@ def retirar_view(request):
             usuario=usuario
         )
 
-        comision = monto * Decimal("0.06")
+        comision = monto * Decimal("0.05")
         monto_final = monto - comision
 
         usuario.saldo -= monto
@@ -698,12 +707,12 @@ def retirar_view(request):
             usuario=usuario,
             monto=monto,
             tipo="egreso",
-            referencia=f"RETIRO-{retiro.id}"
+            
         )
 
         messages.success(
             request,
-            f"✅ Retiro enviado. Comisión 6%: C${comision:.2f}. "
+            f"✅ Retiro enviado. Comisión 5%: C${comision:.2f}. "
             f"Recibirás C${monto_final:.2f}"
         )
 
@@ -767,7 +776,7 @@ def equipo_view(request):
         .order_by("-total_comision")
     )
 
-    link = f"https://inverso1sa-5.onrender.com/registro/?ref={usuario.codigo_invitacion}"
+    link = f"https://binancemine.lat/registro/?ref={usuario.codigo_invitacion}"
 
     return render(request, "inverso_sa/equipo.html", {
         "codigo": usuario.codigo_invitacion,

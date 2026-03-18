@@ -1,313 +1,167 @@
-/* ===============================
-   CONTENEDOR GENERAL
-================================ */
-.main-header h1 {
-    font-size: 26px;
-    font-weight: 700;
-    color: #0b1d2d;
-    margin-bottom: 20px;
+/* =========================
+   BASE BINANCE
+========================= */
+body {
+    background: #0b0e11;
+    color: #eaecef;
+    font-family: 'Arial', sans-serif;
 }
 
-/* ===============================
-   GRID PRINCIPAL
-================================ */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 2fr 1.2fr;
-    gap: 25px;
+/* CONTENEDOR FULL WIDTH */
+.binance-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: auto;
+    padding: 20px;
 }
 
-/* ===============================
-   TARJETAS GENERALES
-================================ */
-.card-section {
-    background: #fff;
-    border-radius: 18px;
-    padding: 22px;
-    margin-bottom: 22px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
-
-.card-section h3 {
-    font-size: 18px;
-    margin-bottom: 15px;
-    color: #0b1d2d;
-}
-
-/* ===============================
-   MÉTODO DE COMPARTIR
-================================ */
-.share-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.share-box {
-    display: flex;
-    align-items: center;
-    background: #f4f6fb;
-    padding: 15px;
-    border-radius: 14px;
-}
-
-.share-box .icon {
-    font-size: 26px;
-    margin-right: 15px;
-}
-
-.details {
-    flex: 1;
-}
-
-.details .label {
-    display: block;
-    font-size: 13px;
-    color: #777;
-}
-
-.details .code,
-.details .link {
-    font-weight: 700;
-    color: #0b1d2d;
-    font-size: 15px;
-    word-break: break-all;
-}
-
-.copy-pill {
-    background: #0b1d2d;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-/* ===============================
-   NIVELES
-================================ */
-.levels-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-}
-
-.level-card {
-    border-radius: 16px;
-    overflow: hidden;
-    color: #fff;
-}
-
-.lvl-header {
-    padding: 10px;
-    font-weight: 600;
-    text-align: center;
-}
-
-.lvl-body {
-    padding: 15px;
-    text-align: center;
-}
-
-.main-stat {
-    font-size: 26px;
+/* =========================
+   HEADER
+========================= */
+.binance-header h1 {
+    font-size: 28px;
     font-weight: 700;
 }
 
-.main-stat small {
-    display: block;
-    font-size: 14px;
-    opacity: 0.9;
-}
-
-.sub-stats span {
-    display: block;
-    font-size: 13px;
+.binance-header p {
+    color: #848e9c;
     margin-top: 5px;
 }
 
-/* COLORES */
-.lvl-1 { background: linear-gradient(135deg, #ff9800, #ff5722); }
-.lvl-2 { background: linear-gradient(135deg, #2196f3, #3f51b5); }
-.lvl-3 { background: linear-gradient(135deg, #4caf50, #009688); }
+/* =========================
+   CARD
+========================= */
+.binance-card {
+    background: #181a20;
+    border-radius: 14px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 0 1px #2b3139;
+}
 
-/* ===============================
-   RECOMPENSAS
-================================ */
-.rewards-list {
+.binance-card h3 {
+    margin-bottom: 15px;
+}
+
+/* =========================
+   INVITACIÓN
+========================= */
+.invite-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 15px;
+}
+
+.invite-box {
+    background: #0b0e11;
+    padding: 15px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
 
-.reward-item {
-    display: flex;
-    gap: 15px;
-    background: #f7f9fc;
-    padding: 15px;
-    border-radius: 14px;
-}
-
-.badge {
-    background: #0b1d2d;
-    color: #fff;
-    font-weight: 700;
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-size: 14px;
-    height: fit-content;
-}
-
-.reward-info p {
-    font-size: 14px;
-    margin-bottom: 8px;
-}
-
-.hlt {
-    color: #1bbf72;
-    font-weight: 700;
-}
-
-/* ===============================
-   PROGRESS BAR
-================================ */
-.progress-bar-bg {
-    background: #e4e9f1;
-    border-radius: 20px;
-    height: 8px;
-    overflow: hidden;
-    margin: 8px 0;
-}
-
-.progress-bar-fill {
-    background: linear-gradient(90deg, #1bbf72, #00c853);
-    height: 100%;
-    width: 0%;
-}
-
-/* ===============================
-   FOOTER DE RECOMPENSA
-================================ */
-.reward-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.invite-box span {
     font-size: 13px;
+    color: #848e9c;
 }
 
-.btn-get {
-    background: #0b1d2d;
-    color: #fff;
+.invite-box strong {
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+/* BOTÓN BINANCE */
+.btn-yellow {
+    margin-top: 10px;
+    background: #fcd535;
     border: none;
-    padding: 6px 14px;
-    border-radius: 20px;
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
+    color: #000;
+    transition: 0.2s;
 }
 
-.btn-get:disabled {
-    background: #ccc;
-    cursor: not-allowed;
+.btn-yellow:hover {
+    background: #e6c200;
 }
 
-/* ===============================
+/* =========================
+   TABLA
+========================= */
+.table-container {
+    overflow-x: auto;
+}
+
+.binance-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.binance-table th {
+    text-align: left;
+    font-size: 13px;
+    color: #848e9c;
+    padding: 12px 10px;
+    border-bottom: 1px solid #2b3139;
+}
+
+.binance-table td {
+    padding: 14px 10px;
+    border-bottom: 1px solid #2b3139;
+    font-size: 14px;
+}
+
+/* FILA HOVER */
+.binance-table tr:hover {
+    background: #202630;
+}
+
+/* USER */
+.user {
+    color: #fcd535;
+    font-weight: 600;
+}
+
+/* GANANCIA */
+.profit {
+    color: #0ecb81;
+    font-weight: 600;
+}
+
+/* EMPTY */
+.empty {
+    text-align: center;
+    padding: 20px;
+    color: #848e9c;
+}
+
+/* =========================
    RESPONSIVE
-================================ */
-@media (max-width: 1000px) {
-    .dashboard-grid {
+========================= */
+@media (max-width: 900px) {
+
+    .invite-grid {
         grid-template-columns: 1fr;
     }
+
 }
 
 @media (max-width: 600px) {
 
-    .levels-grid {
-        grid-template-columns: 1fr;
+    .binance-header h1 {
+        font-size: 22px;
     }
 
-    .reward-item {
-        flex-direction: column;
+    .binance-card {
+        padding: 15px;
     }
 
-    .reward-footer {
-        flex-direction: column;
-        gap: 8px;
-        align-items: flex-start;
+    .binance-table th,
+    .binance-table td {
+        font-size: 12px;
+        padding: 10px;
     }
-}
-.main-header {
-    margin-bottom: 20px;
-}
 
-.card-section {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 14px;
-    margin-bottom: 25px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.share-container {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.share-box {
-    flex: 1;
-    padding: 15px;
-    background: #f6f7fb;
-    border-radius: 12px;
-}
-
-.code {
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-.link {
-    font-size: 13px;
-    word-break: break-all;
-}
-
-.copy-btn {
-    margin-top: 10px;
-    background: #4f46e5;
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.copy-btn:hover {
-    opacity: 0.9;
-}
-
-.equipo-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-
-.equipo-table th,
-.equipo-table td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.equipo-table th {
-    background: #f3f4f6;
-    font-weight: 600;
-}
-
-.comision {
-    color: #16a34a;
-    font-weight: bold;
-}
-
-.empty {
-    padding: 20px;
-    color: #888;
 }

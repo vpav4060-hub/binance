@@ -1,125 +1,182 @@
-/* =====================================================
-   CENTRO DE ASISTENCIA — INVERSO
-   Estilo profesional financiero
-===================================================== */
-
-.page-title {
-    font-size: 26px;
-    font-weight: 700;
-    margin-bottom: 25px;
-    color: #1e293b;
+:root {
+    --yellow: #fcd535;
+    --bg: #0b0e11;
+    --card: #1e2329;
+    --border: #2b3139;
+    --text: #ffffff;
+    --muted: #848e9c;
+    --green: #0ecb81;
+    --blue: #229ED9;
 }
 
-.support-card {
-    background: #ffffff;
-    border-radius: 22px;
-    padding: 35px;
+/* FONDO */
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* CENTRAR */
+.main-content {
+    display: flex;
+    justify-content: center;
+    padding: 40px 15px;
+}
+
+.support-wrapper {
+    width: 100%;
     max-width: 950px;
-    margin: auto;
-    box-shadow: 0 18px 45px rgba(0,0,0,0.08);
+    text-align: center;
 }
 
+/* TITULO */
+.page-title {
+    font-size: 28px;
+    color: var(--yellow);
+    margin-bottom: 25px;
+}
+
+.page-title i {
+    margin-right: 8px;
+}
+
+/* CARD */
+.support-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 35px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+/* EFECTO MINADO */
+.support-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(14,203,129,0.1), transparent);
+    animation: shine 4s infinite;
+}
+
+@keyframes shine {
+    100% {
+        left: 100%;
+    }
+}
+
+/* INTRO */
 .support-intro {
-    font-size: 15.5px;
-    color: #374151;
-    line-height: 1.8;
+    color: var(--muted);
     margin-bottom: 30px;
-    text-align: justify;
 }
 
-/* ==========================
-   SECCIONES
-========================== */
-
+/* SECCION */
 .support-section h3 {
-    font-size: 20px;
-    margin-bottom: 8px;
-    color: #0f172a;
+    color: var(--yellow);
+    margin-bottom: 10px;
 }
 
 .support-section p {
-    font-size: 15px;
-    color: #475569;
-    line-height: 1.7;
+    color: var(--muted);
     margin-bottom: 25px;
 }
 
-/* ==========================
-   OPCIONES
-========================== */
-
+/* GRID */
 .support-options {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
 }
 
+/* ITEM */
 .support-item {
     display: flex;
-    gap: 16px;
-    background: #f8fafc;
+    gap: 12px;
+    background: #15191f;
     padding: 18px;
-    border-radius: 16px;
-    border-left: 5px solid #2563eb;
-    transition: 0.25s ease;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    transition: 0.25s;
 }
 
 .support-item:hover {
     transform: translateY(-4px);
-    background: #f1f5f9;
+    border-color: var(--yellow);
 }
 
 .support-item i {
-    font-size: 28px;
-    color: #2563eb;
-    margin-top: 5px;
+    font-size: 26px;
+    color: var(--yellow);
 }
 
 .support-item strong {
-    font-size: 15.5px;
-    color: #0f172a;
+    color: var(--text);
 }
 
 .support-item p {
-    font-size: 14.5px;
-    color: #475569;
-    margin-top: 5px;
-    line-height: 1.6;
+    color: var(--muted);
+    font-size: 14px;
 }
 
-/* ==========================
-   FOOTER
-========================== */
+/* TELEGRAM BOX */
+.telegram-box {
+    margin-top: 35px;
+    padding: 25px;
+    background: rgba(34,158,217,0.1);
+    border-radius: 16px;
+    border: 1px solid var(--blue);
+}
 
+.telegram-box h3 {
+    color: var(--blue);
+    margin-bottom: 10px;
+}
+
+.telegram-box p {
+    color: var(--muted);
+    margin-bottom: 18px;
+}
+
+/* BOTON TELEGRAM */
+.btn-telegram {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--blue);
+    color: white;
+    padding: 14px 26px;
+    border-radius: 40px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.25s;
+    box-shadow: 0 10px 25px rgba(34,158,217,0.3);
+}
+
+.btn-telegram:hover {
+    transform: translateY(-3px);
+    background: #1b8ac4;
+}
+
+/* FOOTER */
 .support-footer {
-    margin-top: 40px;
-    padding-top: 25px;
-    border-top: 1px solid #e5e7eb;
-    text-align: center;
+    margin-top: 35px;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
 }
 
 .support-footer h4 {
-    font-size: 18px;
-    margin-bottom: 8px;
-    color: #0f172a;
+    color: var(--yellow);
 }
 
 .support-footer p {
-    font-size: 15px;
-    color: #334155;
+    color: var(--muted);
 }
 
-.support-footer span {
-    display: block;
-    margin-top: 8px;
-    font-size: 14px;
-    color: #64748b;
-}
-
-/* ==========================
-   RESPONSIVE
-========================== */
-
+/* RESPONSIVE */
 @media (max-width: 768px) {
 
     .support-card {
@@ -132,58 +189,6 @@
 
     .support-item {
         flex-direction: column;
+        text-align: center;
     }
-
-    .support-item i {
-        margin-bottom: 5px;
-    }
-}
-
-/* =====================================
-   BOTÓN WHATSAPP
-===================================== */
-
-.whatsapp-box {
-    margin-top: 40px;
-    padding: 25px;
-    background: #ecfdf5;
-    border-radius: 18px;
-    text-align: center;
-    border: 2px solid #22c55e;
-}
-
-.whatsapp-box h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #065f46;
-}
-
-.whatsapp-box p {
-    font-size: 15px;
-    color: #064e3b;
-    margin-bottom: 18px;
-}
-
-.btn-whatsapp {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: #22c55e;
-    color: #ffffff;
-    padding: 14px 26px;
-    border-radius: 40px;
-    font-size: 16px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: 0.25s ease;
-    box-shadow: 0 10px 25px rgba(34,197,94,0.35);
-}
-
-.btn-whatsapp i {
-    font-size: 22px;
-}
-
-.btn-whatsapp:hover {
-    background: #16a34a;
-    transform: translateY(-3px);
 }

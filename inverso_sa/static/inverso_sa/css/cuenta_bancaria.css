@@ -1,0 +1,97 @@
+/* ===============================
+   BASE BINANCE
+================================ */
+body {
+    background: #0b0e11;
+    font-family: 'Segoe UI', sans-serif;
+    color: #eaecef;
+}
+
+/* ===============================
+   CONTENEDOR
+================================ */
+.card-form {
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #161a1e;
+    border-radius: 16px;
+    border: 1px solid #2b3139;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+/* ===============================
+   TITULO
+================================ */
+.form-title {
+    text-align: center;
+    color: #fcd535;
+    margin-bottom: 25px;
+    font-size: 20px;
+}
+
+/* ===============================
+   FORM GROUP
+================================ */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #848e9c;
+}
+
+/* ===============================
+   INPUTS
+================================ */
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #2b3139;
+    background: #0b0e11;
+    color: #eaecef;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+/* FOCUS */
+.form-group input:focus {
+    border-color: #fcd535;
+    outline: none;
+    box-shadow: 0 0 0 1px #fcd535;
+}
+
+/* ===============================
+   BOTON
+================================ */
+.btn-primary {
+    width: 100%;
+    background: #fcd535;
+    color: #000;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-primary:hover {
+    background: #e6c200;
+    transform: translateY(-2px);
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 600px) {
+    .card-form {
+        margin: 30px 15px;
+        padding: 20px;
+    }
+}

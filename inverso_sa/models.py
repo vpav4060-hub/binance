@@ -51,7 +51,6 @@ class Transaccion(models.Model):
     cuenta = models.ForeignKey(CuentaBancaria, on_delete=models.PROTECT, null=True, blank=True)
     monto = models.DecimalField(max_digits=10, decimal_places=2)
     tipo = models.CharField(max_length=10)  # ingreso / egreso
-    referencia = models.CharField(max_length=50, blank=True, null=True)
     fecha = models.DateTimeField(auto_now_add=True)
 
 
@@ -74,7 +73,6 @@ class Recarga(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     cuenta = models.ForeignKey(CuentaBancaria, on_delete=models.PROTECT)
     monto = models.DecimalField(max_digits=12, decimal_places=2)
-    referencia = models.CharField(max_length=50, unique=True)
     voucher = models.ImageField(upload_to='recargas/')
     estado = models.CharField(max_length=15, choices=ESTADOS, default='revision')
     fecha = models.DateTimeField(auto_now_add=True)
@@ -278,4 +276,64 @@ class Tragamonedas(models.Model):
 
     def __str__(self):
         return f"{self.usuario.username} - {self.resultado} - Apuesta: {self.apuesta}"
+    
+
+class Perfil(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+
+    foto = models.ImageField(upload_to='perfiles/', null=True, blank=True)
+    biografia = models.TextField(blank=True)
+
+    ciudad = models.CharField(max_length=100, blank=True)
+    telefono = models.CharField(max_length=20, blank=True)
+
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.usuario.username
+
+class Amistad(models.Model):
+    de_usuario = models.ForeignKey(Usuario, related_name='amistades_enviadas', on_delete=models.CASCADE)
+    para_usuario = models.ForeignKey(Usuario, related_name='amistades_recibidas', on_delete=models.CASCADE)
+
+    estado = models.CharField(max_length=15, default='pendiente')  # pendiente / aceptada
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('de_usuario', 'para_usuario')
+
+class Publicacion(models.Model):
+    PRIVACIDAD = (
+        ('publico', 'Público'),
+        ('amigos', 'Solo amigos'),
+    )
+
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    contenido = models.TextField()
+    imagen = models.ImageField(upload_to='muro/', null=True, blank=True)
+
+    privacidad = models.CharField(max_length=10, choices=PRIVACIDAD, default='publico')
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.usuario.username} - {self.fecha}"
+
+
+class Comentario(models.Model):
+    publicacion = models.ForeignKey(Publicacion, related_name='comentarios', on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    texto = models.TextField()
+    fecha = models.DateTimeField(auto_now_add=True)
+
+
+class Like(models.Model):
+    publicacion = models.ForeignKey(Publicacion, related_name='likes', on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('publicacion', 'usuario')
+
+
+
+
 

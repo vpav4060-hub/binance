@@ -11,28 +11,16 @@
 
 <div class="container-retiro">
 
-    <h2>🪙 Solicitar retiro de coins</h2>
+    <h2>Solicitar retiro USDT</h2>
 
     <p class="saldo-disponible">
-        <strong>Coins disponibles:</strong>
-        {{ request.user.saldo }} 🪙
+        <strong>USDT disponibles:</strong>
+        {{ request.user.saldo }}
     </p>
-
-    <!-- ✅ MENSAJES -->
-    {% if messages %}
-    <div class="alerts-container">
-        {% for message in messages %}
-        <div class="alert {{ message.tags }}">
-            {{ message }}
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-
     <form method="POST" class="retiro-form">
         {% csrf_token %}
 
-        <label>Cantidad de coins a retirar</label>
+        <label>Cantidad de USDT a retirar</label>
         <input 
             type="number"
             name="monto"
@@ -42,7 +30,7 @@
             required
         >
 
-        <label>Cuenta bancaria</label>
+        <label>DIRECCION WALLET</label>
         <select name="cuenta" required>
             {% for cuenta in cuentas %}
             <option value="{{ cuenta.id }}">
@@ -56,12 +44,11 @@
         </select>
 
         <button type="submit" class="btn-retirar">
-            Solicitar retiro de coins🪙
-        </button>
+            Solicitar retiro</button>
     </form>
 
     <a href="{% url 'historial_retiros' %}" class="btn-historial">
-        📄 Historial de retiros🪙
+        📄 Historial de retiros 
     </a>
 
 </div>

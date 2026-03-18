@@ -1,178 +1,155 @@
-/* ===============================
-   RESET
-================================ */
+/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family: Arial, sans-serif;
 }
 
+/* BODY */
 body {
-    background: #f4f6f9;
+    background: #0b0e11;
+    color: #eaecef;
 }
 
-/* ===============================
-   NAVBAR
-================================ */
+/* NAVBAR */
 .navbar {
     height: 60px;
-    background: #0b1d2d;
+    background: #0b0e11;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    color: white;
+    padding: 0 25px;
+    border-bottom: 1px solid #1e2329;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
 }
 
-/* ===============================
-   HAMBURGUESA
-================================ */
-.menu-toggle {
-    font-size: 28px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-}
-
-/* ===============================
-   LOGO
-================================ */
 .logo {
-    margin-left: 20px;
-    font-size: 22px;
+    color: #fcd535;
     font-weight: bold;
 }
 
-/* ===============================
-   SIDEBAR
-================================ */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: -280px;
-    width: 280px;
-    height: 100%;
-    background: #0f2a44;
-    transition: 0.35s ease;
-    z-index: 1200;
-    padding-top: 60px;
+.logo span {
+    color: #fff;
 }
 
-.sidebar.open {
-    left: 0;
-}
-
-/* HEADER SIDEBAR */
-.sidebar-header {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 60px;
-    background: #0b1d2d;
+.user-id {
+    color: #b7bdc6;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 15px;
-    color: white;
+    gap: 6px;
 }
 
-.sidebar-header button {
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    width: 230px;
+    height: 100%;
+    background: #0b0e11;
+    border-right: 1px solid #1e2329;
+    padding-top: 60px;
+    transition: 0.3s;
+    z-index: 1200;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 5px;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    color: #b7bdc6;
+    text-decoration: none;
+    transition: 0.2s;
+    font-size: 15px;
+}
+
+.sidebar ul li a i {
+    font-size: 16px;
+}
+
+/* HOVER */
+.sidebar ul li a:hover {
+    background: #1e2329;
+    color: #fcd535;
+}
+
+/* ACTIVO (opcional si luego quieres) */
+.sidebar ul li a.active {
+    background: #1e2329;
+    color: #fcd535;
+    border-left: 3px solid #fcd535;
+}
+
+/* CONTENIDO */
+.main-content {
+    margin-left: 230px;
+    margin-top: 60px;
+    padding: 25px;
+    min-height: 100vh;
+}
+
+/* ALERTAS */
+.alert {
+    background: #1e2329;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-left: 4px solid #fcd535;
+    border-radius: 4px;
+}
+
+/* OVERLAY */
+.overlay {
+    display: none;
+}
+
+.overlay.show {
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    top: 0;
+    left: 0;
+    z-index: 1100;
+}
+
+/* BOTÓN */
+.menu-toggle {
+    display: none;
+    font-size: 22px;
     background: none;
     border: none;
-    font-size: 22px;
     color: white;
     cursor: pointer;
 }
 
-/* ===============================
-   LINKS
-================================ */
-.sidebar ul {
-    list-style: none;
-    margin-top: 20px;
-}
-
-.sidebar ul li {
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-.sidebar ul li a {
-    display: block;
-    padding: 15px 20px;
-    color: #e8f1ff;
-    text-decoration: none;
-    font-size: 17px;
-}
-
-.sidebar ul li a:hover {
-    background: rgba(0,208,255,0.15);
-}
-
-/* ===============================
-   OVERLAY
-================================ */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s;
-    z-index: 1100;
-}
-
-.overlay.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* ===============================
-   CONTENIDO
-================================ */
-.main-content {
-    margin-top: 70px;
-    padding: 20px;
-}
-
-/* ===============================
-   FOOTER
-================================ */
-.main-footer {
-    margin-top: 50px;
-    padding: 20px;
-    background: #0b1d2d;
-    color: #ccc;
-    text-align: center;
-}
-
-/* ===============================
-   RESPONSIVE
-================================ */
-@media (min-width: 769px) {
-
-    .menu-toggle {
-        display: none;
-    }
+/* RESPONSIVE */
+@media (max-width: 768px) {
 
     .sidebar {
-        left: 0;
-        width: 220px;
+        left: -230px;
     }
 
-    .overlay {
-        display: none;
+    .sidebar.open {
+        left: 0;
+    }
+
+    .menu-toggle {
+        display: block;
     }
 
     .main-content {
-        margin-left: 220px;
-        margin-top: 70px;
+        margin-left: 0;
     }
 }

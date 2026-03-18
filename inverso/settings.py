@@ -93,8 +93,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # ========================
 # INTERNATIONALIZATION
 # ========================
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'es-ni'  # Español Nicaragua
+
+TIME_ZONE = 'America/Managua'  # Zona horaria correcta
+
 USE_I18N = True
 USE_TZ = True
 

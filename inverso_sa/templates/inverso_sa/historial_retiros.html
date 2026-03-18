@@ -11,61 +11,63 @@
 
 <div class="container-historial">
 
-    <h2>📄 Historial de retiros de coins</h2>
+    <h2>📄 Historial de retiros de USDT</h2>
 
     {% if retiros %}
-        <table class="tabla-retiros">
-            <thead>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Coins solicitados</th>
-                    <th>Comisión (6%)</th>
-                    <th>Coins a recibir</th>
-                    <th>Banco</th>
-                    <th>Cuenta</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
+        <div class="tabla-wrapper">
+            <table class="tabla-retiros">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>USDT</th>
+                        <th>Comisión</th>
+                        <th>Recibes</th>
+                        <th>Wallet</th>
+                        <th>Dirección</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                {% for retiro in retiros %}
-                <tr>
-                    <td data-label="Fecha">
-                        {{ retiro.fecha|date:"d/m/Y H:i" }}
-                    </td>
+                <tbody>
+                    {% for retiro in retiros %}
+                    <tr>
+                        <td data-label="Fecha">
+                            {{ retiro.fecha|date:"d/m/Y H:i" }}
+                        </td>
 
-                    <td data-label="Coins solicitados">
-                        🪙 {{ retiro.monto|default:"0.00" }}
-                    </td>
+                        <td data-label="USDT">
+                            🪙 {{ retiro.monto|default:"0.00" }}
+                        </td>
 
-                    <td data-label="Comisión">
-                        ❌ {{ retiro.comision|default:"0.00" }}
-                    </td>
+                        <td data-label="Comisión">
+                            - {{ retiro.comision|default:"0.00" }}
+                        </td>
 
-                    <td data-label="A recibir">
-                        ✅ <strong>{{ retiro.monto_a_pagar|default:retiro.monto }}</strong>
-                    </td>
+                        <td data-label="Recibes" class="recibes">
+                            {{ retiro.monto_a_pagar|default:retiro.monto }}
+                        </td>
 
-                    <td data-label="Banco">
-                        {{ retiro.cuenta.banco }}
-                    </td>
+                        <td data-label="Wallet">
+                            {{ retiro.cuenta.banco }}
+                        </td>
 
-                    <td data-label="Cuenta">
-                        {{ retiro.cuenta.numero_cuenta }}
-                    </td>
+                        <td data-label="Dirección">
+                            {{ retiro.cuenta.numero_cuenta }}
+                        </td>
 
-                    <td data-label="Estado">
-                        <span class="estado {{ retiro.estado }}">
-                            {{ retiro.estado|capfirst }}
-                        </span>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                        <td data-label="Estado">
+                            <span class="estado {{ retiro.estado }}">
+                                {{ retiro.estado|capfirst }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% else %}
         <p class="sin-retiros">
-            Aún no has realizado retiros de coins.
+            Aún no has realizado retiros de USDT.
         </p>
     {% endif %}
 

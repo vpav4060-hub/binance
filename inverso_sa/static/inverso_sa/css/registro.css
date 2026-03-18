@@ -1,212 +1,222 @@
 :root {
-    --bg-deep: #05070a;
-    --accent-blue: #1e90ff;
-    --accent-gold: #f5a623;
-    --card-bg: rgba(15, 20, 35, 0.95);
-    --text-main: #ffffff;
-    --text-muted: #9aa4c7;
-    --border-soft: rgba(255, 255, 255, 0.08);
+    --yellow: #fcd535;
+    --bg: #0b0e11;
+    --card: #181a20;
+    --text: #ffffff;
+    --muted: #848e9c;
 }
 
+/* RESET */
 * {
-    box-sizing: border-box;
-}
-
-html, body {
     margin: 0;
     padding: 0;
-    min-height: 100vh;
+    box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
-    background: radial-gradient(circle at center, #111b3d 0%, #05070a 100%);
-    color: var(--text-main);
 }
 
-/* ===========================
-   CONTENEDOR GENERAL
-=========================== */
-
-.registro-container {
-    width: 100%;
-    max-width: 460px;
-    padding: 45px;
-    background: var(--card-bg);
-    border-radius: 28px;
-    border: 1px solid var(--border-soft);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(12px);
-    animation: fadeInUp 0.7s ease forwards;
-    margin: auto;
-    margin-top: 5vh;
+/* BODY */
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #0b0e11, #11151c);
 }
 
-/* ===========================
-   TITULO
-=========================== */
+/* LAYOUT */
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
 
-.registro-container h2 {
-    text-align: center;
-    font-size: 1.7rem;
-    letter-spacing: 2px;
+/* LEFT PANEL */
+.left-panel {
+    flex: 1.2;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 80px;
+    overflow: hidden;
+}
+
+/* IMAGEN CONTROLADA */
+.left-panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('/static/inverso_sa/img/bg-crypto.jpg') center center / cover no-repeat;
+    transform: scale(1.05);
+    filter: brightness(0.7) contrast(1.1);
+    z-index: 0;
+}
+
+/* OVERLAY */
+.left-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(circle at 20% 50%, rgba(252,213,53,0.12), transparent 40%),
+                linear-gradient(to right, rgba(11,14,17,0.95), rgba(11,14,17,0.7));
+}
+
+/* TEXTO */
+.left-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    max-width: 420px;
+}
+
+.left-content h1 {
+    font-size: 42px;
     font-weight: 800;
-    margin-bottom: 30px;
-    color: var(--accent-gold);
-}
-
-/* ===========================
-   MENSAJES
-=========================== */
-
-.mensajes .mensaje {
-    padding: 12px 14px;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    margin-bottom: 12px;
-    text-align: center;
-}
-
-.mensaje.success {
-    background: rgba(0, 255, 170, 0.12);
-    color: #3cffc4;
-}
-
-.mensaje.warning {
-    background: rgba(255, 193, 7, 0.15);
-    color: #ffc107;
-}
-
-.mensaje.error {
-    background: rgba(255, 60, 60, 0.15);
-    color: #ff6b6b;
-}
-
-.error {
-    background: rgba(255, 60, 60, 0.15);
-    color: #ff6b6b;
-    padding: 12px;
-    border-radius: 10px;
-    text-align: center;
     margin-bottom: 15px;
 }
 
-/* ===========================
-   INVITADOR
-=========================== */
-
-.invitador {
-    background: rgba(30, 144, 255, 0.12);
-    border-left: 4px solid var(--accent-blue);
-    padding: 12px 14px;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    margin-bottom: 22px;
-    color: #8fc7ff;
+.left-content p {
+    color: var(--muted);
+    margin-bottom: 40px;
 }
 
-/* ===========================
-   FORMULARIO
-=========================== */
-
-.form-group {
-    margin-bottom: 18px;
+/* STATS */
+.stats {
+    display: flex;
+    gap: 40px;
 }
 
-.form-group label {
-    display: block;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    color: var(--accent-blue);
-    margin-bottom: 6px;
+.stats h2 {
+    color: var(--yellow);
 }
 
-.form-group input {
+.stats span {
+    color: var(--muted);
+}
+
+/* RIGHT PANEL */
+.right-panel {
+    width: 460px;
+    background: #0b0e11;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #1e2329;
+}
+
+/* FORM */
+.form-box {
     width: 100%;
-    padding: 13px 15px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-soft);
-    border-radius: 12px;
-    color: #fff;
-    font-size: 0.9rem;
-    outline: none;
-    transition: all 0.25s ease;
+    padding: 40px;
 }
 
-.form-group input::placeholder {
-    color: #8a92b2;
+/* LOGO */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
 }
 
-.form-group input:focus {
-    border-color: var(--accent-blue);
-    background: rgba(30, 144, 255, 0.05);
-    box-shadow: 0 0 20px rgba(30, 144, 255, 0.2);
+.logo img {
+    width: 35px;
 }
 
-/* ===========================
-   BOTON
-=========================== */
+.logo span {
+    color: var(--yellow);
+    font-weight: 800;
+}
 
-.btn-cta {
+/* TITLE */
+h2 {
+    margin-bottom: 20px;
+    color: white;
+}
+
+/* INPUTS */
+input {
     width: 100%;
-    padding: 16px;
-    border: none;
-    border-radius: 14px;
-    background: linear-gradient(135deg, var(--accent-gold), #ffc107);
-    color: #05070a;
-    font-weight: 900;
-    letter-spacing: 1px;
-    font-size: 0.9rem;
+    padding: 14px;
+    margin-bottom: 15px;
+    background: #181a20;
+    border: 1px solid #2b3139;
+    color: white;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+input:focus {
+    border-color: var(--yellow);
+    box-shadow: 0 0 0 2px rgba(252,213,53,0.2);
+    background: #11151c;
+}
+
+/* GRID */
+.grid {
+    display: flex;
+    gap: 12px;
+}
+
+/* PASSWORD */
+.pass {
+    position: relative;
+}
+
+.pass span {
+    position: absolute;
+    right: 12px;
+    top: 14px;
     cursor: pointer;
-    margin-top: 10px;
-    transition: all 0.25s ease;
+    color: var(--muted);
 }
 
-.btn-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(245, 166, 35, 0.4);
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 14px;
+    background: var(--yellow);
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.25s;
 }
 
-/* ===========================
-   LOGIN LINK
-=========================== */
+button:hover {
+    background: #ffe16a;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(252,213,53,0.3);
+}
 
+/* LOGIN */
 .login-link {
     text-align: center;
-    margin-top: 25px;
-    font-size: 0.85rem;
-    color: var(--text-muted);
+    margin-top: 20px;
+    color: var(--muted);
 }
 
 .login-link a {
-    color: var(--accent-gold);
-    font-weight: 700;
-    text-decoration: none;
+    color: var(--yellow);
 }
 
-.login-link a:hover {
-    text-decoration: underline;
+/* ERROR */
+.error {
+    background: rgba(255,70,93,0.2);
+    color: #ff6b6b;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
 }
 
-/* ===========================
-   ANIMACIÓN
-=========================== */
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .left-panel {
+        display: none;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    .right-panel {
+        width: 100%;
     }
-}
 
-/* ===========================
-   RESPONSIVE
-=========================== */
-
-@media (max-width: 480px) {
-    .registro-container {
-        padding: 35px 25px;
+    .form-box {
+        max-width: 420px;
+        margin: auto;
     }
 }

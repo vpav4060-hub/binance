@@ -1,7 +1,7 @@
 {% extends "inverso_sa/dashboard.html" %}
 {% load static %}
 
-{% block title %}Mi Equipo | INVERSO{% endblock %}
+{% block title %}Mi Equipo | Mineria Binance {%endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'inverso_sa/css/equipo.css' %}">
@@ -11,79 +11,91 @@
 
 {% block contenido %}
 
-<header class="main-header">
-    <h1>👥 Mi Comunidad</h1>
-    <p class="subtitle">
-        Invita amigos y participa en el sistema de recompensas de la plataforma.
-    </p>
-</header>
+<div class="binance-container">
 
-<section class="card-section">
-    <h3>Método de invitación</h3>
+    <!-- 🔥 HEADER -->
+    <div class="binance-header">
+        <h1>Mi Equipo</h1>
+        <p>Invita usuarios y genera recompensas automáticas</p>
+    </div>
 
-    <div class="share-container">
+    <!-- 💰 INVITACIÓN -->
+    <div class="binance-card">
 
-        <div class="share-box">
-            <strong>Código de invitación</strong>
-            <span class="code">{{ codigo }}</span>
-        </div>
+        <h3>Invitar amigos</h3>
 
-        <div class="share-box">
-            <strong>Enlace personal</strong>
-            <span class="link">{{ link }}</span>
-            <button onclick="copiarLink('{{ link }}')" class="copy-btn">
-                Copiar enlace
-            </button>
+        <div class="invite-grid">
+
+            <div class="invite-box">
+                <span>Código</span>
+                <strong>{{ codigo }}</strong>
+            </div>
+
+            <div class="invite-box">
+                <span>Link</span>
+                <strong class="link-text">{{ link }}</strong>
+                <button onclick="copiarLink('{{ link }}')" class="btn-yellow">
+                    Copiar
+                </button>
+            </div>
+
         </div>
 
     </div>
-</section>
 
-<section class="card-section">
-    <h3>👥 Mi comunidad</h3>
+    <!-- 📊 TABLA -->
+    <div class="binance-card">
 
-    <div class="table-wrapper">
-        <table class="equipo-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Usuario</th>
-                    <th>Actividad</th>
-                    <th>Recompensa</th>
-                </tr>
-            </thead>
+        <h3>Usuarios referidos</h3>
 
-            <tbody>
-                {% for m in equipo %}
-                <tr>
-                    <td data-label="#"> {{ forloop.counter }} </td>
-                    <td data-label="Usuario">
-                        {{ m.referido__username }}
-                    </td>
-                    <td data-label="Actividad">
-                        {{ m.total_invertido }} coins
-                    </td>
-                    <td data-label="Recompensa" class="comision">
-                        {{ m.total_comision|floatformat:2 }}🪙
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4" class="empty">
-                        Aún no tienes usuarios vinculados.
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-container">
+
+            <table class="binance-table">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Usuario</th>
+                        <th>Volumen</th>
+                        <th>Ganancia</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for m in equipo %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td class="user">{{ m.referido__username }}</td>
+                        <td>{{ m.total_invertido }} USDT</td>
+                        <td class="profit">
+                            +{{ m.total_comision|floatformat:2 }}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="empty">
+                            Aún no tienes inversiones de referidos registradas.<br>
+                            Invita a tus referidos a invertir para comenzar a generar comisiones y hacer crecer tu red.
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
     </div>
-</section>
+
+</div>
 
 <script>
-function copiarLink(texto) {
-    navigator.clipboard.writeText(texto);
-    alert("✅ Enlace copiado correctamente");
-}
+    function copiarLink(texto) {
+        navigator.clipboard.writeText(texto);
+        alert("✅ Copiado");
+    }
 </script>
 
 {% endblock %}

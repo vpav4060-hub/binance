@@ -1,144 +1,108 @@
 {% extends "inverso_sa/dashboard.html" %}
 {% load static %}
 
-{% block title %}Acerca de | INVERSO{% endblock %}
+{% block title %}Acerca de | Plataforma de Minería{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'inverso_sa/css/acerca.css' %}">
+
+<!-- ICONOS MODERNOS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 {% endblock %}
 
 {% block contenido %}
 
-<div class="main-content container">
+<div class="main-content">
 
-    <h2 class="page-title">📘 Acerca de INVERSO</h2>
+    <div class="about-wrapper">
 
-    <div class="about-card">
+        <h2 class="page-title">
+            <i class="bi bi-cpu"></i> Plataforma de Minería Cripto
+        </h2>
 
-        <img src="{% static 'inverso_sa/img/logo.jpeg' %}" class="about-logo" alt="Logo INVERSO">
+        <div class="about-card">
 
-        <p class="about-text">
-            INVERSO es una plataforma digital diseñada para que los usuarios puedan
-            administrar y aumentar sus <strong>coins</strong> de manera clara y segura.
-            Nuestro sistema permite que cada usuario participe, acumule y gestione sus
-            coins, de forma progresiva y transparente.
-        </p>
+            <img src="{% static 'inverso_sa/img/logo.png' %}" class="about-logo">
 
-        <p class="about-text">
-            La plataforma surge para ofrecer alternativas sencillas y confiables que
-            faciliten la administración de tus coins, con información clara y control
-            total sobre tus movimientos.
-        </p>
+            <p class="about-text center">
+                Plataforma digital enfocada en la <strong>minería automatizada de criptomonedas</strong>,
+                donde los usuarios generan ingresos diarios sin necesidad de equipos físicos.
+            </p>
 
-        <!-- MISIÓN -->
-        <div class="about-section">
-            <h4>🎯 Nuestra misión</h4>
-            <p>
-                Brindar oportunidades accesibles y confiables para que cada usuario pueda
-                aumentar sus coins día a día, con procesos claros y seguros.
-            </p>
-            <p>
-                Queremos que nuestros usuarios se sientan empoderados, usando herramientas
-                digitales que faciliten la gestión de sus coins y promuevan hábitos de
-                acumulación responsable.
-            </p>
-        </div>
+            <!-- DE QUE TRATA -->
+            <div class="about-section">
+                <h4><i class="bi bi-lightbulb"></i> ¿De qué trata?</h4>
+                <p>
+                    Ofrecemos acceso a sistemas de minería digital donde puedes activar planes
+                    y recibir beneficios en USDT de forma automática y continua.
+                </p>
+            </div>
 
-        <!-- VISIÓN -->
-        <div class="about-section">
-            <h4>🚀 Nuestra visión</h4>
-            <p>
-                Ser la plataforma digital líder en la región para la gestión y crecimiento
-                de coins, reconocida por su innovación y compromiso con los usuarios.
-            </p>
-            <p>
-                Buscamos expandir nuestras funcionalidades constantemente, incorporando
-                nuevas formas de acumular, usar y analizar los coins de manera sencilla
-                y confiable.
-            </p>
-        </div>
+            <!-- MISION -->
+            <div class="about-section">
+                <h4><i class="bi bi-bullseye"></i> Misión</h4>
+                <p>
+                    Hacer accesible la minería de criptomonedas a cualquier persona mediante
+                    tecnología simple y rentable.
+                </p>
+            </div>
 
-        <!-- VALORES -->
-        <div class="about-section">
-            <h4>💎 Nuestros valores</h4>
-            <ul class="about-list">
-                <li>✔ Transparencia en cada operación de coins</li>
-                <li>✔ Compromiso con los usuarios</li>
-                <li>✔ Seguridad en la acumulación y retiro de coins</li>
-                <li>✔ Crecimiento constante y responsable</li>
-                <li>✔ Innovación en la plataforma y funcionalidades</li>
-                <li>✔ Ética y confianza digital</li>
-            </ul>
-        </div>
+            <!-- VISION -->
+            <div class="about-section">
+                <h4><i class="bi bi-rocket-takeoff"></i> Visión</h4>
+                <p>
+                    Ser una plataforma líder en minería digital con innovación constante.
+                </p>
+            </div>
 
-        <!-- SEGURIDAD -->
-        <div class="about-section">
-            <h4>🔐 Seguridad y confianza</h4>
-            <p>
-                Todos los movimientos de coins se registran y verifican para garantizar
-                que tu saldo y actividad sean legítimos y seguros.
-            </p>
-            <p>
-                Implementamos controles internos, revisiones periódicas y protección de
-                datos para resguardar tu información y la seguridad de tus coins.
-            </p>
-        </div>
+            <!-- FUNCIONAMIENTO -->
+            <div class="about-section">
+                <h4><i class="bi bi-gear"></i> ¿Cómo funciona?</h4>
+                <p>
+                    Activas un plan de minería y el sistema comienza a generar ingresos
+                    automáticamente en tiempo real.
+                </p>
+            </div>
 
-        <!-- FUNCIONAMIENTO -->
-        <div class="about-section">
-            <h4>⚙️ ¿Cómo funciona INVERSO?</h4>
-            <p>
-                Puedes recargar, acumular y usar tus coins según los planes y actividades
-                disponibles dentro de la plataforma.
-            </p>
-            <p>
-                Las ganancias y movimientos de coins se reflejan directamente en tu saldo,
-                que puedes administrar y retirar de manera segura.
-            </p>
-            <p>
-                Todo está diseñado para que sea simple, claro y fácil de usar, incluso
-                si es tu primera experiencia con la plataforma.
-            </p>
-        </div>
+            <!-- BENEFICIOS -->
+            <div class="about-section">
+                <h4><i class="bi bi-graph-up-arrow"></i> Beneficios</h4>
+                <ul class="about-list">
+                    <li><i class="bi bi-check-circle"></i> Ingresos diarios automáticos</li>
+                    <li><i class="bi bi-check-circle"></i> Sistema 24/7</li>
+                    <li><i class="bi bi-check-circle"></i> Sin equipos físicos</li>
+                    <li><i class="bi bi-check-circle"></i> Control total</li>
+                </ul>
+            </div>
 
-        <!-- POLÍTICA DE COMISIONES -->
-        <div class="about-section">
-            <h4>📊 Política de comisiones y pagos</h4>
-            <p>
-                En INVERSO, el sistema de comisiones y el pago fijo por inversión se
-                ajustan de forma responsable y sostenible según el comportamiento real
-                de ingresos y egresos de la plataforma.
-            </p>
-            <p>
-                Por ello, las comisiones y el pago fijo podrán adaptarse dentro de un
-                rango que va desde el <strong>10% hasta el 15%</strong>, garantizando
-                así la estabilidad operativa y la continuidad del servicio para todos
-                los usuarios.
-            </p>
-            <p>
-                Este mecanismo nos permite mantener un equilibrio financiero saludable,
-                asegurando transparencia, cumplimiento y una gestión responsable de los
-                recursos digitales dentro de la comunidad INVERSO.
-            </p>
-        </div>
+            <!-- SEGURIDAD -->
+            <div class="about-section">
+                <h4><i class="bi bi-shield-lock"></i> Seguridad</h4>
+                <p>
+                    Protección de datos, monitoreo constante y control de operaciones.
+                </p>
+            </div>
 
+            <!-- RENTABILIDAD -->
+            <div class="about-section">
+                <h4><i class="bi bi-cash-coin"></i> Rentabilidad</h4>
+                <p>
+                    Ganancias diarias variables según el plan activo dentro del sistema.
+                </p>
+            </div>
 
-        <!-- COMPROMISO -->
-        <div class="about-section highlight">
-            <h4>🤝 Nuestro compromiso</h4>
-            <p>
-                Mantener una plataforma estable, confiable y en constante mejora,
-                escuchando siempre las sugerencias de nuestros usuarios.
-            </p>
-            <p>
-                INVERSO no es solo una plataforma de coins, es una comunidad que busca
-                ayudar a sus usuarios a gestionar y aumentar sus recursos digitales
-                de forma responsable.
-            </p>
-        </div>
+            <!-- COMPROMISO -->
+            <div class="about-section highlight">
+                <h4><i class="bi bi-hand-thumbs-up"></i> Compromiso</h4>
+                <p>
+                    Plataforma estable, transparente y en constante mejora.
+                </p>
+            </div>
 
-        <div class="about-footer">
-            <span>INVERSO © 2026 — Plataforma de gestión de coins</span>
+            <div class="about-footer">
+                © 2024 Plataforma de Minería Cripto
+            </div>
+
         </div>
 
     </div>

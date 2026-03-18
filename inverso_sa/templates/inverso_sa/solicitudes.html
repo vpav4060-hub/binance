@@ -1,0 +1,21 @@
+{% extends "inverso_sa/dashboard.html" %}
+
+{% block title %}Solicitudes{% endblock %}
+
+{% block contenido %}
+
+<h2>🤝 Solicitudes de amistad</h2>
+
+{% for s in pendientes %}
+<div class="card" style="margin-bottom:10px;">
+    <b>{{ s.de_usuario.username }}</b>
+
+    <a href="{% url 'aceptar_solicitud' s.id %}">
+        <button>Aceptar</button>
+    </a>
+</div>
+{% empty %}
+<p>No tienes solicitudes pendientes.</p>
+{% endfor %}
+
+{% endblock %}
