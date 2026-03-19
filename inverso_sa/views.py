@@ -776,7 +776,7 @@ def equipo_view(request):
         .order_by("-total_comision")
     )
 
-    link = f"https://binancemine.lat/registro/?ref={usuario.codigo_invitacion}"
+    link = f"https://binance-aoks.onrender.com/registro/?ref={usuario.codigo_invitacion}"
 
     return render(request, "inverso_sa/equipo.html", {
         "codigo": usuario.codigo_invitacion,
